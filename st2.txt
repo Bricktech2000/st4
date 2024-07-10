@@ -1,0 +1,4095 @@
+$ cp st1.c st2.c
+$ bin/st1 Makefile
+10n
+1:st1:
+2:	mkdir -p bin
+3:	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+4:
+5:clean:
+6:	rm -rf bin
+7:8:9:10:3g4a
+st2:
+	mkdir -p bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+wq
+$ bin/st2 Makefile
+10n
+1:st1:
+2:	mkdir -p bin
+3:	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+4:
+5:st2:
+6:	mkdir -p bin
+7:	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+8:
+9:clean:
+10:	rm -rf bin
+q
+$ bin/st2 st2.c
+99n
+1:#include <stdio.h>
+2:#include <string.h>
+3:
+4:unsigned nlines = 0;
+5:unsigned curr = 0;
+6:char lines[65536][256] = {0};
+7:
+8:int main(int argc, char **argv) {
+9:  FILE *fp = fopen(argv[1], "r+");
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    unsigned cnt;
+14:    if (scanf("%u", &cnt) != 1)
+15:      cnt = 1;
+16:
+17:    char cmd;
+18:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprwq", cmd)) {
+19:      printf("?\n");
+20:      continue;
+21:    }
+22:
+23:    switch (cmd) {
+24:    case 'g':
+25:      curr = cnt - 1;
+26:      break;
+27:    case 'j':
+28:      curr += cnt;
+29:      break;
+30:    case 'k':
+31:      curr -= cnt;
+32:      break;
+33:    case 'd':
+34:      nlines -= cnt;
+35:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+36:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+37:      break;
+38:    case 'a':
+39:      curr++;
+40:    case 'i':
+41:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+42:      nlines += cnt;
+43:      break;
+44:    case 'r':
+45:    case 'w':
+46:      rewind(fp);
+47:      break;
+48:    case 'q':
+49:      goto exit;
+50:    }
+51:
+52:    for (unsigned n = 0; n < cnt; n++) {
+53:      switch (cmd) {
+54:      case 'a':
+55:      case 'i':
+56:      case 'c':
+57:        fgets(lines[curr + n], sizeof(*lines), stdin);
+58:        break;
+59:      case 'n':
+60:        printf("%u:", curr + n + 1);
+61:      case 'p':
+62:        fputs(lines[curr + n], stdout);
+63:        break;
+64:      case 'r':
+65:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+66:          cnt++;
+67:        nlines = cnt;
+68:        break;
+69:      case 'w':
+70:        cnt = nlines;
+71:        fputs(lines[n], fp);
+72:        break;
+73:      }
+74:    }
+75:  }
+76:
+77:exit:
+78:  fclose(fp);
+79:}
+80:
+81:
+82:
+83:
+84:
+85:
+86:
+87:
+88:
+89:
+90:
+91:
+92:
+93:
+94:
+95:
+96:
+97:
+98:
+99:
+5gd4giunsigned curr = 0;
+g20n
+1:#include <stdio.h>
+2:#include <string.h>
+3:
+4:unsigned curr = 0;
+5:unsigned nlines = 0;
+6:char lines[65536][256] = {0};
+7:
+8:int main(int argc, char **argv) {
+9:  FILE *fp = fopen(argv[1], "r+");
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    unsigned cnt;
+14:    if (scanf("%u", &cnt) != 1)
+15:      cnt = 1;
+16:
+17:    char cmd;
+18:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprwq", cmd)) {
+19:      printf("?\n");
+20:      continue;
+6g2aunsigned ncut = 0;
+char cut[256][256] = {0};
+20g40n
+20:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprwq", cmd)) {
+21:      printf("?\n");
+22:      continue;
+23:    }
+24:
+25:    switch (cmd) {
+26:    case 'g':
+27:      curr = cnt - 1;
+28:      break;
+29:    case 'j':
+30:      curr += cnt;
+31:      break;
+32:    case 'k':
+33:      curr -= cnt;
+34:      break;
+35:    case 'd':
+36:      nlines -= cnt;
+37:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+38:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+39:      break;
+40:    case 'a':
+41:      curr++;
+42:    case 'i':
+43:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+44:      nlines += cnt;
+45:      break;
+46:    case 'r':
+47:    case 'w':
+48:      rewind(fp);
+49:      break;
+50:    case 'q':
+51:      goto exit;
+52:    }
+53:
+54:    for (unsigned n = 0; n < cnt; n++) {
+55:      switch (cmd) {
+56:      case 'a':
+57:      case 'i':
+58:      case 'c':
+59:        fgets(lines[curr + n], sizeof(*lines), stdin);
+20gc    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnprwq", cmd)) {
+w
+45ga    case 'y':
+a      memcpy(*cut, lines[curr], cnt * sizeof(*lines));
+i      ncut = cnt;
+w
+20g40n
+20:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnprwq", cmd)) {
+21:      printf("?\n");
+22:      continue;
+23:    }
+24:
+25:    switch (cmd) {
+26:    case 'g':
+27:      curr = cnt - 1;
+28:      break;
+29:    case 'j':
+30:      curr += cnt;
+31:      break;
+32:    case 'k':
+33:      curr -= cnt;
+34:      break;
+35:    case 'd':
+36:      nlines -= cnt;
+37:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+38:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+39:      break;
+40:    case 'a':
+41:      curr++;
+42:    case 'i':
+43:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+44:      nlines += cnt;
+45:      break;
+46:    case 'y':
+47:      ncut = cnt;
+48:      memcpy(*cut, lines[curr], cnt * sizeof(*lines));
+49:    case 'r':
+50:    case 'w':
+51:      rewind(fp);
+52:      break;
+53:    case 'q':
+54:      goto exit;
+55:    }
+56:
+57:    for (unsigned n = 0; n < cnt; n++) {
+58:      switch (cmd) {
+59:      case 'a':
+48ga      break;
+w
+57g20n
+57:
+58:    for (unsigned n = 0; n < cnt; n++) {
+59:      switch (cmd) {
+60:      case 'a':
+61:      case 'i':
+62:      case 'c':
+63:        fgets(lines[curr + n], sizeof(*lines), stdin);
+64:        break;
+65:      case 'n':
+66:        printf("%u:", curr + n + 1);
+67:      case 'p':
+68:        fputs(lines[curr + n], stdout);
+69:        break;
+70:      case 'r':
+71:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+72:          cnt++;
+73:        nlines = cnt;
+74:        break;
+75:      case 'w':
+76:        cnt = nlines;
+40n
+57:
+58:    for (unsigned n = 0; n < cnt; n++) {
+59:      switch (cmd) {
+60:      case 'a':
+61:      case 'i':
+62:      case 'c':
+63:        fgets(lines[curr + n], sizeof(*lines), stdin);
+64:        break;
+65:      case 'n':
+66:        printf("%u:", curr + n + 1);
+67:      case 'p':
+68:        fputs(lines[curr + n], stdout);
+69:        break;
+70:      case 'r':
+71:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+72:          cnt++;
+73:        nlines = cnt;
+74:        break;
+75:      case 'w':
+76:        cnt = nlines;
+77:        fputs(lines[n], fp);
+78:        break;
+79:      }
+80:    }
+81:  }
+82:
+83:exit:
+84:  fclose(fp);
+85:}
+86:
+87:
+88:
+89:
+90:
+91:
+92:
+93:
+94:
+95:
+96:
+69g
+a      case 'x':
+a        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*lines));
+c        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+a        break;
+45g4n
+45:      break;
+46:    case 'y':
+47:      ncut = cnt;
+48:      memcpy(*cut, lines[curr], cnt * sizeof(*lines));
+48gc      memcpy(*cut, lines[curr], cnt * sizeof(*cut));
+w
+kk4n
+46:    case 'y':
+47:      ncut = cnt;
+48:      memcpy(*cut, lines[curr], cnt * sizeof(*cut));
+49:      break;
+49g8n
+49:      break;
+50:    case 'r':
+51:    case 'w':
+52:      rewind(fp);
+53:      break;
+54:    case 'q':
+55:      goto exit;
+56:    }
+a    case 'x':
+a      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+a      nlines += cnt * ncut;
+w
+q
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+99n
+1:#include <stdio.h>
+2:#include <string.h>
+3:
+4:unsigned curr = 0;
+5:unsigned nlines = 0;
+6:char lines[65536][256] = {0};
+7:unsigned ncut = 0;
+8:char cut[256][256] = {0};
+9:
+10:int main(int argc, char **argv) {
+11:  FILE *fp = fopen(argv[1], "r+");
+12:
+13:  ungetc('r', stdin);
+14:  while(!feof(stdin)) {
+15:    unsigned cnt;
+16:    if (scanf("%u", &cnt) != 1)
+17:      cnt = 1;
+18:
+19:    char cmd;
+20:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnprwq", cmd)) {
+21:      printf("?\n");
+22:      continue;
+23:    }
+24:
+25:    switch (cmd) {
+26:    case 'g':
+27:      curr = cnt - 1;
+28:      break;
+29:    case 'j':
+30:      curr += cnt;
+31:      break;
+32:    case 'k':
+33:      curr -= cnt;
+34:      break;
+35:    case 'd':
+36:      nlines -= cnt;
+37:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+38:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+39:      break;
+40:    case 'a':
+41:      curr++;
+42:    case 'i':
+43:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+44:      nlines += cnt;
+45:      break;
+46:    case 'y':
+47:      ncut = cnt;
+48:      memcpy(*cut, lines[curr], cnt * sizeof(*cut));
+49:      break;
+50:    case 'x':
+51:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+52:      nlines += cnt * ncut;
+53:    case 'r':
+54:    case 'w':
+55:      rewind(fp);
+56:      break;
+57:    case 'q':
+58:      goto exit;
+59:    }
+60:
+61:    for (unsigned n = 0; n < cnt; n++) {
+62:      switch (cmd) {
+63:      case 'a':
+64:      case 'i':
+65:      case 'c':
+66:        fgets(lines[curr + n], sizeof(*lines), stdin);
+67:        break;
+68:      case 'n':
+69:        printf("%u:", curr + n + 1);
+70:      case 'p':
+71:        fputs(lines[curr + n], stdout);
+72:        break;
+73:      case 'x':
+74:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+75:        break;
+76:      case 'r':
+77:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+78:          cnt++;
+79:        nlines = cnt;
+80:        break;
+81:      case 'w':
+82:        cnt = nlines;
+83:        fputs(lines[n], fp);
+84:        break;
+85:      }
+86:    }
+87:  }
+88:
+89:exit:
+90:  fclose(fp);
+91:}
+92:
+93:
+94:
+95:
+96:
+97:
+98:
+99:
+48gp
+      memcpy(*cut, lines[curr], cnt * sizeof(*cut));
+c      memcpy(*cut, lines[curr], ncut * sizeof(*cut));
+46gi    case 'c':
+48gp
+      ncut = cnt;
+40g20n
+40:    case 'a':
+41:      curr++;
+42:    case 'i':
+43:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+44:      nlines += cnt;
+45:      break;
+46:    case 'c':
+47:    case 'y':
+48:      ncut = cnt;
+49:      memcpy(*cut, lines[curr], ncut * sizeof(*cut));
+50:      break;
+51:    case 'x':
+52:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+53:      nlines += cnt * ncut;
+54:    case 'r':
+55:    case 'w':
+56:      rewind(fp);
+57:      break;
+58:    case 'q':
+59:      goto exit;
+48gd
+c      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+w
+y
+35gx
+30g30n
+30:      curr += cnt;
+31:      break;
+32:    case 'k':
+33:      curr -= cnt;
+34:      break;
+35:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+36:    case 'd':
+37:      nlines -= cnt;
+38:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+39:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+40:      break;
+41:    case 'a':
+42:      curr++;
+43:    case 'i':
+44:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+45:      nlines += cnt;
+46:      break;
+47:    case 'c':
+48:    case 'y':
+49:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+50:      break;
+51:    case 'x':
+52:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+53:      nlines += cnt * ncut;
+54:    case 'r':
+55:    case 'w':
+56:      rewind(fp);
+57:      break;
+58:    case 'q':
+59:      goto exit;
+47gdwq
+$ bin/st2 st2.c
+35gp
+      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+d
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+99n
+1:#include <stdio.h>
+2:#include <string.h>
+3:
+4:unsigned curr = 0;
+5:unsigned nlines = 0;
+6:char lines[65536][256] = {0};
+7:unsigned ncut = 0;
+8:char cut[256][256] = {0};
+9:
+10:int main(int argc, char **argv) {
+11:  FILE *fp = fopen(argv[1], "r+");
+12:
+13:  ungetc('r', stdin);
+14:  while(!feof(stdin)) {
+15:    unsigned cnt;
+16:    if (scanf("%u", &cnt) != 1)
+17:      cnt = 1;
+18:
+19:    char cmd;
+20:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnprwq", cmd)) {
+21:      printf("?\n");
+22:      continue;
+23:    }
+24:
+25:    switch (cmd) {
+26:    case 'g':
+27:      curr = cnt - 1;
+28:      break;
+29:    case 'j':
+30:      curr += cnt;
+31:      break;
+32:    case 'k':
+33:      curr -= cnt;
+34:      break;
+35:    case 'd':
+36:      nlines -= cnt;
+37:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+38:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+39:      break;
+40:    case 'a':
+41:      curr++;
+42:    case 'i':
+43:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+44:      nlines += cnt;
+45:      break;
+46:    case 'y':
+47:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+48:      break;
+49:    case 'x':
+50:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+51:      nlines += cnt * ncut;
+52:    case 'r':
+53:    case 'w':
+54:      rewind(fp);
+55:      break;
+56:    case 'q':
+57:      goto exit;
+58:    }
+59:
+60:    for (unsigned n = 0; n < cnt; n++) {
+61:      switch (cmd) {
+62:      case 'a':
+63:      case 'i':
+64:      case 'c':
+65:        fgets(lines[curr + n], sizeof(*lines), stdin);
+66:        break;
+67:      case 'n':
+68:        printf("%u:", curr + n + 1);
+69:      case 'p':
+70:        fputs(lines[curr + n], stdout);
+71:        break;
+72:      case 'x':
+73:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+74:        break;
+75:      case 'r':
+76:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+77:          cnt++;
+78:        nlines = cnt;
+79:        break;
+80:      case 'w':
+81:        cnt = nlines;
+82:        fputs(lines[n], fp);
+83:        break;
+84:      }
+85:    }
+86:  }
+87:
+88:exit:
+89:  fclose(fp);
+90:}
+91:
+92:
+93:
+94:
+95:
+96:
+97:
+98:
+99:
+20gp
+    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnprwq", cmd)) {
+c    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyqnpewq", cmd)) {
+52gc    case 'e':
+75gc      case 'e':
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+?
+e
+13gc  ungetc('e', stdin);
+w
+1ga#include <stdlib.h>
+11g
+a  if (argc != 2)
+a    fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+g16n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:unsigned curr = 0;
+6:unsigned nlines = 0;
+7:char lines[65536][256] = {0};
+8:unsigned ncut = 0;
+9:char cut[256][256] = {0};
+10:
+11:int main(int argc, char **argv) {
+12:  if (argc != 2)
+13:    fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+14:  FILE *fp = fopen(argv[1], "r+");
+15:
+16:  ungetc('e', stdin);
+13a
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+g
+30p
+#include <stdio.h>
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <stdlib.h>
+#include <string.h>
+
+unsigned curr = 0;
+unsigned nlines = 0;
+char lines[65536][256] = {0};
+unsigned ncut = 0;
+char cut[256][256] = {0};
+
+int main(int argc, char **argv) {
+  if (argc != 2)
+    fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+  FILE *fp = fopen(argv[1], "r+");
+
+  ungetc('e', stdin);
+  while(!feof(stdin)) {
+2g10dg10n
+1:#include <stdio.h>
+2:
+3:
+4:
+5:#include <stdlib.h>
+6:#include <string.h>
+7:
+8:unsigned curr = 0;
+9:unsigned nlines = 0;
+10:char lines[65536][256] = {0};
+2g3d
+g16n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:unsigned curr = 0;
+6:unsigned nlines = 0;
+7:char lines[65536][256] = {0};
+8:unsigned ncut = 0;
+9:char cut[256][256] = {0};
+10:
+11:int main(int argc, char **argv) {
+12:  if (argc != 2)
+13:    fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+14:  FILE *fp = fopen(argv[1], "r+");
+15:
+16:  ungetc('e', stdin);
+13ga
+15ga  if (fp == NULL)
+   a    perror("fopen"), exit(EXIT_FAILURE);
+w
+g16n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:unsigned curr = 0;
+6:unsigned nlines = 0;
+7:char lines[65536][256] = {0};
+8:unsigned ncut = 0;
+9:char cut[256][256] = {0};
+10:
+11:int main(int argc, char **argv) {
+12:  if (argc != 2)
+13:    fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+14:
+15:  FILE *fp = fopen(argv[1], "r+");
+16:  if (fp == NULL)
+20n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:unsigned curr = 0;
+6:unsigned nlines = 0;
+7:char lines[65536][256] = {0};
+8:unsigned ncut = 0;
+9:char cut[256][256] = {0};
+10:
+11:int main(int argc, char **argv) {
+12:  if (argc != 2)
+13:    fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+14:
+15:  FILE *fp = fopen(argv[1], "r+");
+16:  if (fp == NULL)
+17:    perror("fopen"), exit(EXIT_FAILURE);
+18:
+19:  ungetc('e', stdin);
+20:  while(!feof(stdin)) {
+80g20n
+80:        break;
+81:      case 'e':
+82:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+83:          cnt++;
+84:        nlines = cnt;
+85:        break;
+86:      case 'w':
+87:        cnt = nlines;
+88:        fputs(lines[n], fp);
+89:        break;
+90:      }
+91:    }
+92:  }
+93:
+94:exit:
+95:  fclose(fp);
+96:}
+97:
+98:
+99:
+95gc  if (fclose(fp) == EOF))
+a    perror("fclose"), exit(EXIT_FAILURE);
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:13:11: error: passing argument 1 of ‘fputs’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   13 |     fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+      |           ^~~~~~
+      |           |
+      |           FILE *
+In file included from st2.c:1:
+/nix/store/lw5b7x8wndk7sdis78r2f8fy12ldmpwc-glibc-2.37-45-dev/include/stdio.h:655:42: note: expected ‘const char * restrict’ but argument is of type ‘FILE *’
+  655 | extern int fputs (const char *__restrict __s, FILE *__restrict __stream);
+      |                   ~~~~~~~~~~~~~~~~~~~~~~~^~~
+st2.c:13:19: error: passing argument 2 of ‘fputs’ from incompatible pointer type [-Werror=incompatible-pointer-types]
+   13 |     fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+      |                   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |                   |
+      |                   char *
+/nix/store/lw5b7x8wndk7sdis78r2f8fy12ldmpwc-glibc-2.37-45-dev/include/stdio.h:655:64: note: expected ‘FILE * restrict’ but argument is of type ‘char *’
+  655 | extern int fputs (const char *__restrict __s, FILE *__restrict __stream);
+      |                                               ~~~~~~~~~~~~~~~~~^~~~~~~~
+st2.c:95:25: error: expected statement before ‘)’ token
+   95 |   if (fclose(fp) == EOF))
+      |                         ^
+cc1: all warnings being treated as errors
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+?
+e
+99gc  if (fclose (fp) == EOF)
+13gp
+    fputs(stdout, "Usage: st2 <filename>\n"), exit(EXIT_FAILURE);
+c    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:95:25: error: expected statement before ‘)’ token
+   95 |   if (fclose(fp) == EOF))
+      |                         ^
+st2.c: At top level:
+st2.c:99:3: error: expected identifier or ‘(’ before ‘if’
+   99 |   if (fclose (fp) == EOF)
+      |   ^~
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+?
+e
+99gd95gc  if (fclose(fp) == EOF)
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+26gp
+    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyqnpewq", cmd)) {
+c    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+30n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:unsigned curr = 0;
+6:unsigned nlines = 0;
+7:char lines[65536][256] = {0};
+8:unsigned ncut = 0;
+9:char cut[256][256] = {0};
+10:
+11:int main(int argc, char **argv) {
+12:  if (argc != 2)
+13:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+14:
+15:  FILE *fp = fopen(argv[1], "r+");
+16:  if (fp == NULL)
+17:    perror("fopen"), exit(EXIT_FAILURE);
+18:
+19:  ungetc('e', stdin);
+20:  while(!feof(stdin)) {
+21:    unsigned cnt;
+22:    if (scanf("%u", &cnt) != 1)
+23:      cnt = 1;
+24:
+25:    char cmd;
+26:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+27:      printf("?\n");
+28:      continue;
+29:    }
+30:
+3ga
+a// g - go to line number N
+a// j - move down N lines
+a// k - move up N lines
+a// a - append N new lines below
+a// i - insert N new lines above
+a// c - rewrite contents of N lines
+a// d - delete N lines
+c// d - delete next N lines
+a// y - copy next N lines
+a// x - paste above N times
+a// n - print next N lines numbered
+a// p - print next N lines
+a// e - re-read file from disk
+c// e - read file from disk
+a// w - write file to disk
+a// q - quit without confirmation
+g20n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite contents of N lines
+11:// d - delete next N lines
+12:// y - copy next N lines
+13:// x - paste above N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+10gc// rewrite next N lines
+g30n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// rewrite next N lines
+11:// d - delete next N lines
+12:// y - copy next N lines
+13:// x - paste above N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+10gc// c - rewrite next N lines
+g30n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - copy next N lines
+13:// x - paste above N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+13gc// x - paste last yank N times
+g30n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - copy next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+12gc// y - yank (copy) next N lines
+g20n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+wq
+$ bin/st2 st2.c
+99n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  ungetc('e', stdin);
+35:  while(!feof(stdin)) {
+36:    unsigned cnt;
+37:    if (scanf("%u", &cnt) != 1)
+38:      cnt = 1;
+39:
+40:    char cmd;
+41:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+42:      printf("?\n");
+43:      continue;
+44:    }
+45:
+46:    switch (cmd) {
+47:    case 'g':
+48:      curr = cnt - 1;
+49:      break;
+50:    case 'j':
+51:      curr += cnt;
+52:      break;
+53:    case 'k':
+54:      curr -= cnt;
+55:      break;
+56:    case 'd':
+57:      nlines -= cnt;
+58:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+59:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+60:      break;
+61:    case 'a':
+62:      curr++;
+63:    case 'i':
+64:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+65:      nlines += cnt;
+66:      break;
+67:    case 'y':
+68:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+69:      break;
+70:    case 'x':
+71:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+72:      nlines += cnt * ncut;
+73:    case 'e':
+74:    case 'w':
+75:      rewind(fp);
+76:      break;
+77:    case 'q':
+78:      goto exit;
+79:    }
+80:
+81:    for (unsigned n = 0; n < cnt; n++) {
+82:      switch (cmd) {
+83:      case 'a':
+84:      case 'i':
+85:      case 'c':
+86:        fgets(lines[curr + n], sizeof(*lines), stdin);
+87:        break;
+88:      case 'n':
+89:        printf("%u:", curr + n + 1);
+90:      case 'p':
+91:        fputs(lines[curr + n], stdout);
+92:        break;
+93:      case 'x':
+94:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+95:        break;
+96:      case 'e':
+97:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+98:          cnt++;
+99:        nlines = cnt;
+32ga
+a  char buf[64];
+a  char *bufp = buf;
+a  int nread;
+32gcchar buf[64], *bufp = buf;
+33gd
+30g8n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:char buf[64], *bufp = buf;
+33:  char buf[64];
+34:  char *bufp = buf;
+35:  int nread;
+36:
+37:  ungetc('e', stdin);
+32gc  char buf[64], *bufp = buf;
+i    cnt = 1;
+a
+30g9n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    cnt = 1;
+33:
+34:  char buf[64], *bufp = buf;
+35:  char buf[64];
+36:  char *bufp = buf;
+37:  int nread;
+38:
+35g2d30g8n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    cnt = 1;
+33:
+34:  char buf[64], *bufp = buf;
+35:  int nread;
+36:
+37:  ungetc('e', stdin);
+38gp
+  while(!feof(stdin)) {
+a    if (*bufp == '\0') {
+a      bufp = fgets(buf, sizeof(buf), stdin);
+39gc    if (*bufp == '\0)
+30g10n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    cnt = 1;
+33:
+34:  char buf[64], *bufp = buf;
+35:  int nread;
+36:
+37:  ungetc('e', stdin);
+38:  while(!feof(stdin)) {
+39:    if (*bufp == '\0)
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    cnt = 1;
+33:
+34:  char buf[64], *bufp = buf;
+35:  int nread;
+36:
+37:  ungetc('e', stdin);
+38:  while(!feof(stdin)) {
+39:    if (*bufp == '\0)
+40:      bufp = fgets(buf, sizeof(buf), stdin);
+41:    unsigned cnt;
+42:    if (scanf("%u", &cnt) != 1)
+43:      cnt = 1;
+44:
+45:    char cmd;
+46:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+47:      printf("?\n");
+48:      continue;
+49:    }
+32gc    perror("fopen"), exit(EXIT_FAILURE);
+40ga
+a    int nread;
+a    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64], *bufp = buf;
+35:  int nread;
+36:
+37:  ungetc('e', stdin);
+38:  while(!feof(stdin)) {
+39:    if (*bufp == '\0)
+40:      bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:    int nread;
+43:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+44:    unsigned cnt;
+45:    if (scanf("%u", &cnt) != 1)
+46:      cnt = 1;
+47:
+48:    char cmd;
+49:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+w
+35gd
+c  *buf = '\0';
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64], *bufp = buf;
+35:  *buf = '\0';
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp == '\0)
+39:      bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread;
+42:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+43:    unsigned cnt;
+44:    if (scanf("%u", &cnt) != 1)
+45:      cnt = 1;
+46:
+47:    char cmd;
+48:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+49:      printf("?\n");
+34gc  char buf[64] = {0}, *bufp = buf;
+35gc
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp == '\0)
+39:      bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread;
+42:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+43:    unsigned cnt;
+44:    if (scanf("%u", &cnt) != 1)
+45:      cnt = 1;
+46:
+47:    char cmd;
+48:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+49:      printf("?\n");
+43g2da    bufp += nread;
+40g20n
+40:
+41:    int nread;
+42:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+43:      cnt = 1;
+44:    bufp += nread;
+45:
+46:    char cmd;
+47:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdyxnpewq", cmd)) {
+48:      printf("?\n");
+49:      continue;
+50:    }
+51:
+52:    switch (cmd) {
+53:    case 'g':
+54:      curr = cnt - 1;
+55:      break;
+56:    case 'j':
+57:      curr += cnt;
+58:      break;
+59:    case 'k':
+w
+46gd
+c    if (!strchr("gjkaicdyxnpewq", *bufp++)) {
+40g20n
+40:
+41:    int nread;
+42:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+43:      cnt = 1;
+44:    bufp += nread;
+45:
+46:    if (!strchr("gjkaicdyxnpewq", *bufp++)) {
+47:      printf("?\n");
+48:      continue;
+49:    }
+50:
+51:    switch (cmd) {
+52:    case 'g':
+53:      curr = cnt - 1;
+54:      break;
+55:    case 'j':
+56:      curr += cnt;
+57:      break;
+58:    case 'k':
+59:      curr -= cnt;
+w
+q
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:38:18: error: missing terminating ' character [-Werror]
+   38 |     if (*bufp == '\0)
+      |                  ^
+st2.c:38:18: error: missing terminating ' character
+   38 |     if (*bufp == '\0)
+      |                  ^~~~
+st2.c:38:15: error: comparison between pointer and integer [-Werror]
+   38 |     if (*bufp == '\0)
+      |               ^~
+st2.c:39:12: error: lvalue required as left operand of assignment
+   39 |       bufp = fgets(buf, sizeof(buf), stdin);
+      |            ^
+st2.c:39:44: error: expected ‘)’ before ‘;’ token
+   39 |       bufp = fgets(buf, sizeof(buf), stdin);
+      |                                            ^
+      |                                            )
+st2.c:38:8: note: to match this ‘(’
+   38 |     if (*bufp == '\0)
+      |        ^
+st2.c:112:3: error: expected expression before ‘}’ token
+  112 |   }
+      |   ^
+st2.c:114:1: error: label ‘exit’ defined but not used [-Werror=unused-label]
+  114 | exit:
+      | ^~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+38gp
+    if (*bufp == '\0)
+c    if (*bufp == '\0')
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:42:31: error: ‘cnt’ undeclared (first use in this function); did you mean ‘cut’?
+   42 |     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+      |                               ^~~
+      |                               cut
+st2.c:42:31: note: each undeclared identifier is reported only once for each function it appears in
+st2.c:51:13: error: ‘cmd’ undeclared (first use in this function)
+   51 |     switch (cmd) {
+      |             ^~~
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+42gkkkk8n
+38:    if (*bufp == '\0')
+39:      bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread;
+42:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+43:      cnt = 1;
+44:    bufp += nread;
+45:
+41ga    unsigned cnt = 1;
+c    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+38g8n
+38:    if (*bufp == '\0')
+39:      bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread;
+42:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+43:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+44:      cnt = 1;
+45:    bufp += nread;
+43gddd38g10n
+38:    if (*bufp == '\0')
+39:      bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread;
+42:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+43:
+44:    if (!strchr("gjkaicdyxnpewq", *bufp++)) {
+45:      printf("?\n");
+46:      continue;
+47:    }
+41ga    unsigned cnt = 1;
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:50:13: error: ‘cmd’ undeclared (first use in this function)
+   50 |     switch (cmd) {
+      |             ^~~
+st2.c:50:13: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+50gkkk8n
+47:      continue;
+48:    }
+49:
+50:    switch (cmd) {
+51:    case 'g':
+52:      curr = cnt - 1;
+53:      break;
+54:    case 'j':
+50gc    switch (*bufp) {
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:86:15: error: ‘cmd’ undeclared (first use in this function)
+   86 |       switch (cmd) {
+      |               ^~~
+st2.c:86:15: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+86gp
+      switch (cmd) {
+c      switch (*bufp) {
+wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+99n
+?
+
+k
+?
+^C
+! bin/st2 st2.c
+99n
+?
+99p
+^C
+! v st2.c 
+$ bin/st1 st2.c
+20n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+20g20n
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp == '\0')
+39:      bufp = fgets(buf, sizeof(buf), stdin);
+37ga    putchar(':');
+20g20n
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    putchar(':');
+39:    if (*bufp == '\0')
+38gd30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp == '\0')
+39:      bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread;
+42:    unsigned cnt = 1;
+43:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+44:
+45:    if (!strchr("gjkaicdyxnpewq", *bufp++)) {
+46:      printf("?\n");
+47:      continue;
+48:    }
+49:
+39gc      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp == '\0')
+39:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread;
+42:    unsigned cnt = 1;
+43:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+44:
+45:    if (!strchr("gjkaicdyxnpewq", *bufp++)) {
+46:      printf("?\n");
+47:      continue;
+48:    }
+49:
+41gc    int nread = 0;
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+:99n
+?
+:99nn
+1:2:3:4:5:6:7:8:9:10:11:12:13:14:15:16:17:18:19:20:21:22:23:24:25:26:27:28:29:30:31:32:33:34:35:36:37:38:39:40:41:42:43:44:45:46:47:48:49:50:51:52:53:54:55:56:57:58:59:60:61:62:63:64:65:66:67:68:69:70:71:72:73:74:75:76:77:78:79:80:81:82:83:84:85:86:87:88:89:90:91:92:93:94:95:96:97:98:99:?
+:e
+?
+:ee
+?
+:1e
+?
+:1ee
+?
+:q 
+?
+:fish: Job 1, 'bin/st2 st2.c' terminated by signal SIGSEGV (Address boundary error)
+! bin/st1 st2.c
+20g20n
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp == '\0')
+39:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp == '\0')
+39:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread = 0;
+42:    unsigned cnt = 1;
+43:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+44:
+45:    if (!strchr("gjkaicdyxnpewq", *bufp++)) {
+46:      printf("?\n");
+47:      continue;
+48:    }
+49:
+38gc    if (*bufp++ == '\0')               
+45gc    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+:99n 
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp++ == '\0')
+39:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread = 0;
+42:    unsigned cnt = 1;
+43:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+44:
+45:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+46:      printf("?\n");
+47:      continue;
+48:    }
+49:
+50:    switch (*bufp) {
+51:    case 'g':
+52:      curr = cnt - 1;
+53:      break;
+54:    case 'j':
+55:      curr += cnt;
+56:      break;
+57:    case 'k':
+58:      curr -= cnt;
+59:      break;
+60:    case 'd':
+61:      nlines -= cnt;
+62:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+63:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+64:      break;
+65:    case 'a':
+66:      curr++;
+67:    case 'i':
+68:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+69:      nlines += cnt;
+70:      break;
+71:    case 'y':
+72:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+73:      break;
+74:    case 'x':
+75:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+76:      nlines += cnt * ncut;
+77:    case 'e':
+78:    case 'w':
+79:      rewind(fp);
+80:      break;
+81:    case 'q':
+82:      goto exit;
+83:    }
+84:
+85:    for (unsigned n = 0; n < cnt; n++) {
+86:      switch (*bufp) {
+87:      case 'a':
+88:      case 'i':
+89:      case 'c':
+90:        fgets(lines[curr + n], sizeof(*lines), stdin);
+91:        break;
+92:      case 'n':
+93:        printf("%u:", curr + n + 1);
+94:      case 'p':
+95:        fputs(lines[curr + n], stdout);
+96:        break;
+97:      case 'x':
+98:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+99:        break;
+?
+:38gc    if (*bufp++ == '\n') 
+^C⏎                                                                                                                     ! bin/st2 st2.c
+:38gc
+    if (*bufp++ = '\n')
+?
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:38:9: error: suggest parentheses around assignment used as truth value [-Werror=parentheses]
+   38 |     if (*bufp++ = '\n')
+      |         ^
+cc1: all warnings being treated as errors
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+:38gc
+    if (*bufp++ == '\n')
+?
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+:q
+$ bin/st1 st2.c
+38gkk8n
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+38:    if (*bufp++ == '\n')
+39:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread = 0;
+42:    unsigned cnt = 1;
+43:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+30g8n   
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = {0}, *bufp = buf;
+35:
+36:  ungetc('e', stdin);
+37:  while(!feof(stdin)) {
+34gc  char buf[64] = { 'e', '\n', 0 };
+a  char *bufp = buf;
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+?
+:99n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf;
+36:
+37:  ungetc('e', stdin);
+38:  while(!feof(stdin)) {
+39:    if (*bufp++ == '\n')
+40:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:    int nread = 0;
+43:    unsigned cnt = 1;
+44:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+45:
+46:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+47:      printf("?\n");
+48:      continue;
+49:    }
+50:
+51:    switch (*bufp) {
+52:    case 'g':
+53:      curr = cnt - 1;
+54:      break;
+55:    case 'j':
+56:      curr += cnt;
+57:      break;
+58:    case 'k':
+59:      curr -= cnt;
+60:      break;
+61:    case 'd':
+62:      nlines -= cnt;
+63:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+64:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+65:      break;
+66:    case 'a':
+67:      curr++;
+68:    case 'i':
+69:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+70:      nlines += cnt;
+71:      break;
+72:    case 'y':
+73:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+74:      break;
+75:    case 'x':
+76:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+77:      nlines += cnt * ncut;
+78:    case 'e':
+79:    case 'w':
+80:      rewind(fp);
+81:      break;
+82:    case 'q':
+83:      goto exit;
+84:    }
+85:
+86:    for (unsigned n = 0; n < cnt; n++) {
+87:      switch (*bufp) {
+88:      case 'a':
+89:      case 'i':
+90:      case 'c':
+91:        fgets(lines[curr + n], sizeof(*lines), stdin);
+92:        break;
+93:      case 'n':
+94:        printf("%u:", curr + n + 1);
+95:      case 'p':
+96:        fputs(lines[curr + n], stdout);
+97:        break;
+98:      case 'x':
+99:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+?
+:39gc
+    if (++*bufp == '\n')
+?
+:35gc
+  char *bufp = buf, bufp--;
+?
+:37gd
+?
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:35:25: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘--’ token
+   35 |   char *bufp = buf, bufp--;
+      |                         ^~
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+?
+:35gc
+  char *bufp = buf - 1; // for 'e'
+?
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+99n
+10n
+g
+e
+^C
+! bin/st1 st2.c
+120n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf - 1; // for 'e'
+36:
+37:  while(!feof(stdin)) {
+38:    if (++*bufp == '\n')
+39:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+40:
+41:    int nread = 0;
+42:    unsigned cnt = 1;
+43:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+44:
+45:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+46:      printf("?\n");
+47:      continue;
+48:    }
+49:
+50:    switch (*bufp) {
+51:    case 'g':
+52:      curr = cnt - 1;
+53:      break;
+54:    case 'j':
+55:      curr += cnt;
+56:      break;
+57:    case 'k':
+58:      curr -= cnt;
+59:      break;
+60:    case 'd':
+61:      nlines -= cnt;
+62:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+63:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+64:      break;
+65:    case 'a':
+66:      curr++;
+67:    case 'i':
+68:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+69:      nlines += cnt;
+70:      break;
+71:    case 'y':
+72:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+73:      break;
+74:    case 'x':
+75:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+76:      nlines += cnt * ncut;
+77:    case 'e':
+78:    case 'w':
+79:      rewind(fp);
+80:      break;
+81:    case 'q':
+82:      goto exit;
+83:    }
+84:
+85:    for (unsigned n = 0; n < cnt; n++) {
+86:      switch (*bufp) {
+87:      case 'a':
+88:      case 'i':
+89:      case 'c':
+90:        fgets(lines[curr + n], sizeof(*lines), stdin);
+91:        break;
+92:      case 'n':
+93:        printf("%u:", curr + n + 1);
+94:      case 'p':
+95:        fputs(lines[curr + n], stdout);
+96:        break;
+97:      case 'x':
+98:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+99:        break;
+100:      case 'e':
+101:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+102:          cnt++;
+103:        nlines = cnt;
+104:        break;
+105:      case 'w':
+106:        cnt = nlines;
+107:        fputs(lines[n], fp);
+108:        break;
+109:      }
+110:    }
+111:  }
+112:
+113:exit:
+114:  if (fclose(fp) == EOF)
+115:    perror("fclose"), exit(EXIT_FAILURE);
+116:}
+117:
+118:
+119:
+120:
+38gdyd
+?
+30g10n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf - 1; // for 'e'
+36:
+37:  while(!feof(stdin)) {
+38:
+39:    int nread = 0;
+38gd
+110g20n
+110:exit:
+111:  if (fclose(fp) == EOF)
+112:    perror("fclose"), exit(EXIT_FAILURE);
+113:}
+114:
+115:
+116:
+117:
+118:
+119:
+120:
+121:
+122:
+123:
+124:
+125:
+126:
+127:
+128:
+129:
+100g20n
+100:        nlines = cnt;
+101:        break;
+102:      case 'w':
+103:        cnt = nlines;
+104:        fputs(lines[n], fp);
+105:        break;
+106:      }
+107:    }
+108:  }
+109:
+110:exit:
+111:  if (fclose(fp) == EOF)
+112:    perror("fclose"), exit(EXIT_FAILURE);
+113:}
+114:
+115:
+116:
+117:
+118:
+119:
+107a    if (*bufp++ == '\n')
+a      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+35gc  char *bufp = buf;
+wq
+w
+w
+$ bin/st1 st2.c
+38gddd
+107ga    if (*bufp++ == '\n')
+a      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+w
+?
+$ bin/st1 st2.c
+100g20n
+100:        nlines = cnt;
+101:        break;
+102:      case 'w':
+103:        cnt = nlines;
+104:        fputs(lines[n], fp);
+105:        break;
+106:      }
+107:    }
+108:    if (*bufp++ == '\n')
+109:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+110:  }
+111:
+112:exit:
+113:  if (fclose(fp) == EOF)
+114:    perror("fclose"), exit(EXIT_FAILURE);
+115:}
+116:
+117:
+118:
+119:
+107ga
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st1 st2.c
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+^C
+! bin/st1 st2.c
+108gp
+
+100g20n
+100:        nlines = cnt;
+101:        break;
+102:      case 'w':
+103:        cnt = nlines;
+104:        fputs(lines[n], fp);
+105:        break;
+106:      }
+107:    }
+108:
+109:    if (*bufp++ == '\n')
+110:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+111:  }
+112:
+113:exit:
+114:  if (fclose(fp) == EOF)
+115:    perror("fclose"), exit(EXIT_FAILURE);
+116:}
+117:
+118:
+119:
+108gddd30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf - 1; // for 'e'
+36:
+37:  while(!feof(stdin)) {
+38:    int nread = 0;
+39:    unsigned cnt = 1;
+40:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+41:
+42:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+43:      printf("?\n");
+44:      continue;
+45:    }
+46:
+47:    switch (*bufp) {
+48:    case 'g':
+49:      curr = cnt - 1;
+37ga    if (++*bufp == '\n')
+a      putchar(':'), fgets(buf, sizeof(buf), stdin);
+a
+a    begin:
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf - 1; // for 'e'
+36:
+37:  while(!feof(stdin)) {
+38:    if (++*bufp == '\n')
+39:      putchar(':'), fgets(buf, sizeof(buf), stdin);
+40:
+41:    begin:
+42:    int nread = 0;
+43:    unsigned cnt = 1;
+44:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+45:
+46:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+47:      printf("?\n");
+48:      continue;
+49:    }
+41gc  begin:
+35ga  goto begin;
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf - 1; // for 'e'
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (++*bufp == '\n')
+40:      putchar(':'), fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:
+43:    int nread = 0;
+44:    unsigned cnt = 1;
+45:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+46:
+47:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+48:      printf("?\n");
+49:      continue;
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:43:5: error: a label can only be part of a statement and a declaration is not a statement [-Werror=pedantic]
+   43 |     int nread = 0;
+      |     ^~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:7: st2] Error 1
+! bin/st1 st2.c
+42gp
+  begin:
+c  begin:;
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+
+
+
+
+99n
+99n
+^C⏎                                                                                                                     ! bin/st1 st2.c
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf - 1; // for 'e'
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (++*bufp == '\n')
+40:      putchar(':'), fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:;
+43:    int nread = 0;
+44:    unsigned cnt = 1;
+45:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+46:
+47:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+48:      printf("?\n");
+49:      continue;
+40gc      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+99
+99n
+
+^C
+! bin/st1 st2.c
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf - 1; // for 'e'
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (++*bufp == '\n')
+40:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:;
+43:    int nread = 0;
+44:    unsigned cnt = 1;
+45:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+46:
+47:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+48:      printf("?\n");
+49:      continue;
+35gc  char *bufp = buf;
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+?
+?
+99n
+?
+?
+1:99n
+?
+99n
+$ bin/st1 st2.c
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf;
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (++*bufp == '\n')
+40:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:;
+43:    int nread = 0;
+44:    unsigned cnt = 1;
+45:    sscanf(bufp, "%u%n", &cnt, &nread), bufp += nread;
+46:
+47:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+48:      printf("?\n");
+49:      continue;
+45gc    if (scanf(bufp, "%u%n", &cnt, &nread) != 1)
+a      nread = 0, cnt = 1;
+a    bufp += nread;
+43gc    int nread;
+44gc    unsigned cnt;
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf;
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (++*bufp == '\n')
+40:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:;
+43:    int nread;
+44:    unsigned cnt;
+45:    if (scanf(bufp, "%u%n", &cnt, &nread) != 1)
+46:      nread = 0, cnt = 1;
+47:    bufp += nread;
+48:
+49:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+^C⏎                                                                                                                     ! bin/st1 st2.c
+45gp
+    if (scanf(bufp, "%u%n", &cnt, &nread) != 1)
+c    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+?
+?
+^C⏎                                                                                                                     ! bin/st2 st2.c
+?
+?
+
+?
+?
+1:
+?
+
+$ bin/st1 st2.c
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = { 'e', '\n', 0 };
+35:  char *bufp = buf;
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (++*bufp == '\n')
+40:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:;
+43:    int nread;
+44:    unsigned cnt;
+45:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+46:      nread = 0, cnt = 1;
+47:    bufp += nread;
+48:
+49:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+34gc  char buf[64] = "e\n";
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+?
+?
+^C
+! bin/st1 st2.c
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = "e\n";
+35:  char *bufp = buf;
+36:for (int i = 0; i < 64; i++)
+37:printf("%x ", buf[i]);
+38:goto begin;
+39:
+40:  while(!feof(stdin)) {
+41:    if (++*bufp == '\n')
+42:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+43:
+44:  begin:;
+45:    int nread;
+46:    unsigned cnt;
+47:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+48:      nread = 0, cnt = 1;
+49:    bufp += nread;
+36gddc  goto begin;
+30g20n
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = "e\n";
+35:  char *bufp = buf;
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (++*bufp == '\n')
+40:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:;
+43:    int nread;
+44:    unsigned cnt;
+45:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+46:      nread = 0, cnt = 1;
+47:    bufp += nread;
+48:
+49:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+39gc    if (*++bufp == '\n')
+w
+?
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+:120n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = "e\n";
+35:  char *bufp = buf;
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (*++bufp == '\n')
+40:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+41:
+42:  begin:;
+43:    int nread;
+44:    unsigned cnt;
+45:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+46:      nread = 0, cnt = 1;
+47:    bufp += nread;
+48:
+49:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+50:      printf("?\n");
+51:      continue;
+52:    }
+53:
+54:    switch (*bufp) {
+55:    case 'g':
+56:      curr = cnt - 1;
+57:      break;
+58:    case 'j':
+59:      curr += cnt;
+60:      break;
+61:    case 'k':
+62:      curr -= cnt;
+63:      break;
+64:    case 'd':
+65:      nlines -= cnt;
+66:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+67:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+68:      break;
+69:    case 'a':
+70:      curr++;
+71:    case 'i':
+72:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+73:      nlines += cnt;
+74:      break;
+75:    case 'y':
+76:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+77:      break;
+78:    case 'x':
+79:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+80:      nlines += cnt * ncut;
+81:    case 'e':
+82:    case 'w':
+83:      rewind(fp);
+84:      break;
+85:    case 'q':
+86:      goto exit;
+87:    }
+88:
+89:    for (unsigned n = 0; n < cnt; n++) {
+90:      switch (*bufp) {
+91:      case 'a':
+92:      case 'i':
+93:      case 'c':
+94:        fgets(lines[curr + n], sizeof(*lines), stdin);
+95:        break;
+96:      case 'n':
+97:        printf("%u:", curr + n + 1);
+98:      case 'p':
+99:        fputs(lines[curr + n], stdout);
+100:        break;
+101:      case 'x':
+102:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+103:        break;
+104:      case 'e':
+105:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+106:          cnt++;
+107:        nlines = cnt;
+108:        break;
+109:      case 'w':
+110:        cnt = nlines;
+111:        fputs(lines[n], fp);
+112:        break;
+113:      }
+114:    }
+115:  }
+116:
+117:exit:
+118:  if (fclose(fp) == EOF)
+119:    perror("fclose"), exit(EXIT_FAILURE);
+120:}
+:97gpca
+        printf("%u:", curr + n + 1);
+        if (*lines[curr + n])
+          printf("%u:", curr + n + 1);
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+:80g40n
+80:      nlines += cnt * ncut;
+81:    case 'e':
+82:    case 'w':
+83:      rewind(fp);
+84:      break;
+85:    case 'q':
+86:      goto exit;
+87:    }
+88:
+89:    for (unsigned n = 0; n < cnt; n++) {
+90:      switch (*bufp) {
+91:      case 'a':
+92:      case 'i':
+93:      case 'c':
+94:        fgets(lines[curr + n], sizeof(*lines), stdin);
+95:        break;
+96:      case 'n':
+97:        if (*lines[curr + n])
+98:          printf("%u:", curr + n + 1);
+99:      case 'p':
+100:        fputs(lines[curr + n], stdout);
+101:        break;
+102:      case 'x':
+103:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+104:        break;
+105:      case 'e':
+106:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+107:          cnt++;
+108:        nlines = cnt;
+109:        break;
+110:      case 'w':
+111:        cnt = nlines;
+112:        fputs(lines[n], fp);
+113:        break;
+114:      }
+115:    }
+116:  }
+117:
+118:exit:
+119:  if (fclose(fp) == EOF)
+:83gc
+      fp = fopen(argv[1], "r");
+:2a
+    case 'w':
+      fp = fopen(argv[1], "w");
+:54gpi
+    switch (*bufp) {
+    FILE *fp;
+:111g20n
+111:        nlines = cnt;
+112:        break;
+113:      case 'w':
+114:        cnt = nlines;
+115:        fputs(lines[n], fp);
+116:        break;
+117:      }
+118:    }
+119:  }
+120:
+121:exit:
+122:  if (fclose(fp) == EOF)
+123:    perror("fclose"), exit(EXIT_FAILURE);
+124:}
+125:
+126:
+127:
+128:
+129:
+130:
+:118g3a
+
+    switch (*bufp) {
+      case 'e':
+:118g3c
+
+    if (fp && fclose(fp) == EOF)
+      perror("fclose"), exit(EXIT_FAILURE);
+:124g8n
+124:exit:
+125:  if (fclose(fp) == EOF)
+126:    perror("fclose"), exit(EXIT_FAILURE);
+127:}
+128:
+129:
+130:
+131:
+:3d
+:53gp
+
+:52g4n
+52:    }
+53:
+54:    FILE *fp;
+55:    switch (*bufp) {
+:54gpc
+    FILE *fp;
+    FILE *fp = NULL;
+:a
+
+:w
+:80g6n
+80:    case 'x':
+81:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+82:      nlines += cnt * ncut;
+83:    case 'e':
+84:    case 'w':
+85:      fp = fopen(argv[1], "r");
+:10n
+80:    case 'x':
+81:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+82:      nlines += cnt * ncut;
+83:    case 'e':
+84:    case 'w':
+85:      fp = fopen(argv[1], "r");
+86:    case 'w':
+87:      fp = fopen(argv[1], "w");
+88:      break;
+89:    case 'q':
+:84gd
+:a
+      break;
+:80g10n
+80:    case 'x':
+81:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+82:      nlines += cnt * ncut;
+83:    case 'e':
+84:      fp = fopen(argv[1], "r");
+85:      break;
+86:    case 'w':
+87:      fp = fopen(argv[1], "w");
+88:      break;
+89:    case 'q':
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:120:5: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+  120 |     if (fp && fclose(fp) == EOF)
+      |     ^~
+st2.c:122:7: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  122 |       case 'e':
+      |       ^~~~
+st2.c:122:7: error: case label not within a switch statement
+st2.c:122:12: error: label at end of compound statement [-Werror=pedantic]
+  122 |       case 'e':
+      |            ^~~
+st2.c:125:1: error: expected declaration or statement at end of input
+  125 | }
+      | ^
+st2.c:90:7: error: label ‘exit’ used but not defined
+   90 |       goto exit;
+      |       ^~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+:90gkkk8n
+87:      fp = fopen(argv[1], "w");
+88:      break;
+89:    case 'q':
+90:      goto exit;
+91:    }
+92:
+93:    for (unsigned n = 0; n < cnt; n++) {
+94:      switch (*bufp) {
+:90gpc
+      goto exit;
+      return EXIT_SUCCESS;
+:125kkkk10n
+fish: Job 1, 'bin/st2 st2.c' terminated by signal SIGSEGV (Address boundary error)
+! bin/st2 st2.c
+:90gc   
+      exit(EXIT_SUCCESS); 
+:120gkkk10n
+117:        break;
+118:      }
+119:
+120:    if (fp && fclose(fp) == EOF)
+121:      perror("fclose"), exit(EXIT_FAILURE);
+122:      case 'e':
+123:  }
+124:
+125:}
+126:
+:122gd
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:124:1: error: expected declaration or statement at end of input
+  124 | }
+      | ^
+make: *** [Makefile:7: st2] Error 1
+! bin/st2 st2.c
+:124gkk4n
+122:  }
+123:
+124:}
+125:
+:123gd
+:120g6n
+120:    if (fp && fclose(fp) == EOF)
+121:      perror("fclose"), exit(EXIT_FAILURE);
+122:  }
+123:}
+124:
+125:
+:120gi
+    }
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+:30n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+:20g20n
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  FILE *fp = fopen(argv[1], "r+");
+31:  if (fp == NULL)
+32:    perror("fopen"), exit(EXIT_FAILURE);
+33:
+34:  char buf[64] = "e\n";
+35:  char *bufp = buf;
+36:  goto begin;
+37:
+38:  while(!feof(stdin)) {
+39:    if (*++bufp == '\n')
+:30g4dwq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+:20n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+:120n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  char buf[64] = "e\n";
+31:  char *bufp = buf;
+32:  goto begin;
+33:
+34:  while(!feof(stdin)) {
+35:    if (*++bufp == '\n')
+36:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+37:
+38:  begin:;
+39:    int nread;
+40:    unsigned cnt;
+41:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+42:      nread = 0, cnt = 1;
+43:    bufp += nread;
+44:
+45:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+46:      printf("?\n");
+47:      continue;
+48:    }
+49:
+50:    FILE *fp = NULL;
+51:
+52:    switch (*bufp) {
+53:    case 'g':
+54:      curr = cnt - 1;
+55:      break;
+56:    case 'j':
+57:      curr += cnt;
+58:      break;
+59:    case 'k':
+60:      curr -= cnt;
+61:      break;
+62:    case 'd':
+63:      nlines -= cnt;
+64:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+65:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+66:      break;
+67:    case 'a':
+68:      curr++;
+69:    case 'i':
+70:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+71:      nlines += cnt;
+72:      break;
+73:    case 'y':
+74:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+75:      break;
+76:    case 'x':
+77:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+78:      nlines += cnt * ncut;
+79:    case 'e':
+80:      fp = fopen(argv[1], "r");
+81:      break;
+82:    case 'w':
+83:      fp = fopen(argv[1], "w");
+84:      break;
+85:    case 'q':
+86:      exit(EXIT_SUCCESS);
+87:    }
+88:
+89:    for (unsigned n = 0; n < cnt; n++) {
+90:      switch (*bufp) {
+91:      case 'a':
+92:      case 'i':
+93:      case 'c':
+94:        fgets(lines[curr + n], sizeof(*lines), stdin);
+95:        break;
+96:      case 'n':
+97:        if (*lines[curr + n])
+98:          printf("%u:", curr + n + 1);
+99:      case 'p':
+100:        fputs(lines[curr + n], stdout);
+101:        break;
+102:      case 'x':
+103:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+104:        break;
+105:      case 'e':
+106:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+107:          cnt++;
+108:        nlines = cnt;
+109:        break;
+110:      case 'w':
+111:        cnt = nlines;
+112:        fputs(lines[n], fp);
+113:        break;
+114:      }
+115:
+116:    }
+117:    if (fp && fclose(fp) == EOF)
+118:      perror("fclose"), exit(EXIT_FAILURE);
+119:  }
+120:}
+:116ga
+
+:wq
+$ bin/st2 st2.c
+:120g8n
+120:  }
+121:}
+122:
+123:
+124:
+125:
+126:
+127:
+:122g1000n
+122:
+123:
+124:
+125:
+126:
+127:
+128:
+129:
+130:
+131:
+132:
+133:
+134:
+135:
+136:
+137:
+138:
+139:
+140:
+141:
+142:
+143:
+144:
+145:
+146:
+147:
+148:
+149:
+150:
+151:
+152:
+153:
+154:
+155:
+156:
+157:
+158:
+159:
+160:
+161:
+162:
+163:
+164:
+165:
+166:
+167:
+168:
+169:
+170:
+171:
+172:
+173:
+174:
+175:
+176:
+177:
+178:
+179:
+180:
+181:
+182:
+183:
+184:
+185:
+186:
+187:
+188:
+189:
+190:
+191:
+192:
+193:
+194:
+195:
+196:
+197:
+198:
+199:
+200:
+201:
+202:
+203:
+204:
+205:
+206:
+207:
+208:
+209:
+210:
+211:
+212:
+213:
+214:
+215:
+216:
+217:
+218:
+219:
+220:
+221:
+222:
+223:
+224:
+225:
+226:
+227:
+228:
+229:
+230:
+231:
+232:
+233:
+234:
+235:
+236:
+237:
+238:
+239:
+240:
+241:
+242:
+243:
+244:
+245:
+246:
+247:
+248:
+249:
+250:
+251:
+252:
+253:
+254:
+255:
+256:
+257:
+258:
+259:
+260:
+261:
+262:
+263:
+264:
+265:
+266:
+267:
+268:
+269:
+270:
+271:
+272:
+273:
+274:
+275:
+276:
+277:
+278:
+279:
+280:
+281:
+282:
+283:
+284:
+285:
+286:
+287:
+288:
+289:
+290:
+291:
+292:
+293:
+294:
+295:
+296:
+297:
+298:
+299:
+300:
+301:
+302:
+303:
+304:
+305:
+306:
+307:
+308:
+309:
+310:
+311:
+312:
+313:
+314:
+315:
+316:
+317:
+318:
+319:
+320:
+321:
+322:
+323:
+324:
+325:
+326:
+327:
+328:
+329:
+330:
+331:
+332:
+333:
+334:
+335:
+336:
+337:
+338:
+339:
+340:
+341:
+342:
+343:
+344:
+345:
+346:
+347:
+348:
+349:
+350:
+351:
+352:
+353:
+354:
+355:
+356:
+357:
+358:
+359:
+360:
+361:
+362:
+363:
+364:
+365:
+366:
+367:
+368:
+369:
+370:
+371:
+372:
+373:
+374:
+375:
+376:
+377:
+378:
+379:
+380:
+381:
+382:
+383:
+384:
+385:
+386:
+387:
+388:
+389:
+390:
+391:
+392:
+393:
+394:
+395:
+396:
+397:
+398:
+399:
+400:
+401:
+402:
+403:
+404:
+405:
+406:
+407:
+408:
+409:
+410:
+411:
+412:
+413:
+414:
+415:
+416:
+417:
+418:
+419:
+420:
+421:
+422:
+423:
+424:
+425:
+426:
+427:
+428:
+429:
+430:
+431:
+432:
+433:
+434:
+435:
+436:
+437:
+438:
+439:
+440:
+441:
+442:
+443:
+444:
+445:
+446:
+447:
+448:
+449:
+450:
+451:
+452:
+453:
+454:
+455:
+456:
+457:
+458:
+459:
+460:
+461:
+462:
+463:
+464:
+465:
+466:
+467:
+468:
+469:
+470:
+471:
+472:
+473:
+474:
+475:
+476:
+477:
+478:
+479:
+480:
+481:
+482:
+483:
+484:
+485:
+486:
+487:
+488:
+489:
+490:
+491:
+492:
+493:
+494:
+:360d1000n
+122:
+123:
+124:
+125:
+126:
+127:
+128:
+129:
+130:
+131:
+132:
+133:
+134:
+:13d
+:110g15n
+110:      case 'w':
+111:        cnt = nlines;
+112:        fputs(lines[n], fp);
+113:        break;
+114:      }
+115:
+116:    }
+117:
+118:    if (fp && fclose(fp) == EOF)
+119:      perror("fclose"), exit(EXIT_FAILURE);
+120:  }
+121:}
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 Makefile
+:10n
+1:st1:
+2:	mkdir -p bin
+3:	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+4:
+5:st2:
+6:	mkdir -p bin
+7:	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+8:
+9:clean:
+10:	rm -rf bin
+:5g4y4dgx10n
+1:st2:
+2:	mkdir -p bin
+3:	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+4:
+5:st1:
+6:	mkdir -p bin
+7:	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+8:
+9:clean:
+10:	rm -rf bin
+:wq
+$ bin/st2 README.md
+fish: Job 1, 'bin/st2 README.md' terminated by signal SIGSEGV (Address boundary error)
+! bin/st2 st2.c
+:70g20n
+70:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+71:      nlines += cnt;
+72:      break;
+73:    case 'y':
+74:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+75:      break;
+76:    case 'x':
+77:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+78:      nlines += cnt * ncut;
+79:    case 'e':
+80:      fp = fopen(argv[1], "r");
+81:      break;
+82:    case 'w':
+83:      fp = fopen(argv[1], "w");
+84:      break;
+85:    case 'q':
+86:      exit(EXIT_SUCCESS);
+87:    }
+88:
+89:    for (unsigned n = 0; n < cnt; n++) {
+:80g2a
+      if (fp == NULL)
+        perror("fopen"), exit(EXIT_FAILURE);
+:2y86gx70g20n
+70:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+71:      nlines += cnt;
+72:      break;
+73:    case 'y':
+74:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+75:      break;
+76:    case 'x':
+77:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+78:      nlines += cnt * ncut;
+79:    case 'e':
+80:      fp = fopen(argv[1], "r");
+81:      if (fp == NULL)
+82:        perror("fopen"), exit(EXIT_FAILURE);
+83:      break;
+84:    case 'w':
+85:      fp = fopen(argv[1], "w");
+86:      if (fp == NULL)
+87:        perror("fopen"), exit(EXIT_FAILURE);
+88:      break;
+89:    case 'q':
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 README.md
+fopen: No such file or directory
+! touch README.md
+$ bin/st2 README.md
+:3a
+# #todo name
+
+_#todo desc_
+:3g4a
+
+0. Write bare-bones line editor on paper. Man pages are fair play.
+1. Use `cat` with shell redirection to write the listing from stage 0 to a file. Tweak and repeat until it builds and runs.
+2. Use the bare-bones editor from stage 1 to bootstrap convenience fetures like error handling and copy/paste.
+:5gpc
+0. Write bare-bones line editor on paper. Man pages are fair play.
+0. Write a bare-bones line editor on paper. Man pages are fair play.
+:g10p
+# #todo name
+
+
+0. Write a bare-bones line editor on paper. Man pages are fair play.
+1. Use `cat` with shell redirection to write the listing from stage 0 to a file. Tweak and repeat until it builds and runs.
+2. Use the bare-bones editor from stage 1 to bootstrap convenience fetures such as error handling and copy-paste.
+_#todo desc_
+:7gyd3gxg10p
+# #todo name
+
+_#todo desc_
+
+0. Write a bare-bones line editor on paper. Man pages are fair play.
+1. Use `cat` with shell redirection to write the listing from stage 0 to a file. Tweak and repeat until it builds and runs.
+2. Use the bare-bones editor from stage 1 to bootstrap convenience fetures such as error handling and copy-paste.
+:7gpc
+2. Use the bare-bones editor from stage 1 to bootstrap convenience fetures such as error handling and copy-paste.
+2. Use the bare-bones editor from stage 1 to bootstrap convenience features such as error handling and copy-paste.
+:wq
+$ bin/st2 st2.c
+:125n
+1:#include <stdio.h>
+2:#include <stdlib.h>
+3:#include <string.h>
+4:
+5:// g - go to line number N
+6:// j - move down N lines
+7:// k - move up N lines
+8:// a - append N new lines below
+9:// i - insert N new lines above
+10:// c - rewrite next N lines
+11:// d - delete next N lines
+12:// y - yank (copy) next N lines
+13:// x - paste last yank N times
+14:// n - print next N lines numbered
+15:// p - print next N lines
+16:// e - read file from disk
+17:// w - write file to disk
+18:// q - quit without confirmation
+19:
+20:unsigned curr = 0;
+21:unsigned nlines = 0;
+22:char lines[65536][256] = {0};
+23:unsigned ncut = 0;
+24:char cut[256][256] = {0};
+25:
+26:int main(int argc, char **argv) {
+27:  if (argc != 2)
+28:    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+29:
+30:  char buf[64] = "e\n";
+31:  char *bufp = buf;
+32:  goto begin;
+33:
+34:  while(!feof(stdin)) {
+35:    if (*++bufp == '\n')
+36:      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+37:
+38:  begin:;
+39:    int nread;
+40:    unsigned cnt;
+41:    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+42:      nread = 0, cnt = 1;
+43:    bufp += nread;
+44:
+45:    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+46:      printf("?\n");
+47:      continue;
+48:    }
+49:
+50:    FILE *fp = NULL;
+51:
+52:    switch (*bufp) {
+53:    case 'g':
+54:      curr = cnt - 1;
+55:      break;
+56:    case 'j':
+57:      curr += cnt;
+58:      break;
+59:    case 'k':
+60:      curr -= cnt;
+61:      break;
+62:    case 'd':
+63:      nlines -= cnt;
+64:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+65:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+66:      break;
+67:    case 'a':
+68:      curr++;
+69:    case 'i':
+70:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+71:      nlines += cnt;
+72:      break;
+73:    case 'y':
+74:      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+75:      break;
+76:    case 'x':
+77:      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+78:      nlines += cnt * ncut;
+79:    case 'e':
+80:      fp = fopen(argv[1], "r");
+81:      if (fp == NULL)
+82:        perror("fopen"), exit(EXIT_FAILURE);
+83:      break;
+84:    case 'w':
+85:      fp = fopen(argv[1], "w");
+86:      if (fp == NULL)
+87:        perror("fopen"), exit(EXIT_FAILURE);
+88:      break;
+89:    case 'q':
+90:      exit(EXIT_SUCCESS);
+91:    }
+92:
+93:    for (unsigned n = 0; n < cnt; n++) {
+94:      switch (*bufp) {
+95:      case 'a':
+96:      case 'i':
+97:      case 'c':
+98:        fgets(lines[curr + n], sizeof(*lines), stdin);
+99:        break;
+100:      case 'n':
+101:        if (*lines[curr + n])
+102:          printf("%u:", curr + n + 1);
+103:      case 'p':
+104:        fputs(lines[curr + n], stdout);
+105:        break;
+106:      case 'x':
+107:        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+108:        break;
+109:      case 'e':
+110:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+111:          cnt++;
+112:        nlines = cnt;
+113:        break;
+114:      case 'w':
+115:        cnt = nlines;
+116:        fputs(lines[n], fp);
+117:        break;
+118:      }
+119:
+120:    }
+121:
+122:    if (fp && fclose(fp) == EOF)
+123:      perror("fclose"), exit(EXIT_FAILURE);
+124:  }
+125:}
+:102gpc
+          printf("%u:", curr + n + 1);
+          printf("%5u ", curr + n + 1);    
+:i
+          // 65536 is 5 chars long
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 st2.c
+:128n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 
+    5 // g - go to line number N
+    6 // j - move down N lines
+    7 // k - move up N lines
+    8 // a - append N new lines below
+    9 // i - insert N new lines above
+   10 // c - rewrite next N lines
+   11 // d - delete next N lines
+   12 // y - yank (copy) next N lines
+   13 // x - paste last yank N times
+   14 // n - print next N lines numbered
+   15 // p - print next N lines
+   16 // e - read file from disk
+   17 // w - write file to disk
+   18 // q - quit without confirmation
+   19 
+   20 unsigned curr = 0;
+   21 unsigned nlines = 0;
+   22 char lines[65536][256] = {0};
+   23 unsigned ncut = 0;
+   24 char cut[256][256] = {0};
+   25 
+   26 int main(int argc, char **argv) {
+   27   if (argc != 2)
+   28     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+   29 
+   30   char buf[64] = "e\n";
+   31   char *bufp = buf;
+   32   goto begin;
+   33 
+   34   while(!feof(stdin)) {
+   35     if (*++bufp == '\n')
+   36       putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+   37 
+   38   begin:;
+   39     int nread;
+   40     unsigned cnt;
+   41     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+   42       nread = 0, cnt = 1;
+   43     bufp += nread;
+   44 
+   45     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+   46       printf("?\n");
+   47       continue;
+   48     }
+   49 
+   50     FILE *fp = NULL;
+   51 
+   52     switch (*bufp) {
+   53     case 'g':
+   54       curr = cnt - 1;
+   55       break;
+   56     case 'j':
+   57       curr += cnt;
+   58       break;
+   59     case 'k':
+   60       curr -= cnt;
+   61       break;
+   62     case 'd':
+   63       nlines -= cnt;
+   64       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+   65       memset(lines[nlines], 0, cnt * sizeof(*lines));
+   66       break;
+   67     case 'a':
+   68       curr++;
+   69     case 'i':
+   70       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+   71       nlines += cnt;
+   72       break;
+   73     case 'y':
+   74       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+   75       break;
+   76     case 'x':
+   77       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+   78       nlines += cnt * ncut;
+   79     case 'e':
+   80       fp = fopen(argv[1], "r");
+   81       if (fp == NULL)
+   82         perror("fopen"), exit(EXIT_FAILURE);
+   83       break;
+   84     case 'w':
+   85       fp = fopen(argv[1], "w");
+   86       if (fp == NULL)
+   87         perror("fopen"), exit(EXIT_FAILURE);
+   88       break;
+   89     case 'q':
+   90       exit(EXIT_SUCCESS);
+   91     }
+   92 
+   93     for (unsigned n = 0; n < cnt; n++) {
+   94       switch (*bufp) {
+   95       case 'a':
+   96       case 'i':
+   97       case 'c':
+   98         fgets(lines[curr + n], sizeof(*lines), stdin);
+   99         break;
+  100       case 'n':
+  101         if (*lines[curr + n])
+  102           // 65536 is 5 chars long
+  103           printf("%5u ", curr + n + 1);
+  104       case 'p':
+  105         fputs(lines[curr + n], stdout);
+  106         break;
+  107       case 'x':
+  108         memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+  109         break;
+  110       case 'e':
+  111         if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+  112           cnt++;
+  113         nlines = cnt;
+  114         break;
+  115       case 'w':
+  116         cnt = nlines;
+  117         fputs(lines[n], fp);
+  118         break;
+  119       }
+  120 
+  121     }
+  122 
+  123     if (fp && fclose(fp) == EOF)
+  124       perror("fclose"), exit(EXIT_FAILURE);
+  125   }
+  126 }
+:102g2pdc
+          // 65536 is 5 chars long
+          printf("%5u ", curr + n + 1);
+          printf("%5u ", curr + n + 1); // 65536 is 5 chars long
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st2 README.md
+:3gpc
+_#todo desc_
+_Minimal text editor bootstrapped from `cat`_
+:2a
+
+The bootstrapping process consists of several stages:
+:20n
+    3 _Minimal text editor bootstrapped from `cat`_
+    4 
+    5 The bootstrapping process consists of several stages:
+    6 
+    7 0. Write a bare-bones line editor on paper. Man pages are fair play.
+    8 1. Use `cat` with shell redirection to write the listing from stage 0 to a file. Tweak and repeat until it builds and runs.
+    9 2. Use the bare-bones editor from stage 1 to bootstrap convenience features such as error handling and copy-paste.
+:9gpc
+2. Use the bare-bones editor from stage 1 to bootstrap convenience features such as error handling and copy-paste.
+2. Use the bare-bones line editor from stage 1 to bootstrap convenience features such as error handling and copy-paste.
+:wq
+$ bin/st2 st2.c
+:111gpdc
+          cnt++;
+          nlines = ++cnt;
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$
