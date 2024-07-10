@@ -1,0 +1,1696 @@
+$ cat > st1.c
+#include <stdio.h>
+#include <string.h>
+
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(void) {
+  FILE *fp =
+  fopen(^C
+! cat > st1.c
+#include <stdio.h>
+#include <string.h>
+
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+  ungetc('r');
+  while (scanf("") != EOF) {
+    char cmd;
+    unsigned cnt = 1;
+    if (scanf("[gjkaicnprw]", cmd) != 1 && scanf("%u[gjkaicnprw]", cnt, cmd) != 2) {
+      printf("?\n");
+      continue;
+    }
+
+    switch (cmd) {
+    case 'g':
+      curr = cnt - 1;
+      break
+    case 'j':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'd':
+      memmove(lines[curr], lines[curr + cnt], nlines - curr - cnt);
+      break;
+    case 'a':
+      curr++;
+    case 'i':
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+      break;
+    case 'n':
+    XXX
+    }
+
+    for (unsigned n = 0; n < cnt; n++) {
+      switch (cmd) {
+      case 'a':
+      case 'i':
+      case 'c':
+        fgets(lines[curr + n], sizeof(*lines), stdin);
+        break;
+      case 'n':
+        printf("%u:", n + 1);
+      case 'p':
+        fputs(lines[curr + n], stdout);
+        break;
+      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+      case 'r':
+        if (fgets(lines[n], sizeof(*lines), fp) != EOF)
+          cnt++;
+        nlines = cnt;
+        break;
+      }
+    }
+  }
+
+  fclose(fp);
+}
+$ gcc -Wall st1.c
+st1.c: In function ‘main’:
+st1.c:11:3: error: too few arguments to function ‘ungetc’
+   11 |   ungetc('r');
+      |   ^~~~~~
+In file included from st1.c:1:
+/nix/store/lw5b7x8wndk7sdis78r2f8fy12ldmpwc-glibc-2.37-45-dev/include/stdio.h:668:12: note: declared here
+  668 | extern int ungetc (int __c, FILE *__stream);
+      |            ^~~~~~
+st1.c:12:16: warning: zero-length gnu_scanf format string [-Wformat-zero-length]
+   12 |   while (scanf("") != EOF) {
+      |                ^~
+st1.c:15:15: warning: too many arguments for format [-Wformat-extra-args]
+   15 |     if (scanf("[gjkaicnprw]", cmd) != 1 && scanf("%u[gjkaicnprw]", cnt, cmd) != 2) {
+      |               ^~~~~~~~~~~~~~
+st1.c:15:52: warning: format ‘%u’ expects argument of type ‘unsigned int *’, but argument 2 has type ‘unsigned int’ [-Wformat=]
+   15 |     if (scanf("[gjkaicnprw]", cmd) != 1 && scanf("%u[gjkaicnprw]", cnt, cmd) != 2) {
+      |                                                   ~^               ~~~
+      |                                                    |               |
+      |                                                    unsigned int *  unsigned int
+st1.c:15:50: warning: too many arguments for format [-Wformat-extra-args]
+   15 |     if (scanf("[gjkaicnprw]", cmd) != 1 && scanf("%u[gjkaicnprw]", cnt, cmd) != 2) {
+      |                                                  ^~~~~~~~~~~~~~~~
+st1.c:23:12: error: expected ‘;’ before ‘case’
+   23 |       break
+      |            ^
+      |            ;
+   24 |     case 'j':
+      |     ~~~~    
+st1.c:39:5: error: ‘XXX’ undeclared (first use in this function)
+   39 |     XXX
+      |     ^~~
+st1.c:39:5: note: each undeclared identifier is reported only once for each function it appears in
+st1.c:39:8: error: expected ‘;’ before ‘}’ token
+   39 |     XXX
+      |        ^
+      |        ;
+   40 |     }
+      |     ~   
+st1.c:59:49: warning: comparison between pointer and integer
+   59 |         if (fgets(lines[n], sizeof(*lines), fp) != EOF)
+      |                                                 ^~
+! cat > st1.c
+#include <stdio.h>
+#include <string.h>
+
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+  ungetc('r', stdin);
+  while (!feof(stdin)) {
+    char cmd;
+    unsigned cnt = 1;
+    if (scanf("%[gjkaicnprw]", &cmd) != 1 && scanf("%u%[gjkaicnprw]", &cnt, &cmd) != 2) {
+      printf("?\n");
+      continue;
+    }
+
+  switch (cmd) {
+  case 'g':
+    curr = cnt - 1;
+    break;
+    case 'j':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'd':
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr - cnt) * sizeof(*lines));
+      break;
+    case 'a':
+      curr++;
+    case 'i':
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+      break;
+    case 'r':
+    case 'w':
+      rewind(fp);
+      break;
+    }
+
+    for (unsigned n = 0; n < cnt; n++) {
+      switch (cmd) {
+      case 'a':
+      case 'i':
+      case 'c':
+        fgets(lines[curr + n], sizeof(*lines), stdin);
+        break;
+      case 'n':
+        printf("%u:", n + 1);
+      case 'p':
+        fputs(lines[curr + n], stdout);
+        break;
+      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+      case 'r':
+        if (fgets(lines[n], sizeof(*lines), fp) != NULL)
+          cnt++;
+        nlines = cnt;
+        break;
+      }
+    }
+  }
+
+  fclose(fp);
+}
+$ gcc -Wall st1.c
+$ # first try :)
+$ ./a.out st1.c
+r
+fish: Job 1, './a.out st1.c' terminated by signal SIGSEGV (Address boundary error)
+! ./a.out st1.c
+10p
+fish: Job 1, './a.out st1.c' terminated by signal SIGSEGV (Address boundary error)
+! ./a.out st1.c
+10j
+fish: Job 1, './a.out st1.c' terminated by signal SIGSEGV (Address boundary error)
+! # should've read the man page
+! cat > st1.c
+#include <stdio.h>
+#include <stdio.h>
+
+^C
+! cat > st1.c
+#include <stdio.h>
+#include <string.h>
+
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+  ungetc('r', stdin);
+  while (!feof(stdin)) {
+    char cmd;
+    unsigned cnt = 1;
+^C
+! cat > st1.c
+#include <stdio.h>
+#include <string.h>
+
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+  ungetc('r', stdin);
+    while (!feof(stdin)) {
+      char cmd[2];
+      unsigned cnt = 1;
+#define CMD "[gjkaicnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+        printf("?\n");
+        continue;
+      }
+
+    switch (*cmd) {
+    case 'g':
+      curr = cnt - 1;
+      break;
+    case 'j':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'd':
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr - cnt) * sizeof(*lines));
+      break;
+    case 'a':
+      curr++;
+    case 'i':
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+      break;
+    case 'r':
+    case 'w':
+      rewind(fp);
+      break;
+    }
+
+    for (unsigned n = 0; n < cnt; n++) {
+      switch (*cmd) {
+      case 'a':
+      case 'i':
+      case 'c':
+      fgets(lines[curr + n], sizeof(*lines), stdin);
+        break;
+      case 'n':
+        printf("%u:", n + 1);
+      case 'p':
+        fputs(lines[curr + n], stdout);
+        break;
+      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+      case 'r':
+        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+          cnt++;
+        nlines = cnt;
+        break;
+      }
+    }
+  }
+
+  fclose(fp);
+}
+$ gcc -Wall st1.c
+! ./a.out st1.c
+10p
+#include <stdio.h>
+#include <string.h>
+
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+12gp
+    while (!feof(stdin)) {
+3c
+  while(!feof(stdin)) {
+    char cmd[2];
+    unsigned cnt = 1;
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+^C
+!
+! ./a.out st1.c
+3c
+10p
+10p
+10p
+
+10p
+10p
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+^C
+! ./a.out st1.c
+3c
+test
+test
+10p
+
+test
+test
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+16gp 
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+a       scanf("%c", cmd);
+?
+5k10p
+    while (!feof(stdin)) {
+      char cmd[2];
+      unsigned cnt = 1;
+#define CMD "[gjkaicnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+       scanf("%c", cmd);
+        printf("?\n");
+        continue;
+      }
+
+17p
+    while (!feof(stdin)) {
+      char cmd[2];
+      unsigned cnt = 1;
+#define CMD "[gjkaicnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+       scanf("%c", cmd);
+        printf("?\n");
+        continue;
+      }
+
+    switch (*cmd) {
+    case 'g':
+      curr = cnt - 1;
+      break;
+    case 'j':
+      curr += cnt;
+      break;
+17gp
+       scanf("%c", cmd);
+c
+?
+c       scanf("%c", cmd);
+5k10p
+    while (!feof(stdin)) {
+      char cmd[2];
+      unsigned cnt = 1;
+#define CMD "[gjkaicnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+       scanf("%c", cmd);
+        printf("?\n");
+        continue;
+      }
+
+17g
+c        scanf("%c", cmd);
+?
+5k10p
+    while (!feof(stdin)) {
+      char cmd[2];
+      unsigned cnt = 1;
+#define CMD "[gjkaicnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+        scanf("%c", cmd);
+        printf("?\n");
+        continue;
+      }
+
+w
+?
+w
+?
+w
+?
+1w
+?
+$ gcc -Wall st1.c
+st1.c:2:1: error: unknown type name ‘test’
+    2 | test
+      | ^~~~
+st1.c:3:5: error: expected ‘;’ before ‘unsigned’
+    3 | test
+      |     ^
+      |     ;
+    4 | unsigned nlines = 0;
+      | ~~~~~~~~
+st1.c: In function ‘main’:
+st1.c:9:3: error: unknown type name ‘FILE’
+    9 |   FILE *fp = fopen(argv[1], "r+");
+      |   ^~~~
+st1.c:1:1: note: ‘FILE’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+  +++ |+#include <stdio.h>
+    1 | 
+st1.c:9:14: warning: implicit declaration of function ‘fopen’ [-Wimplicit-function-declaration]
+    9 |   FILE *fp = fopen(argv[1], "r+");
+      |              ^~~~~
+st1.c:9:14: note: ‘fopen’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+st1.c:9:14: warning: initialization of ‘int *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+st1.c:11:3: warning: implicit declaration of function ‘ungetc’ [-Wimplicit-function-declaration]
+   11 |   ungetc('r', stdin);
+      |   ^~~~~~
+st1.c:11:15: error: ‘stdin’ undeclared (first use in this function)
+   11 |   ungetc('r', stdin);
+      |               ^~~~~
+st1.c:11:15: note: ‘stdin’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+st1.c:11:15: note: each undeclared identifier is reported only once for each function it appears in
+st1.c:12:13: warning: implicit declaration of function ‘feof’ [-Wimplicit-function-declaration]
+   12 |     while (!feof(stdin)) {
+      |             ^~~~
+st1.c:16:11: warning: implicit declaration of function ‘scanf’ [-Wimplicit-function-declaration]
+   16 |       if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+      |           ^~~~~
+st1.c:16:11: note: include ‘<stdio.h>’ or provide a declaration of ‘scanf’
+st1.c:16:11: warning: incompatible implicit declaration of built-in function ‘scanf’ [-Wbuiltin-declaration-mismatch]
+st1.c:16:11: note: include ‘<stdio.h>’ or provide a declaration of ‘scanf’
+st1.c:18:9: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+   18 |         printf("?\n");
+      |         ^~~~~~
+st1.c:18:9: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+st1.c:18:9: warning: incompatible implicit declaration of built-in function ‘printf’ [-Wbuiltin-declaration-mismatch]
+st1.c:18:9: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+st1.c:33:7: warning: implicit declaration of function ‘memmove’ [-Wimplicit-function-declaration]
+   33 |       memmove(lines[curr], lines[curr + cnt], (nlines - curr - cnt) * sizeof(*lines));
+      |       ^~~~~~~
+st1.c:1:1: note: include ‘<string.h>’ or provide a declaration of ‘memmove’
+  +++ |+#include <string.h>
+    1 | 
+st1.c:33:7: warning: incompatible implicit declaration of built-in function ‘memmove’ [-Wbuiltin-declaration-mismatch]
+   33 |       memmove(lines[curr], lines[curr + cnt], (nlines - curr - cnt) * sizeof(*lines));
+      |       ^~~~~~~
+st1.c:33:7: note: include ‘<string.h>’ or provide a declaration of ‘memmove’
+st1.c:42:7: warning: implicit declaration of function ‘rewind’ [-Wimplicit-function-declaration]
+   42 |       rewind(fp);
+      |       ^~~~~~
+st1.c:51:7: warning: implicit declaration of function ‘fgets’ [-Wimplicit-function-declaration]
+   51 |       fgets(lines[curr + n], sizeof(*lines), stdin);
+      |       ^~~~~
+st1.c:54:9: warning: incompatible implicit declaration of built-in function ‘printf’ [-Wbuiltin-declaration-mismatch]
+   54 |         printf("%u:", n + 1);
+      |         ^~~~~~
+st1.c:54:9: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+st1.c:56:9: warning: implicit declaration of function ‘fputs’ [-Wimplicit-function-declaration]
+   56 |         fputs(lines[curr + n], stdout);
+      |         ^~~~~
+st1.c:56:9: note: include ‘<stdio.h>’ or provide a declaration of ‘fputs’
+st1.c:56:32: error: ‘stdout’ undeclared (first use in this function)
+   56 |         fputs(lines[curr + n], stdout);
+      |                                ^~~~~~
+st1.c:56:32: note: ‘stdout’ is defined in header ‘<stdio.h>’; did you forget to ‘#include <stdio.h>’?
+st1.c:63:52: error: ‘NULL’ undeclared (first use in this function)
+   63 |         if (fgets(lines[n], sizeof(*lines), fp) != NULL)
+      |                                                    ^~~~
+st1.c:1:1: note: ‘NULL’ is defined in header ‘<stddef.h>’; did you forget to ‘#include <stddef.h>’?
+  +++ |+#include <stddef.h>
+    1 | 
+st1.c:71:3: warning: implicit declaration of function ‘fclose’ [-Wimplicit-function-declaration]
+   71 |   fclose(fp);
+      |   ^~~~~~
+st1.c: At top level:
+st1.c:74:1: error: expected identifier or ‘(’ before ‘}’ token
+   74 | }
+      | ^
+! ./a.out st1.c
+10p
+
+test
+test
+unsigned nlines = 0;
+unsigned curr = 0;
+char lines[65536][256];
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+
+3c#include <stdio.h>
+#include <string.h>
+
+1w
+?
+$ gcc -Wall st1.c
+st1.c:74:1: error: expected identifier or ‘(’ before ‘}’ token
+   74 | }
+      | ^
+! ./a.out st1.c
+74g
+k
+?
+1k
+1d
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+^C
+! ./a.out st1.c
+74g
+1c
+1w
+?
+$ gcc -Wall st1.c
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+19gp
+        continue;
+8p 
+        continue;
+      }
+
+    switch (*cmd) {
+    case 'g':
+      curr = cnt - 1;
+      break;
+    case 'j':
+4k
+8p
+#define CMD "[gjkaicnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+        scanf("%c", cmd);
+        printf("?\n");
+        continue;
+      }
+
+    switch (*cmd) {
+p
+?
+1p
+#define CMD "[gjkaicnprw]"
+c#define CMD "[gjkaicdnprw]"
+?
+?
+?
+?
+?
+1w
+?
+$ gcc -Wall st1.c
+st1.c: In function ‘main’:
+st1.c:15:1: error: unknown type name ‘ne’
+   15 | ne CMD "[gjkaicdnprw]"
+      | ^~
+st1.c:15:8: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before string constant
+   15 | ne CMD "[gjkaicdnprw]"
+      |        ^~~~~~~~~~~~~~~
+! ./a.out st1.c
+15g1c#define CMD "[gjkaicdnprw]"
+1w
+?
+$ gcc -Wall st1.c
+st1.c: In function ‘main’:
+st1.c:15:1: error: unknown type name ‘ne’
+   15 | ne CMD "[gjkaicdnprw]"
+      | ^~
+st1.c:15:8: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before string constant
+   15 | ne CMD "[gjkaicdnprw]"
+      |        ^~~~~~~~~~~~~~~
+! ./a.out st1.c
+15g1c#define CMD "[gjkaicdnprw]"
+1w
+?
+$ gcc -Wall st1.c
+st1.c: In function ‘main’:
+st1.c:16: warning: "CMD" redefined
+   16 | #define CMD "[gjkaicnprw]"
+      | 
+st1.c:15: note: this is the location of the previous definition
+   15 | #define CMD "[gjkaicdnprw]"
+      | 
+$ ./a.out st1.c
+15gp
+#define CMD "[gjkaicdnprw]"
+2k8p
+      char cmd[2];
+      unsigned cnt = 1;
+#define CMD "[gjkaicdnprw]"
+#define CMD "[gjkaicnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+        scanf("%c", cmd);
+        printf("?\n");
+        continue;
+16g1d
+?
+1p
+#define CMD "[gjkaicnprw]"
+1d
+?
+1c
+1w
+?
+$ gcc -Wall st1.c
+st1.c:77:1: error: expected identifier or ‘(’ before ‘}’ token
+   77 | }
+      | ^
+st1.c:78:3: error: expected identifier or ‘(’ before ‘}’ token
+   78 |   }
+      |   ^
+st1.c:80:3: warning: data definition has no type or storage class
+   80 |   fclose(fp);
+      |   ^~~~~~
+st1.c:80:3: warning: type defaults to ‘int’ in declaration of ‘fclose’ [-Wimplicit-int]
+st1.c:80:3: warning: parameter names (without types) in function declaration
+st1.c:81:1: error: expected identifier or ‘(’ before ‘}’ token
+   81 | }
+      | ^
+! ./a.out st1.c
+77g
+10p
+}
+  }
+
+  fclose(fp);
+}
+
+
+
+5c
+
+
+
+
+1w
+?
+$ gcc -Wall st1.c
+st1.c:85:2: warning: data definition has no type or storage class
+   85 |  fclose(fp);
+      |  ^~~~~~
+st1.c:85:2: warning: type defaults to ‘int’ in declaration of ‘fclose’ [-Wimplicit-int]
+st1.c:85:2: warning: parameter names (without types) in function declaration
+st1.c:86:1: error: expected identifier or ‘(’ before ‘}’ token
+   86 | }
+      | ^
+! ./a.out st1.c
+85g10p
+ fclose(fp);
+}
+
+
+
+2c
+
+1w
+?
+$ gcc -Wall st1.c
+st1.c:90:1: warning: data definition has no type or storage class
+   90 | se(fp);
+      | ^~
+st1.c:90:1: warning: type defaults to ‘int’ in declaration of ‘se’ [-Wimplicit-int]
+st1.c:90:1: warning: parameter names (without types) in function declaration
+st1.c:91:1: error: expected identifier or ‘(’ before ‘}’ token
+   91 | }
+      | ^
+! ./a.out st1.c
+90g1p
+se(fp);
+1c
+1p
+
+91g
+1p
+}
+1c
+1w
+?
+$ gcc -Wall st1.c
+st1.c:95:1: error: expected identifier or ‘(’ before ‘)’ token
+   95 | );
+      | ^
+st1.c:96:1: error: expected identifier or ‘(’ before ‘}’ token
+   96 | }
+      | ^
+! ./a.out st1.c
+95g1c
+96g1c
+w
+w
+?
+w
+?
+w
+?
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+34g1p
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr - cnt) * sizeof(*lines));
+1c      nlines -= curr;
+1a      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+34g1p
+      nlines -= curr;
+1c      nlines -= cnt;
+41g1p
+      break;
+1k1a      nlines += cnt;
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+60g10p
+        break;
+      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+      case 'r':
+        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+          cnt++;
+        nlines = cnt;
+        break;
+10k10p
+      switch (*cmd) {
+      case 'a':
+      case 'i':
+      case 'c':
+      fgets(lines[curr + n], sizeof(*lines), stdin);
+        break;
+      case 'n':
+        printf("%u:", n + 1);
+      case 'p':
+        fputs(lines[curr + n], stdout);
+4j1c        fgets(lines[curr + n], sizeof(*lines), stdin);
+1w
+1p
+        fgets(lines[curr + n], sizeof(*lines), stdin);
+?
+$ ./a.out st1.c
+10j10n
+1:  ungetc('r', stdin);
+2:    while (!feof(stdin)) {
+3:      char cmd[2];
+4:      unsigned cnt = 1;
+5:#define CMD "[gjkaicdnprw]"
+6:
+7:      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+8:        scanf("%c", cmd);
+9:        printf("?\n");
+10:        continue;
+5g1c
+6g1c#define CMD "[gjkaicdnprw]"
+4g6p
+unsigned nlines = 0;
+
+#define CMD "[gjkaicdnprw]"
+
+int main(int argc, char **argv) {
+  FILE *fp = fopen(argv[1], "r+");
+5g1cunsigned curr = 0;
+6g1cchar lines[65536][256];
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+60g10p
+        break;
+      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+      case 'r':
+        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+          cnt++;
+        nlines = cnt;
+        break;
+5k4p
+        break;
+      case 'n':
+        printf("%u:", n + 1);
+      case 'p':
+2j1c        printf("%u:", curr + n + 1);
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+10g5n
+10:
+11:  ungetc('r', stdin);
+12:    while (!feof(stdin)) {
+13:      char cmd[2];
+14:      unsigned cnt = 1;
+15g3p
+#define CMD "[gjkaicdnprw]"
+
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+1c 
+16g1c#define CMD "[gjkaicdnprw]"
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+12g
+1p
+    while (!feof(stdin)) {
+3p              
+    while (!feof(stdin)) {
+      char cmd[2];
+      unsigned cnt = 1;
+3c  while(!feof(stdin)) {
+    char cmd[2];
+    unsigned cnt = 1;
+8p
+  while(!feof(stdin)) {
+    char cmd[2];
+    unsigned cnt = 1;
+
+#define CMD "[gjkaicdnprw]"
+      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+        scanf("%c", cmd);
+        printf("?\n");
+8n
+12:  while(!feof(stdin)) {
+13:    char cmd[2];
+14:    unsigned cnt = 1;
+15:
+16:#define CMD "[gjkaicdnprw]"
+17:      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+18:        scanf("%c", cmd);
+19:        printf("?\n");
+17g6n
+17:      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+18:        scanf("%c", cmd);
+19:        printf("?\n");
+20:        continue;
+21:      }
+22:
+8n
+17:      if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+18:        scanf("%c", cmd);
+19:        printf("?\n");
+20:        continue;
+21:      }
+22:
+23:    switch (*cmd) {
+24:    case 'g':
+5c    if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {    
+      scanf("%c", cmd);
+      printf("?\n");
+      continue;
+    }
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+6g1p
+char lines[65536][256];
+1cchar lines[65536][256] = {0};
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+30g20p
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'd':
+      nlines -= cnt;
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+      break;
+    case 'a':
+      curr++;
+    case 'i':
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+      nlines += cnt;
+      break;
+    case 'r':
+    case 'w':
+      rewind(fp);
+      break;
+    }
+
+    for (unsigned n = 0; n < cnt; n++) {
+35g1p
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+1a      memset(lines[nlines], 0, cnt * sizeof(lines));
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+75g100p
+  fclose(fp);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2j20d100p
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+20d100p
+
+
+
+
+
+
+
+
+
+
+
+
+10d100p
+
+
+2d100p
+8k100p
+        nlines = cnt;
+        break;
+      }
+    }
+  }
+
+  fclose(fp);
+}
+1w
+?
+$ ./a.out st1.c
+60g20n
+60:        fputs(lines[curr + n], stdout);
+61:        break;
+62:      case 'w':
+63:        cnt = nlines;
+64:        fputs(lines[n], fp);
+65:        break;
+66:      case 'r':
+67:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+68:          cnt++;
+69:        nlines = cnt;
+70:        break;
+71:      }
+72:    }
+73:  }
+74:
+75:  fclose(fp);
+76:}
+77:
+78:
+79:
+62g4d
+60g8p
+        fputs(lines[curr + n], stdout);
+        break;
+      case 'r':
+        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+          cnt++;
+        nlines = cnt;
+        break;
+      }
+60g10n
+60:        fputs(lines[curr + n], stdout);
+61:        break;
+62:      case 'r':
+63:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+64:          cnt++;
+65:        nlines = cnt;
+66:        break;
+67:      }
+68:    }
+69:  }
+66g4a      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+60g20p
+        fputs(lines[curr + n], stdout);
+        break;
+      case 'r':
+        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+          cnt++;
+        nlines = cnt;
+        break;
+      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+      }
+    }
+  }
+
+  fclose(fp);
+}
+
+
+
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+100n
+1:#include <stdio.h>
+2:#include <string.h>
+3:
+4:unsigned nlines = 0;
+5:unsigned curr = 0;
+6:char lines[65536][256] = {0};
+7:
+8:int main(int argc, char **argv) {
+9:  FILE *fp = fopen(argv[1], "r+");
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    char cmd[2];
+14:    unsigned cnt = 1;
+15:
+16:#define CMD "[gjkaicdnprw]"
+17:    if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+18:      scanf("%c", cmd);
+19:      printf("?\n");
+20:      continue;
+21:    }
+22:
+23:    switch (*cmd) {
+24:    case 'g':
+25:      curr = cnt - 1;
+26:      break;
+27:    case 'j':
+28:      curr += cnt;
+29:      break;
+30:    case 'k':
+31:      curr -= cnt;
+32:      break;
+33:    case 'd':
+34:      nlines -= cnt;
+35:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+36:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+37:      break;
+38:    case 'a':
+39:      curr++;
+40:    case 'i':
+41:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+42:      nlines += cnt;
+43:      break;
+44:    case 'r':
+45:    case 'w':
+46:      rewind(fp);
+47:      break;
+48:    }
+49:
+50:    for (unsigned n = 0; n < cnt; n++) {
+51:      switch (*cmd) {
+52:      case 'a':
+53:      case 'i':
+54:      case 'c':
+55:        fgets(lines[curr + n], sizeof(*lines), stdin);
+56:        break;
+57:      case 'n':
+58:        printf("%u:", curr + n + 1);
+59:      case 'p':
+60:        fputs(lines[curr + n], stdout);
+61:        break;
+62:      case 'r':
+63:        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+64:          cnt++;
+65:        nlines = cnt;
+66:        break;
+67:      case 'w':
+68:        cnt = nlines;
+69:        fputs(lines[n], fp);
+70:        break;
+71:      }
+72:    }
+73:  }
+74:
+75:  fclose(fp);
+76:}
+77:
+78:
+79:
+80:
+81:
+82:
+83:
+84:
+85:
+86:
+87:
+88:
+89:
+90:
+91:
+92:
+93:
+94:
+95:
+96:
+97:
+98:
+99:
+100:
+13g1c    char cmd;
+23g1c    switch (cmd) {
+51g1c      switch (cmd) {
+14g1c    unsigned cnt;  
+15g2a    if (scanf("%u", &cnt) != 1)
+      cnt = 1;
+10g16n
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    char cmd;
+14:    unsigned cnt;
+15:
+16:    if (scanf("%u", &cnt) != 1)
+17:      cnt = 1;
+18:#define CMD "[gjkaicdnprw]"
+19:    if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+20:      scanf("%c", cmd);
+21:      printf("?\n");
+22:      continue;
+23:    }
+24:
+25:    switch (cmd) {
+17g2a    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprw", cmd)) {
+     
+16g8n
+16:    if (scanf("%u", &cnt) != 1)
+17:      cnt = 1;
+18:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprw", cmd)) {
+19:
+20:#define CMD "[gjkaicdnprw]"
+21:    if (scanf("%1" CMD, cmd) != 1 && scanf("%u%1" CMD, &cnt, cmd) != 2) {
+22:      scanf("%c", cmd);
+23:      printf("?\n");
+19g4d
+16g8n
+16:    if (scanf("%u", &cnt) != 1)
+17:      cnt = 1;
+18:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprw", cmd)) {
+19:      printf("?\n");
+20:      continue;
+21:    }
+22:
+23:    switch (cmd) {
+1w
+?
+$ gcc -Wall st1.c
+$ ./a.out st1.c
+13gd15gd
+10g10n
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    unsigned cnt;
+14:
+15:      cnt = 1;
+16:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprw", cmd)) {
+17:      printf("?\n");
+18:      continue;
+19:    }
+^C
+! ./a.out st1.c
+15gd13gd
+152a
+    char cmd;
+10g10n
+^C
+! ./a.out st1.c
+15gd13gd
+15g2a
+    char cmd;
+10g10n
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    unsigned cnt;
+14:    if (scanf("%u", &cnt) != 1)
+15:      cnt = 1;
+16:
+17:    char cmd;
+18:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprw", cmd)) {
+19:      printf("?\n");
+w
+?
+$ mkdir bin
+$ gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+$ touch Makefile
+$ bin/st1 Makefile
+2ast1:
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+3a
+clean:
+	rm -rf bin
+w
+?
+$ make st1
+cc     st1.c   -o st1
+$ bin/st1 st1.c
+70g10n
+70:        break;
+71:      }
+72:    }
+73:  }
+74:
+75:  fclose(fp);
+76:}
+77:
+78:
+79:
+75giexit:
+g20n
+1:#include <stdio.h>
+2:#include <string.h>
+3:
+4:unsigned nlines = 0;
+5:unsigned curr = 0;
+6:char lines[65536][256] = {0};
+7:
+8:int main(int argc, char **argv) {
+9:  FILE *fp = fopen(argv[1], "r+");
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    unsigned cnt;
+14:    if (scanf("%u", &cnt) != 1)
+15:      cnt = 1;
+16:
+17:    char cmd;
+18:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprw", cmd)) {
+19:      printf("?\n");
+20:      continue;
+18c    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprwq", cmd)) {
+^C
+! bin/st1 st1.c
+75giexit:
+g20n
+1:#include <stdio.h>
+2:#include <string.h>
+3:
+4:unsigned nlines = 0;
+5:unsigned curr = 0;
+6:char lines[65536][256] = {0};
+7:
+8:int main(int argc, char **argv) {
+9:  FILE *fp = fopen(argv[1], "r+");
+10:
+11:  ungetc('r', stdin);
+12:  while(!feof(stdin)) {
+13:    unsigned cnt;
+14:    if (scanf("%u", &cnt) != 1)
+15:      cnt = 1;
+16:
+17:    char cmd;
+18:    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprw", cmd)) {
+19:      printf("?\n");
+20:      continue;
+18gc    if (scanf("%c", &cmd) != 1 || !strchr("gjkaicdnprwq", cmd)) {
+20g20n
+20:      continue;
+21:    }
+22:
+23:    switch (cmd) {
+24:    case 'g':
+25:      curr = cnt - 1;
+26:      break;
+27:    case 'j':
+28:      curr += cnt;
+29:      break;
+30:    case 'k':
+31:      curr -= cnt;
+32:      break;
+33:    case 'd':
+34:      nlines -= cnt;
+35:      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+36:      memset(lines[nlines], 0, cnt * sizeof(*lines));
+37:      break;
+38:    case 'a':
+39:      curr++;
+40g10n
+40:    case 'i':
+41:      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+42:      nlines += cnt;
+43:      break;
+44:    case 'r':
+45:    case 'w':
+46:      rewind(fp);
+47:      break;
+48:    }
+49:
+47g2a    case 'q':
+      goto exit;
+45g8n
+45:    case 'w':
+46:      rewind(fp);
+47:      break;
+48:    case 'q':
+49:      goto exit;
+50:    }
+51:
+52:    for (unsigned n = 0; n < cnt; n++) {
+w
+?
+$ make
+cc     st1.c   -o st1
+$ bin/st1 Makefile
+2p
+st1:
+
+10p
+st1:
+
+clean:
+	rm -rf bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+^C
+! make st1
+make: 'st1' is up to date.
+$ gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+$ bin/st1 Makefile
+10p
+st1:
+
+clean:
+	rm -rf bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+ga	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+p
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+i	mkdir -p bin
+g10p
+st1:
+	mkdir -p bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+
+clean:
+	rm -rf bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+10n
+1:st1:
+2:	mkdir -p bin
+3:	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+4:
+5:clean:
+6:	rm -rf bin
+7:	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+8:9:10:7gd
+10n
+7:8:9:10:11:12:13:14:15:16:g10n
+1:st1:
+2:	mkdir -p bin
+3:	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+4:
+5:clean:
+6:	rm -rf bin
+7:8:9:10:wq
+$ make
+make: 'st1' is up to date.
+$ rm a.out
+$
