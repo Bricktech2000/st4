@@ -4092,4 +4092,3411 @@ $ bin/st2 st2.c
 $ make st2
 mkdir -p bin
 gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
-$
+$ cp st2.c st3.c
+$ bin/st2 Makefile 
+:9n
+    1 st2:
+    2 	mkdir -p bin
+    3 	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+    4 
+    5 st1:
+    6 	mkdir -p bin
+    7 	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+    8 
+    9 clean:
+:4i 
+st3:
+	mkdir -p bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+
+:wq
+$ bin/st2 st3.c
+:18g6a
+
+char *hi_default = "\033[m";
+char *hi_keyword = "\033[1m";
+char *hi_comment = "\033[2;3m";
+char *hi_operator = "\033[2m";
+char *hi_literal = "\033[3m";
+:8n
+   19 
+   20 char *hi_default = "\033[m";
+   21 char *hi_keyword = "\033[1m";
+   22 char *hi_comment = "\033[2;3m";
+   23 char *hi_operator = "\033[2m";
+   24 char *hi_literal = "\033[3m";
+   25 
+   26 unsigned curr = 0;
+:24g6a
+
+char *hi_c(char **src) {
+  static char *kws[] = {
+    "auto", "break", "case", "char", "const", "continue",
+    "default", "do", "double", "else", "enum", "extern",
+    "float", "for", "goto", "if", "inline", "int",
+:2a
+     
+
+:24g8n
+   24 char *hi_literal = "\033[3m";
+   25 
+   26 
+   27 
+   28 char *hi_c(char **src) {
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+   31     "default", "do", "double", "else", "enum", "extern",
+:25gdd8n
+   25 
+   26 char *hi_c(char **src) {
+   27   static char *kws[] = {
+   28     "auto", "break", "case", "char", "const", "continue",
+   29     "default", "do", "double", "else", "enum", "extern",
+   30     "float", "for", "goto", "if", "inline", "int",
+   31 
+   32 unsigned curr = 0;
+:30g3a
+    "long", "register", "restrict", "return", "short", "signed",
+    "sizeof", "static", "struct", "switch", "true", "typedef", 
+    "union", "unsigned", "void", "volatile", "while", "_Bool",
+:3n
+   31     "long", "register", "restrict", "return", "short", "signed",
+   32     "sizeof", "static", "struct", "switch", "true", "typedef",
+   33     "union", "unsigned", "void", "volatile", "while", "_Bool",
+:33g2a
+    "_Complex", "_Imaginary",
+  };
+:34gpc
+    "_Complex", "_Imaginary",
+    "_Complex", "_Imaginary", NULL,
+:35g4a
+  static char *pps = {
+    "if", "elif", "else", "endif", "ifdef", "ifndef",
+    "define", "undef", "include", "line", "error", "pragma",
+    NULL,    
+:39gpa
+    NULL,
+  };
+:40g4a
+  static char *ops = {
+    "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",            
+    "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+    "/", "%", "~", "&", "|", "^", "<<", ">>",
+:44g3a
+    "!", "&&", "||", "==", "!=", "<", ">", "<=",
+    ">=", "[", "]", "->", ".", "(", ")", ",",
+    "?", ":", "sizeof", NULL,
+:47g2a
+  };
+}
+:w
+:18g20n
+   18 // q - quit without confirmation
+   19 
+   20 char *hi_default = "\033[m";
+   21 char *hi_keyword = "\033[1m";
+   22 char *hi_comment = "\033[2;3m";
+   23 char *hi_operator = "\033[2m";
+   24 char *hi_literal = "\033[3m";
+   25 
+   26 char *hi_c(char **src) {
+   27   static char *kws[] = {
+   28     "auto", "break", "case", "char", "const", "continue",
+   29     "default", "do", "double", "else", "enum", "extern",
+   30     "float", "for", "goto", "if", "inline", "int",
+   31     "long", "register", "restrict", "return", "short", "signed",
+   32     "sizeof", "static", "struct", "switch", "true", "typedef",
+   33     "union", "unsigned", "void", "volatile", "while", "_Bool",
+   34     "_Complex", "_Imaginary", NULL,
+   35   };
+   36   static char *pps = {
+   37     "if", "elif", "else", "endif", "ifdef", "ifndef",
+:40n
+   18 // q - quit without confirmation
+   19 
+   20 char *hi_default = "\033[m";
+   21 char *hi_keyword = "\033[1m";
+   22 char *hi_comment = "\033[2;3m";
+   23 char *hi_operator = "\033[2m";
+   24 char *hi_literal = "\033[3m";
+   25 
+   26 char *hi_c(char **src) {
+   27   static char *kws[] = {
+   28     "auto", "break", "case", "char", "const", "continue",
+   29     "default", "do", "double", "else", "enum", "extern",
+   30     "float", "for", "goto", "if", "inline", "int",
+   31     "long", "register", "restrict", "return", "short", "signed",
+   32     "sizeof", "static", "struct", "switch", "true", "typedef",
+   33     "union", "unsigned", "void", "volatile", "while", "_Bool",
+   34     "_Complex", "_Imaginary", NULL,
+   35   };
+   36   static char *pps = {
+   37     "if", "elif", "else", "endif", "ifdef", "ifndef",
+   38     "define", "undef", "include", "line", "error", "pragma",
+   39     NULL,
+   40   };
+   41   static char *ops = {
+   42     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   43     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   44     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   45     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   46     ">=", "[", "]", "->", ".", "(", ")", ",",
+   47     "?", ":", "sizeof", NULL,
+   48   };
+   49 }
+   50 
+   51 unsigned curr = 0;
+   52 unsigned nlines = 0;
+   53 char lines[65536][256] = {0};
+   54 unsigned ncut = 0;
+   55 char cut[256][256] = {0};
+   56 
+   57 int main(int argc, char **argv) {
+:48g2a
+  char *ws = " \t\n\v\f";
+  char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+:2y2d26gjx18g40n
+   18 // q - quit without confirmation
+   19 
+   20 char *hi_default = "\033[m";
+   21 char *hi_keyword = "\033[1m";
+   22 char *hi_comment = "\033[2;3m";
+   23 char *hi_operator = "\033[2m";
+   24 char *hi_literal = "\033[3m";
+   25 
+   26 char *hi_c(char **src) {
+   27   char *ws = " \t\n\v\f";
+   28   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+   31     "default", "do", "double", "else", "enum", "extern",
+   32     "float", "for", "goto", "if", "inline", "int",
+   33     "long", "register", "restrict", "return", "short", "signed",
+   34     "sizeof", "static", "struct", "switch", "true", "typedef",
+   35     "union", "unsigned", "void", "volatile", "while", "_Bool",
+   36     "_Complex", "_Imaginary", NULL,
+   37   };
+   38   static char *pps = {
+   39     "if", "elif", "else", "endif", "ifdef", "ifndef",
+   40     "define", "undef", "include", "line", "error", "pragma",
+   41     NULL,
+   42   };
+   43   static char *ops = {
+   44     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   45     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   46     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   47     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   48     ">=", "[", "]", "->", ".", "(", ")", ",",
+   49     "?", ":", "sizeof", NULL,
+   50   };
+   51 }
+   52 
+   53 unsigned curr = 0;
+   54 unsigned nlines = 0;
+   55 char lines[65536][256] = {0};
+   56 unsigned ncut = 0;
+   57 char cut[256][256] = {0};
+:38gpc43gpc
+  static char *pps = {
+  static char *pps[] = {
+  static char *ops = {
+  static char *ops[] = {
+:50g5a
+
+  if (strchr(ws, **src))
+    return ++*src, hi_default;
+
+  return ++*src, hi_default;
+:53g4a
+
+  for (char *op = *ops; *op; op++)
+    if (strncmp(*src, op, strlen(op) == 0)
+      return *src += strlen(op), hi_operator;
+:56gpc
+    if (strncmp(*src, op, strlen(op) == 0)
+    if (strncmp(*src, op, strlen(op)) == 0)
+:w
+:60g20n
+   60 }
+   61 
+   62 unsigned curr = 0;
+   63 unsigned nlines = 0;
+   64 char lines[65536][256] = {0};
+   65 unsigned ncut = 0;
+   66 char cut[256][256] = {0};
+   67 
+   68 int main(int argc, char **argv) {
+   69   if (argc != 2)
+   70     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+   71 
+   72   char buf[64] = "e\n";
+   73   char *bufp = buf;
+   74   goto begin;
+   75 
+   76   while(!feof(stdin)) {
+   77     if (*++bufp == '\n')
+   78       putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+   79 
+:78gpc
+      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+      fputs("\033[m:", stdout), fgets(buf, sizeof(buf), stdin);
+:78gpc
+      fputs("\033[m:", stdout), fgets(buf, sizeof(buf), stdin);
+      fputs("\033[m:", stdout), bufp = fgets(buf, sizeof(buf), stdin);
+:150g20n
+  150         break;
+  151       case 'e':
+  152         if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+  153           nlines = ++cnt;
+  154         break;
+  155       case 'w':
+  156         cnt = nlines;
+  157         fputs(lines[n], fp);
+  158         break;
+  159       }
+  160 
+  161     }
+  162 
+  163     if (fp && fclose(fp) == EOF)
+  164       perror("fclose"), exit(EXIT_FAILURE);
+  165   }
+  166 }
+:120g20n
+  120       nlines += cnt * ncut;
+  121     case 'e':
+  122       fp = fopen(argv[1], "r");
+  123       if (fp == NULL)
+  124         perror("fopen"), exit(EXIT_FAILURE);
+  125       break;
+  126     case 'w':
+  127       fp = fopen(argv[1], "w");
+  128       if (fp == NULL)
+  129         perror("fopen"), exit(EXIT_FAILURE);
+  130       break;
+  131     case 'q':
+  132       exit(EXIT_SUCCESS);
+  133     }
+  134 
+  135     for (unsigned n = 0; n < cnt; n++) {
+  136       switch (*bufp) {
+  137       case 'a':
+  138       case 'i':
+  139       case 'c':
+:140g10n
+  140         fgets(lines[curr + n], sizeof(*lines), stdin);
+  141         break;
+  142       case 'n':
+  143         if (*lines[curr + n])
+  144           printf("%5u ", curr + n + 1); // 65536 is 5 chars long
+  145       case 'p':
+  146         fputs(lines[curr + n], stdout);
+  147         break;
+  148       case 'x':
+  149         memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+:144gpc
+          printf("%5u ", curr + n + 1); // 65536 is 5 chars long
+          printf("\033[2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: error: unused variable ‘pps’ [-Werror=unused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c:29:16: error: unused variable ‘kws’ [-Werror=unused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:28:9: error: unused variable ‘sep’ [-Werror=unused-variable]
+   28 |   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+      |         ^~~
+st3.c: At top level:
+st3.c:29:16: error: ‘kws’ defined but not used [-Werror=unused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:38:16: error: ‘pps’ defined but not used [-Werror=unused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 Makefile 
+:5n
+    1 st3:
+    2 	mkdir -p bin
+    3 	gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+    4 
+    5 st2:
+:3gpc
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+	gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c:29:16: warning: unused variable ‘kws’ [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:28:9: warning: unused variable ‘sep’ [-Wunused-variable]
+   28 |   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+      |         ^~~
+st3.c: At top level:
+st3.c:29:16: warning: ‘kws’ defined but not used [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+$ bin/st3 st3.c
+:8n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 
+    5 // g - go to line number N
+    6 // j - move down N lines
+    7 // k - move up N lines
+    8 // a - append N new lines below
+:q
+$ bin/st3 st3.c
+:8n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 
+    5 // g - go to line number N
+    6 // j - move down N lines
+    7 // k - move up N lines
+    8 // a - append N new lines below
+:q
+$ bin/st2 st3.c
+:146gpc5a
+        fputs(lines[curr + n], stdout);
+        char *start, *end = lines[curr + n];
+        while (*end) {
+          fputs(hi_c(&end), stdout);
+          printf("%.*s", end - start, start);
+        }
+
+:147gpc  
+        while (*end) {
+        for (char *start = end; *start; start = end) {
+:146gc
+        char *end = lines[curr + n];
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c:29:16: warning: unused variable ‘kws’ [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:28:9: warning: unused variable ‘sep’ [-Wunused-variable]
+   28 |   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+      |         ^~~
+st3.c: In function ‘main’:
+st3.c:146:9: warning: a label can only be part of a statement and a declaration is not a statement [-Wpedantic]
+  146 |         char *end = lines[curr + n];
+      |         ^~~~
+st3.c:149:21: warning: field precision specifier ‘.*’ expects argument of type ‘int’, but argument 2 has type ‘long int’ [-Wformat=]
+  149 |           printf("%.*s", end - start, start);
+      |                   ~~^~   ~~~~~~~~~~~
+      |                     |        |
+      |                     int      long int
+st3.c: At top level:
+st3.c:29:16: warning: ‘kws’ defined but not used [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+$ bin/st2 st3.c
+:149gpc
+          printf("%.*s", end - start, start);
+          printf("%.*s", (int)(end - start), start);
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c:29:16: warning: unused variable ‘kws’ [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:28:9: warning: unused variable ‘sep’ [-Wunused-variable]
+   28 |   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+      |         ^~~
+st3.c: In function ‘main’:
+st3.c:146:9: warning: a label can only be part of a statement and a declaration is not a statement [-Wpedantic]
+  146 |         char *end = lines[curr + n];
+      |         ^~~~
+st3.c: At top level:
+st3.c:29:16: warning: ‘kws’ defined but not used [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+$ bin/st2 st3.c
+:145gpc
+      case 'p':
+      case 'p': {
+:151g2p2c
+
+        break;
+      } break;
+  
+:152gpd
+
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c:29:16: warning: unused variable ‘kws’ [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:28:9: warning: unused variable ‘sep’ [-Wunused-variable]
+   28 |   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+      |         ^~~
+st3.c: At top level:
+st3.c:29:16: warning: ‘kws’ defined but not used [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+$ bin/st3 st3.c
+:55gpc
+  for (char *op = *ops; *op; op++)
+  for (char **op = ops; *op; op++)
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:56:34: warning: passing argument 1 of ‘strlen’ from incompatible pointer type [-Wincompatible-pointer-types]
+   56 |     if (strncmp(*src, op, strlen(op)) == 0)
+      |                                  ^~
+      |                                  |
+      |                                  char **
+In file included from st3.c:3:
+/nix/store/lw5b7x8wndk7sdis78r2f8fy12ldmpwc-glibc-2.37-45-dev/include/string.h:407:35: note: expected ‘const char *’ but argument is of type ‘char **’
+  407 | extern size_t strlen (const char *__s)
+      |                       ~~~~~~~~~~~~^~~
+st3.c:56:23: warning: passing argument 2 of ‘strncmp’ from incompatible pointer type [-Wincompatible-pointer-types]
+   56 |     if (strncmp(*src, op, strlen(op)) == 0)
+      |                       ^~
+      |                       |
+      |                       char **
+/nix/store/lw5b7x8wndk7sdis78r2f8fy12ldmpwc-glibc-2.37-45-dev/include/string.h:159:51: note: expected ‘const char *’ but argument is of type ‘char **’
+  159 | extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+      |                                       ~~~~~~~~~~~~^~~~
+st3.c:57:29: warning: passing argument 1 of ‘strlen’ from incompatible pointer type [-Wincompatible-pointer-types]
+   57 |       return *src += strlen(op), hi_operator;
+      |                             ^~
+      |                             |
+      |                             char **
+/nix/store/lw5b7x8wndk7sdis78r2f8fy12ldmpwc-glibc-2.37-45-dev/include/string.h:407:35: note: expected ‘const char *’ but argument is of type ‘char **’
+  407 | extern size_t strlen (const char *__s)
+      |                       ~~~~~~~~~~~~^~~
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c:29:16: warning: unused variable ‘kws’ [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:28:9: warning: unused variable ‘sep’ [-Wunused-variable]
+   28 |   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+      |         ^~~
+st3.c: At top level:
+st3.c:29:16: warning: ‘kws’ defined but not used [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+$ bin/st3 st3.c
+:56gpc
+    if (strncmp(*src, op, strlen(op)) == 0)
+    if (strncmp(*src, *op, strlen(*op)) == 0)
+:57gpc
+      return *src += strlen(op), hi_operator;
+      return *src += strlen(*op), hi_operator;
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c:29:16: warning: unused variable ‘kws’ [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:28:9: warning: unused variable ‘sep’ [-Wunused-variable]
+   28 |   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+      |         ^~~
+st3.c: At top level:
+st3.c:29:16: warning: ‘kws’ defined but not used [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+$ bin/st3 st3.c
+:29g29n
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+   31     "default", "do", "double", "else", "enum", "extern",
+   32     "float", "for", "goto", "if", "inline", "int",
+   33     "long", "register", "restrict", "return", "short", "signed",
+   34     "sizeof", "static", "struct", "switch", "true", "typedef",
+   35     "union", "unsigned", "void", "volatile", "while", "_Bool",
+   36     "_Complex", "_Imaginary", NULL,
+   37   };
+   38   static char *pps[] = {
+   39     "if", "elif", "else", "endif", "ifdef", "ifndef",
+   40     "define", "undef", "include", "line", "error", "pragma",
+   41     NULL,
+   42   };
+   43   static char *ops[] = {
+   44     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   45     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   46     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   47     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   48     ">=", "[", "]", "->", ".", "(", ")", ",",
+   49     "?", ":", "sizeof", NULL,
+   50   };
+   51 
+   52   if (strchr(ws, **src))
+   53     return ++*src, hi_default;
+   54 
+   55   for (char **op = ops; *op; op++)
+   56     if (strncmp(*src, *op, strlen(*op)) == 0)
+   57       return *src += strlen(*op), hi_operator;
+:57g5a
+
+  for (char **kw = kws; *kw; kw++)
+    if (strncmp(*src, *kw, strlen(*kw)) == 0)
+      if (strchr(sep, (*src)[strlen(*kw)]))
+        return *src += strlen(*kw), hi_keyword;
+:25g8n
+   25 
+   26 char *hi_c(char **src) {
+   27   char *ws = " \t\n\v\f";
+   28   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+   31     "default", "do", "double", "else", "enum", "extern",
+   32     "float", "for", "goto", "if", "inline", "int",
+:28gpc
+  char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~";
+  char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~ \t\n\v\f";
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c: At top level:
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+$ bin/st3 st3.c
+:20g20n
+   20 char *hi_default = "\033[m";
+   21 char *hi_keyword = "\033[1m";
+   22 char *hi_comment = "\033[2;3m";
+   23 char *hi_operator = "\033[2m";
+   24 char *hi_literal = "\033[3m";
+   25 
+   26 char *hi_c(char **src) {
+   27   char *ws = " \t\n\v\f";
+   28   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~ \t\n\v\f";
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+   31     "default", "do", "double", "else", "enum", "extern",
+   32     "float", "for", "goto", "if", "inline", "int",
+   33     "long", "register", "restrict", "return", "short", "signed",
+   34     "sizeof", "static", "struct", "switch", "true", "typedef",
+   35     "union", "unsigned", "void", "volatile", "while", "_Bool",
+   36     "_Complex", "_Imaginary", NULL,
+   37   };
+   38   static char *pps[] = {
+   39     "if", "elif", "else", "endif", "ifdef", "ifndef",
+:20g5p5c      
+char *hi_default = "\033[m";
+char *hi_keyword = "\033[1m";
+char *hi_comment = "\033[2;3m";
+char *hi_operator = "\033[2m";
+char *hi_literal = "\033[3m";
+char *hi_default = "\033[m";
+char *hi_keyword = "\033[;1m";
+char *hi_comment = "\033[;2;3m";
+char *hi_operator = "\033[;2m";
+char *hi_literal = "\033[;3m";
+:g8n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 
+    5 // g - go to line number N
+    6 // j - move down N lines
+    7 // k - move up N lines
+    8 // a - append N new lines below
+:3ga
+#include <ctype.h>
+:26ga
+int isident(int c) { return c == '_' || isalnum(c); }
+:30g30n
+   30   char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~ \t\n\v\f";
+   31   static char *kws[] = {
+   32     "auto", "break", "case", "char", "const", "continue",
+   33     "default", "do", "double", "else", "enum", "extern",
+   34     "float", "for", "goto", "if", "inline", "int",
+   35     "long", "register", "restrict", "return", "short", "signed",
+   36     "sizeof", "static", "struct", "switch", "true", "typedef",
+   37     "union", "unsigned", "void", "volatile", "while", "_Bool",
+   38     "_Complex", "_Imaginary", NULL,
+   39   };
+   40   static char *pps[] = {
+   41     "if", "elif", "else", "endif", "ifdef", "ifndef",
+   42     "define", "undef", "include", "line", "error", "pragma",
+   43     NULL,
+   44   };
+   45   static char *ops[] = {
+   46     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   47     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   48     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   49     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   50     ">=", "[", "]", "->", ".", "(", ")", ",",
+   51     "?", ":", "sizeof", NULL,
+   52   };
+   53 
+   54   if (strchr(ws, **src))
+   55     return ++*src, hi_default;
+   56 
+   57   for (char **op = ops; *op; op++)
+   58     if (strncmp(*src, *op, strlen(*op)) == 0)
+   59       return *src += strlen(*op), hi_operator;
+:50g30n
+   50     ">=", "[", "]", "->", ".", "(", ")", ",",
+   51     "?", ":", "sizeof", NULL,
+   52   };
+   53 
+   54   if (strchr(ws, **src))
+   55     return ++*src, hi_default;
+   56 
+   57   for (char **op = ops; *op; op++)
+   58     if (strncmp(*src, *op, strlen(*op)) == 0)
+   59       return *src += strlen(*op), hi_operator;
+   60 
+   61   for (char **kw = kws; *kw; kw++)
+   62     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   63       if (strchr(sep, (*src)[strlen(*kw)]))
+   64         return *src += strlen(*kw), hi_keyword;
+   65 
+   66   return ++*src, hi_default;
+   67 }
+   68 
+   69 unsigned curr = 0;
+   70 unsigned nlines = 0;
+   71 char lines[65536][256] = {0};
+   72 unsigned ncut = 0;
+   73 char cut[256][256] = {0};
+   74 
+   75 int main(int argc, char **argv) {
+   76   if (argc != 2)
+   77     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+   78 
+   79   char buf[64] = "e\n";
+:63gpc
+      if (strchr(sep, (*src)[strlen(*kw)]))
+      if (!isident((*str)[strlen(*kw)]))
+:64g5a
+
+  if (isident(**src)) {
+    while (isident(*++*src)); 
+    return hi_default;
+  }
+:29g2p
+  char *ws = " \t\n\v\f";
+  char *sep = "!\"#%&'()*+,-./:;<=>?[\\]^{|}~ \t\n\v\f";
+:2d
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:52:14: error: ‘ws’ undeclared (first use in this function); did you mean ‘kws’?
+   52 |   if (strchr(ws, **src))
+      |              ^~
+      |              kws
+st3.c:52:14: note: each undeclared identifier is reported only once for each function it appears in
+st3.c:61:22: error: ‘str’ undeclared (first use in this function)
+   61 |       if (!isident((*str)[strlen(*kw)]))
+      |                      ^~~
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c: At top level:
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+make: *** [Makefile:3: st3] Error 1
+! bin/st3 st3.c
+:52gpc
+  if (strchr(ws, **src))
+  if (isspace(**src))
+:61gpc
+      if (!isident((*str)[strlen(*kw)]))
+      if (!isident((*src)[strlen(*kw)]))
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c: At top level:
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+$ bin/st3 st3.c
+:50g20n
+   50   };
+   51 
+   52   if (isspace(**src))
+   53     return ++*src, hi_default;
+   54 
+   55   for (char **op = ops; *op; op++)
+   56     if (strncmp(*src, *op, strlen(*op)) == 0)
+   57       return *src += strlen(*op), hi_operator;
+   58 
+   59   for (char **kw = kws; *kw; kw++)
+   60     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   61       if (!isident((*src)[strlen(*kw)]))
+   62         return *src += strlen(*kw), hi_keyword;
+   63 
+   64   if (isident(**src)) {
+   65     while (isident(*++*src));
+   66     return hi_default;
+   67   }
+   68 
+   69   return ++*src, hi_default;
+:67g6a
+
+  if (**src == '"') {
+    while (*++*src != '"')
+      if (**src == '\\')
+        ++*src;
+    return src++, hi_literal;
+:70gca
+  char quote = **src;
+  while (*++*src != quote)
+:69gpc
+  if (**src == '"') {
+  if (**src == '"' || **src == '\'') {
+:65g8n
+   65     while (isident(*++*src));
+   66     return hi_default;
+   67   }
+   68 
+   69   if (**src == '"' || **src == '\'') {
+   70   char quote = **src;
+   71   while (*++*src != quote)
+   72       if (**src == '\\')
+:69g8n
+   69   if (**src == '"' || **src == '\'') {
+   70   char quote = **src;
+   71   while (*++*src != quote)
+   72       if (**src == '\\')
+   73         ++*src;
+   74     return src++, hi_literal;
+   75 
+   76   return ++*src, hi_default;
+:74ga
+  }
+:70g2p2c
+  char quote = **src;
+  while (*++*src != quote)
+    char quote = **src;
+    while (*++*src != quote)
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c: At top level:
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+$ bin/st3 st3.c
+:30n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 #include <ctype.h>
+    5 
+    6 // g - go to line number N
+    7 // j - move down N lines
+    8 // k - move up N lines
+    9 // a - append N new lines below
+   10 // i - insert N new lines above
+   11 // c - rewrite next N lines
+   12 // d - delete next N lines
+   13 // y - yank (copy) next N lines
+   14 // x - paste last yank N times
+   15 // n - print next N lines numbered
+   16 // p - print next N lines
+   17 // e - read file from disk
+   18 // w - write file to disk
+   19 // q - quit without confirmation
+   20 
+   21 char *hi_default = "\033[m";
+"\033[;1m";
+"\033[;2;3m";
+"\033[;2m";
+"\033[;3m";
+"auto", "break", "case", "char", "const", "continue",
+"default", "do", "double", "else", "enum", "extern",
+"float", "for", "goto", "if", "inline", "int",
+"long", "register", "restrict", "return", "short", "signed",
+"sizeof", "static", "struct", "switch", "true", "typedef",
+"union", "unsigned", "void", "volatile", "while", "_Bool",
+"_Complex", "_Imaginary", NULL,
+"if", "elif", "else", "endif", "ifdef", "ifndef",
+"define", "undef", "include", "line", "error", "pragma",
+"=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+"^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+"/", "%", "~", "&", "|", "^", "<<", ">>",
+"!", "&&", "||", "==", "!=", "<", ">", "<=",
+">=", "[", "]", "->", ".", "(", ")", ",",
+"?", ":", "sizeof", NULL,
+"' || **src == '\'') {
+"Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+"e\n";
+"\033[m:", stdout), bufp = fgets(buf, sizeof(buf), stdin);
+"%u%n", &cnt, &nread) != 1)
+"gjkaicdyxnpewq", *bufp)) {
+"?\n");
+"r");
+"fopen"), exit(EXIT_FAILURE);
+"w");
+"fopen"), exit(EXIT_FAILURE);
+"\033[2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+"%.*s", (int)(end - start), start);
+fish: Job 1, 'bin/st3 st3.c' terminated by signal SIGSEGV (Address boundary error)
+! bin/st2 st3.c
+:74gpc
+    return src++, hi_literal;
+    return ++*src, hi_literal;
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:38:16: warning: unused variable ‘pps’ [-Wunused-variable]
+   38 |   static char *pps[] = {
+      |                ^~~
+st3.c: At top level:
+st3.c:38:16: warning: ‘pps’ defined but not used [-Wunused-variable]
+$ bin/st3 st3.c
+:30n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 #include <ctype.h>
+    5 
+    6 // g - go to line number N
+    7 // j - move down N lines
+    8 // k - move up N lines
+    9 // a - append N new lines below
+   10 // i - insert N new lines above
+   11 // c - rewrite next N lines
+   12 // d - delete next N lines
+   13 // y - yank (copy) next N lines
+   14 // x - paste last yank N times
+   15 // n - print next N lines numbered
+   16 // p - print next N lines
+   17 // e - read file from disk
+   18 // w - write file to disk
+   19 // q - quit without confirmation
+   20 
+   21 char *hi_default = "\033[m";
+   22 char *hi_keyword = "\033[;1m";
+   23 char *hi_comment = "\033[;2;3m";
+   24 char *hi_operator = "\033[;2m";
+   25 char *hi_literal = "\033[;3m";
+   26 
+   27 int isident(int c) { return c == '_' || isalnum(c); }
+   28 char *hi_c(char **src) {
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+:60g30n
+   60     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   61       if (!isident((*src)[strlen(*kw)]))
+   62         return *src += strlen(*kw), hi_keyword;
+   63 
+   64   if (isident(**src)) {
+   65     while (isident(*++*src));
+   66     return hi_default;
+   67   }
+   68 
+   69   if (**src == '"' || **src == '\'') {
+   70     char quote = **src;
+   71     while (*++*src != quote)
+   72       if (**src == '\\')
+   73         ++*src;
+   74     return ++*src, hi_literal;
+   75   }
+   76 
+   77   return ++*src, hi_default;
+   78 }
+   79 
+   80 unsigned curr = 0;
+   81 unsigned nlines = 0;
+   82 char lines[65536][256] = {0};
+   83 unsigned ncut = 0;
+   84 char cut[256][256] = {0};
+   85 
+   86 int main(int argc, char **argv) {
+   87   if (argc != 2)
+   88     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+   89 
+:75g6a
+
+  if (**src == '#') {
+    while (isspace(*++*src));
+    for (char **pp = pps; *pp; pp++)
+      if (strncmp(*src, *pp, strlen(*pp)) == 0)
+        if (!isident((*src)[strlen(*pp)]))
+:81gp3a
+        if (!isident((*src)[strlen(*pp)]))
+          return *src += strlen(*pp), hi_keyword;
+    return hi_default;
+  }
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st3.c
+:50g30n
+   50   };
+   51 
+   52   if (isspace(**src))
+   53     return ++*src, hi_default;
+   54 
+   55   for (char **op = ops; *op; op++)
+   56     if (strncmp(*src, *op, strlen(*op)) == 0)
+   57       return *src += strlen(*op), hi_operator;
+   58 
+   59   for (char **kw = kws; *kw; kw++)
+   60     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   61       if (!isident((*src)[strlen(*kw)]))
+   62         return *src += strlen(*kw), hi_keyword;
+   63 
+   64   if (isident(**src)) {
+   65     while (isident(*++*src));
+   66     return hi_default;
+   67   }
+   68 
+   69   if (**src == '"' || **src == '\'') {
+   70     char quote = **src;
+   71     while (*++*src != quote)
+   72       if (**src == '\\')
+   73         ++*src;
+   74     return ++*src, hi_literal;
+   75   }
+   76 
+   77   if (**src == '#') {
+   78     while (isspace(*++*src));
+   79     for (char **pp = pps; *pp; pp++)
+:55g5y5d64gx50g30n
+   50   };
+   51 
+   52   if (isspace(**src))
+   53     return ++*src, hi_default;
+   54 
+   55     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   56       if (!isident((*src)[strlen(*kw)]))
+   57         return *src += strlen(*kw), hi_keyword;
+   58 
+   59   if (isident(**src)) {
+   60     while (isident(*++*src));
+   61     return hi_default;
+   62   }
+   63 
+   64   for (char **op = ops; *op; op++)
+   65     if (strncmp(*src, *op, strlen(*op)) == 0)
+   66       return *src += strlen(*op), hi_operator;
+   67 
+   68   for (char **kw = kws; *kw; kw++)
+   69   if (**src == '"' || **src == '\'') {
+   70     char quote = **src;
+   71     while (*++*src != quote)
+   72       if (**src == '\\')
+   73         ++*src;
+   74     return ++*src, hi_literal;
+   75   }
+   76 
+   77   if (**src == '#') {
+   78     while (isspace(*++*src));
+   79     for (char **pp = pps; *pp; pp++)
+:68gd77g8n
+   77     while (isspace(*++*src));
+   78     for (char **pp = pps; *pp; pp++)
+   79       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   80         if (!isident((*src)[strlen(*pp)]))
+   81           return *src += strlen(*pp), hi_keyword;
+   82     return hi_default;
+   83   }
+   84 
+:83g5a
+
+  if (strncmp(*src, "//", 2)) {
+    while (**src && *++*src != '\n');
+    return hi_comment;        
+  }
+:70gpc
+    while (*++*src != quote)
+    while (**src && **src != '\n' && *++*src != quote)
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘hi_c’:
+st3.c:52:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   52 |   if (isspace(**src))
+      |   ^~
+st3.c:55:5: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   55 |     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+      |     ^~
+st3.c:55:24: error: ‘kw’ undeclared (first use in this function); did you mean ‘kws’?
+   55 |     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+      |                        ^~
+      |                        kws
+st3.c:55:24: note: each undeclared identifier is reported only once for each function it appears in
+st3.c:57:35: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+   57 |         return *src += strlen(*kw), hi_keyword;
+      |                                   ^
+st3.c:29:16: warning: unused variable ‘kws’ [-Wunused-variable]
+   29 |   static char *kws[] = {
+      |                ^~~
+st3.c: At top level:
+st3.c:29:16: warning: ‘kws’ defined but not used [-Wunused-variable]
+make: *** [Makefile:3: st3] Error 1
+! bin/st3 st3.c
+:50g20n
+   50   };
+   51 
+   52   if (isspace(**src))
+   53     return ++*src, hi_default;
+   54 
+   55     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   56       if (!isident((*src)[strlen(*kw)]))
+   57         return *src += strlen(*kw), hi_keyword;
+   58 
+   59   if (isident(**src)) {
+   60     while (isident(*++*src));
+   61     return hi_default;
+   62   }
+   63 
+   64   for (char **op = ops; *op; op++)
+   65     if (strncmp(*src, *op, strlen(*op)) == 0)
+   66       return *src += strlen(*op), hi_operator;
+   67 
+   68   if (**src == '"' || **src == '\'') {
+   69     char quote = **src;
+:54ga
+  for (char **kw = kws; *kw; kw++)
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st3.c
+:68g40n
+   68 
+   69   if (**src == '"' || **src == '\'') {
+   70     char quote = **src;
+   71     while (**src && **src != '\n' && *++*src != quote)
+   72       if (**src == '\\')
+   73         ++*src;
+   74     return ++*src, hi_literal;
+   75   }
+   76 
+   77   if (**src == '#') {
+   78     while (isspace(*++*src));
+   79     for (char **pp = pps; *pp; pp++)
+   80       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   81         if (!isident((*src)[strlen(*pp)]))
+   82           return *src += strlen(*pp), hi_keyword;
+   83     return hi_default;
+   84   }
+   85 
+   86   if (strncmp(*src, "//", 2)) {
+   87     while (**src && *++*src != '\n');
+   88     return hi_comment;
+   89   }
+   90 
+   91   return ++*src, hi_default;
+   92 }
+   93 
+   94 unsigned curr = 0;
+   95 unsigned nlines = 0;
+   96 char lines[65536][256] = {0};
+   97 unsigned ncut = 0;
+   98 char cut[256][256] = {0};
+   99 
+  100 int main(int argc, char **argv) {
+  101   if (argc != 2)
+  102     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  103 
+  104   char buf[64] = "e\n";
+  105   char *bufp = buf;
+  106   goto begin;
+  107 
+:74gpc2a
+    return ++*src, hi_literal;
+    if (**src == quote) 
+      ++*src;
+    return hi_literal;
+:88gpc
+  if (strncmp(*src, "//", 2)) {
+  if (strncmp(*src, "//", 2) == 0) {
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st3.c
+:80g20n
+   80     while (isspace(*++*src));
+   81     for (char **pp = pps; *pp; pp++)
+   82       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   83         if (!isident((*src)[strlen(*pp)]))
+   84           return *src += strlen(*pp), hi_keyword;
+   85     return hi_default;
+   86   }
+   87 
+   88   if (strncmp(*src, "//", 2) == 0) {
+   89     while (**src && *++*src != '\n');
+   90     return hi_comment;
+   91   }
+   92 
+   93   return ++*src, hi_default;
+   94 }
+   95 
+   96 unsigned curr = 0;
+   97 unsigned nlines = 0;
+   98 char lines[65536][256] = {0};
+   99 unsigned ncut = 0;
+:88g5y5d
+:50g20n
+   50   };
+   51 
+   52   if (isspace(**src))
+   53     return ++*src, hi_default;
+   54 
+   55   for (char **kw = kws; *kw; kw++)
+   56     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   57       if (!isident((*src)[strlen(*kw)]))
+   58         return *src += strlen(*kw), hi_keyword;
+   59 
+   60   if (isident(**src)) {
+   61     while (isident(*++*src));
+   62     return hi_default;
+   63   }
+   64 
+   65   for (char **op = ops; *op; op++)
+   66     if (strncmp(*src, *op, strlen(*op)) == 0)
+   67       return *src += strlen(*op), hi_operator;
+   68 
+   69   if (**src == '"' || **src == '\'') {
+:55gx50g20n
+   50   };
+   51 
+   52   if (isspace(**src))
+   53     return ++*src, hi_default;
+   54 
+   55   if (strncmp(*src, "//", 2) == 0) {
+   56     while (**src && *++*src != '\n');
+   57     return hi_comment;
+   58   }
+   59 
+   60   for (char **kw = kws; *kw; kw++)
+   61     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   62       if (!isident((*src)[strlen(*kw)]))
+   63         return *src += strlen(*kw), hi_keyword;
+   64 
+   65   if (isident(**src)) {
+   66     while (isident(*++*src));
+   67     return hi_default;
+   68   }
+   69 
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st3.c
+:68g5a
+
+  if (isdigit(**src)) {
+    while (isident(*++*src));           
+    return hi_default;
+  }
+:65gpc
+  if (isident(**src)) {
+  if (isdigit(**src)) {
+:70gpc
+  if (isdigit(**src)) {
+  if (isident(**src)) {
+:67gpc
+    return hi_default;
+    return hi_literal;
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st3.c
+:
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+?
+$ bin/st3 st3.c
+:120g20n
+  120     int nread;
+  121     unsigned cnt;
+  122     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  123       nread = 0, cnt = 1;
+  124     bufp += nread;
+  125 
+  126     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+  127       printf("?\n");
+  128       continue;
+  129     }
+  130 
+  131     FILE *fp = NULL;
+  132 
+  133     switch (*bufp) {
+  134     case 'g':
+  135       curr = cnt - 1;
+  136       break;
+  137     case 'j':
+  138       curr += cnt;
+  139       break;
+:100g20n
+  100 
+  101 unsigned curr = 0;
+  102 unsigned nlines = 0;
+  103 char lines[65536][256] = {0};
+  104 unsigned ncut = 0;
+  105 char cut[256][256] = {0};
+  106 
+  107 int main(int argc, char **argv) {
+  108   if (argc != 2)
+  109     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  110 
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113   goto begin;
+  114 
+  115   while(!feof(stdin)) {
+  116     if (*++bufp == '\n')
+  117       fputs("\033[m:", stdout), bufp = fgets(buf, sizeof(buf), stdin);
+  118 
+  119   begin:;
+:116gpc
+    if (*++bufp == '\n')
+    if (*++bufp == '\n' || *bufp == '\0')
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st3.c
+:
+?
+:
+?
+:q
+$ bin/st3 st2.c
+:50g20n
+   50     FILE *fp = NULL;
+   51 
+   52     switch (*bufp) {
+   53     case 'g':
+   54       curr = cnt - 1;
+   55       break;
+   56     case 'j':
+   57       curr += cnt;
+   58       break;
+   59     case 'k':
+   60       curr -= cnt;
+   61       break;
+   62     case 'd':
+   63       nlines -= cnt;
+   64       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+   65       memset(lines[nlines], 0, cnt * sizeof(*lines));
+   66       break;
+   67     case 'a':
+   68       curr++;
+   69     case 'i':
+:20g20n
+   20 unsigned curr = 0;
+   21 unsigned nlines = 0;
+   22 char lines[65536][256] = {0};
+   23 unsigned ncut = 0;
+   24 char cut[256][256] = {0};
+   25 
+   26 int main(int argc, char **argv) {
+   27   if (argc != 2)
+   28     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+   29 
+   30   char buf[64] = "e\n";
+   31   char *bufp = buf;
+   32   goto begin;
+   33 
+   34   while(!feof(stdin)) {
+   35     if (*++bufp == '\n')
+   36       putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+   37 
+   38   begin:;
+   39     int nread;
+:35gpc
+    if (*++bufp == '\n')
+    if (*++bufp == '\n' || *bufp == '\0')
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st3 st2.c
+:100g20n
+  100       case 'n':
+  101         if (*lines[curr + n])
+  102           printf("%5u ", curr + n + 1); // 65536 is 5 chars long
+  103       case 'p':
+  104         fputs(lines[curr + n], stdout);
+  105         break;
+  106       case 'x':
+  107         memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+  108         break;
+  109       case 'e':
+  110         if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+  111           nlines = ++cnt;
+  112         break;
+  113       case 'w':
+  114         cnt = nlines;
+  115         fputs(lines[n], fp);
+  116         break;
+  117       }
+  118 
+  119     }
+:120g20n
+  120 
+  121     if (fp && fclose(fp) == EOF)
+  122       perror("fclose"), exit(EXIT_FAILURE);
+  123   }
+  124 }
+:120g8a
+    switch (*bufp) {
+      case 'g':
+        curr = cnt - 1;
+      case 'j': 
+      case 'a':
+      case 'c':
+      case 'n':
+      case 'p':
+:128g6a
+        curr += cnt;
+      case 'k':
+        curr -= cnt;
+        break;
+      case 'e':
+      case 'w':
+:n 
+  129         curr += cnt;
+:120g120n
+  120 
+  121     switch (*bufp) {
+  122       case 'g':
+  123         curr = cnt - 1;
+  124       case 'j':
+  125       case 'a':
+  126       case 'c':
+  127       case 'n':
+  128       case 'p':
+  129         curr += cnt;
+  130       case 'k':
+  131         curr -= cnt;
+  132         break;
+  133       case 'e':
+  134       case 'w':
+  135     if (fp && fclose(fp) == EOF)
+  136       perror("fclose"), exit(EXIT_FAILURE);
+  137   }
+  138 }
+:134g2ca 
+        if (fclose(fp) == EOF)
+          perror("fclose"), exit(EXIT_FAILURE);
+      }
+:123ga
+        break;
+:130gpa
+        curr += cnt;
+        break;
+:120g30n
+  120 
+  121     switch (*bufp) {
+  122       case 'g':
+  123         curr = cnt - 1;
+  124         break;
+  125       case 'j':
+  126       case 'a':
+  127       case 'c':
+  128       case 'n':
+  129       case 'p':
+  130         curr += cnt;
+  131         break;
+  132       case 'k':
+  133         curr -= cnt;
+  134         break;
+  135       case 'e':
+  136         if (fclose(fp) == EOF)
+  137       }
+  138           perror("fclose"), exit(EXIT_FAILURE);
+  139       perror("fclose"), exit(EXIT_FAILURE);
+  140   }
+  141 }
+:137gdjd120g30n
+  120 
+  121     switch (*bufp) {
+  122       case 'g':
+  123         curr = cnt - 1;
+  124         break;
+  125       case 'j':
+  126       case 'a':
+  127       case 'c':
+  128       case 'n':
+  129       case 'p':
+  130         curr += cnt;
+  131         break;
+  132       case 'k':
+  133         curr -= cnt;
+  134         break;
+  135       case 'e':
+  136         if (fclose(fp) == EOF)
+  137           perror("fclose"), exit(EXIT_FAILURE);
+  138   }
+  139 }
+:137ga
+      }
+:50g20n
+   50     FILE *fp = NULL;
+   51 
+   52     switch (*bufp) {
+   53     case 'g':
+   54       curr = cnt - 1;
+   55       break;
+   56     case 'j':
+   57       curr += cnt;
+   58       break;
+   59     case 'k':
+   60       curr -= cnt;
+   61       break;
+   62     case 'd':
+   63       nlines -= cnt;
+   64       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+   65       memset(lines[nlines], 0, cnt * sizeof(*lines));
+   66       break;
+   67     case 'a':
+   68       curr++;
+   69     case 'i':
+:53g9d
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st3 st2.c
+:20g20n
+   20 unsigned curr = 0;
+   21 unsigned nlines = 0;
+   22 char lines[65536][256] = {0};
+   23 unsigned ncut = 0;
+   24 char cut[256][256] = {0};
+   25 
+   26 int main(int argc, char **argv) {
+   27   if (argc != 2)
+   28     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+   29 
+   30   char buf[64] = "e\n";
+   31   char *bufp = buf;
+   32   goto begin;
+   33 
+   34   while(!feof(stdin)) {
+   35     if (*++bufp == '\n' || *bufp == '\0')
+   36       putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+   37 
+   38   begin:;
+   39     int nread;
+:32gd
+:37gd
+:33gp
+  while(!feof(stdin)) {
+:34gpc
+    if (*++bufp == '\n' || *bufp == '\0')
+    if (*bufp == '\n') {  
+:35gpca
+      putchar(':'), bufp = fgets(buf, sizeof(buf), stdin);
+      putchar(':'); 
+      bufp = fgets(buf, sizeof(buf), stdin);
+:n
+   36       bufp = fgets(buf, sizeof(buf), stdin);
+:a
+      continue;
+:n
+   37       continue;
+:a
+    }
+:20g20n
+   20 unsigned curr = 0;
+   21 unsigned nlines = 0;
+   22 char lines[65536][256] = {0};
+   23 unsigned ncut = 0;
+   24 char cut[256][256] = {0};
+   25 
+   26 int main(int argc, char **argv) {
+   27   if (argc != 2)
+   28     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+   29 
+   30   char buf[64] = "e\n";
+   31   char *bufp = buf;
+   32 
+   33   while(!feof(stdin)) {
+   34     if (*bufp == '\n') {
+   35       putchar(':');
+   36       bufp = fgets(buf, sizeof(buf), stdin);
+   37       continue;
+   38     }
+   39 
+:w
+:40g20n
+   40     int nread;
+   41     unsigned cnt;
+   42     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+   43       nread = 0, cnt = 1;
+   44     bufp += nread;
+   45 
+   46     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+   47       printf("?\n");
+   48       continue;
+   49     }
+   50 
+   51     FILE *fp = NULL;
+   52 
+   53     switch (*bufp) {
+   54     case 'd':
+   55       nlines -= cnt;
+   56       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+   57       memset(lines[nlines], 0, cnt * sizeof(*lines));
+   58       break;
+   59     case 'a':
+:47gpa
+      printf("?\n");
+      bufp++;
+:43gpa
+      nread = 0, cnt = 1;
+                         
+:44gpd
+
+:48gpca
+      bufp++;
+      if (bufp != '\n')
+        bufp++;
+:100g20n
+  100       case 'x':
+  101         memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+  102         break;
+  103       case 'e':
+  104         if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+  105           nlines = ++cnt;
+  106         break;
+  107       case 'w':
+  108         cnt = nlines;
+  109         fputs(lines[n], fp);
+  110         break;
+  111       }
+  112 
+  113     }
+  114 
+  115     switch (*bufp) {
+  116       case 'g':
+  117         curr = cnt - 1;
+  118         break;
+  119       case 'j':
+:120g20n
+  120       case 'a':
+  121       case 'c':
+  122       case 'n':
+  123       case 'p':
+  124         curr += cnt;
+  125         break;
+  126       case 'k':
+  127         curr -= cnt;
+  128         break;
+  129       case 'e':
+  130         if (fclose(fp) == EOF)
+  131           perror("fclose"), exit(EXIT_FAILURE);
+  132       }
+  133   }
+  134 }
+:115g18c
+    switch (*bufp) {
+    case 'g':
+      curr = cnt - 1;
+    case 'j; 
+    case 'a':
+    case 'c':
+    case 'n':
+    case 'p':
+      curr += cnt;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'e':
+      if (fclose(fp) == EOF)
+        perror("fclose"), exit(EXIT_FAILURE);
+    }
+
+
+:117gpa
+      curr = cnt - 1;
+      break;
+:124gpa
+      curr += cnt;
+      break;
+:1332p
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'e':
+      if (fclose(fp) == EOF)
+        perror("fclose"), exit(EXIT_FAILURE);
+    }
+
+
+  }
+}
+:133g2p
+
+
+:133g2d
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+st2.c: In function ‘main’:
+st2.c:48:16: error: comparison between pointer and integer [-Werror]
+   48 |       if (bufp != '\n')
+      |                ^~
+st2.c:119:10: error: missing terminating ' character [-Werror]
+  119 |     case 'j;
+      |          ^
+st2.c:119:10: error: missing terminating ' character
+  119 |     case 'j;
+      |          ^~~
+st2.c:120:5: error: expected expression before ‘case’
+  120 |     case 'a':
+      |     ^~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:7: st2] Error 1
+! bin/st3 st2.c
+:48gpc
+      if (bufp != '\n')
+      if (*bufp != '\n')
+:119gpc
+    case 'j;
+    case 'j':
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st3 st2.c
+:120g20n
+  120     case 'a':
+  121     case 'c':
+  122     case 'n':
+  123     case 'p':
+  124       curr += cnt;
+  125       break;
+  126     case 'k':
+  127       curr -= cnt;
+  128       break;
+  129     case 'e':
+  130       if (fclose(fp) == EOF)
+  131         perror("fclose"), exit(EXIT_FAILURE);
+  132     }
+  133   }
+  134 }
+:133g2a
+
+  bufp++;
+:20k20n
+  114 
+  115     switch (*bufp) {
+  116     case 'g':
+  117       curr = cnt - 1;
+  118       break;
+  119     case 'j':
+  120     case 'a':
+  121     case 'c':
+  122     case 'n':
+  123     case 'p':
+  124       curr += cnt;
+  125       break;
+  126     case 'k':
+  127       curr -= cnt;
+  128       break;
+  129     case 'e':
+  130       if (fclose(fp) == EOF)
+  131         perror("fclose"), exit(EXIT_FAILURE);
+  132     }
+  133   }
+:20k20n
+   94       case 'n':
+   95         if (*lines[curr + n])
+   96           printf("%5u ", curr + n + 1); // 65536 is 5 chars long
+   97       case 'p':
+   98         fputs(lines[curr + n], stdout);
+   99         break;
+  100       case 'x':
+  101         memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+  102         break;
+  103       case 'e':
+  104         if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+  105           nlines = ++cnt;
+  106         break;
+  107       case 'w':
+  108         cnt = nlines;
+  109         fputs(lines[n], fp);
+  110         break;
+  111       }
+  112 
+  113     }
+:112gd
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+$ bin/st3 st2.c
+:130g8n
+  130         perror("fclose"), exit(EXIT_FAILURE);
+  131     }
+  132   }
+  133 
+  134   bufp++;
+  135 }
+:133gdd
+:131gp2a
+    }
+
+    bufp++;
+:wq
+$ bin/st2 st3.c
+:100g20n
+  100 
+  101 unsigned curr = 0;
+  102 unsigned nlines = 0;
+  103 char lines[65536][256] = {0};
+  104 unsigned ncut = 0;
+  105 char cut[256][256] = {0};
+  106 
+  107 int main(int argc, char **argv) {
+  108   if (argc != 2)
+  109     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  110 
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113   goto begin;
+  114 
+  115   while(!feof(stdin)) {
+  116     if (*++bufp == '\n' || *bufp == '\0')
+  117       fputs("\033[m:", stdout), bufp = fgets(buf, sizeof(buf), stdin);
+  118 
+  119   begin:;
+:116gpcc3a 
+    if (*++bufp == '\n' || *bufp == '\0')
+    if (*bufp == '\n') {
+      fputs("\033[m:", stdout);
+      bufp = fgets(buf, sizeof(buf), stdin);
+      continue;
+    }
+:kk20n
+  121       continue;
+  122     }
+  123     int nread;
+  124     unsigned cnt;
+  125     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  126       nread = 0, cnt = 1;
+  127     bufp += nread;
+  128 
+  129     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+  130       printf("?\n");
+  131       continue;
+  132     }
+  133 
+  134     FILE *fp = NULL;
+  135 
+  136     switch (*bufp) {
+  137     case 'g':
+  138       curr = cnt - 1;
+  139       break;
+  140     case 'j':
+:122ga
+
+:166gp
+      if (fp == NULL)
+:116gp
+    if (*++bufp == '\n' || *bufp == '\0')
+:kd
+:130p2i 
+    if (*bufp == '\n') {
+      fputs("\033[m:", stdout);
+  begin:;
+      bufp = fgets(buf, sizeof(buf), stdin);
+      continue;
+    }
+
+    int nread;
+    unsigned cnt;
+    if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+      nread = 0, cnt = 1;
+    bufp += nread;
+
+    if (!strchr("gjkaicdyxnpewq", *bufp)) {
+      printf("?\n");
+      continue;
+    }
+
+    FILE *fp = NULL;
+
+    switch (*bufp) {
+    case 'g':
+      curr = cnt - 1;
+      break;
+    case 'j':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'd':
+      nlines -= cnt;
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+      memset(lines[nlines], 0, cnt * sizeof(*lines));
+      break;
+    case 'a':
+      curr++;
+    case 'i':
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+      nlines += cnt;
+      break;
+    case 'y':
+      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+      break;
+    case 'x':
+      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      nlines += cnt * ncut;
+    case 'e':
+      fp = fopen(argv[1], "r");
+      if (fp == NULL)
+        perror("fopen"), exit(EXIT_FAILURE);
+      break;
+    case 'w':
+      fp = fopen(argv[1], "w");
+      if (fp == NULL)
+        perror("fopen"), exit(EXIT_FAILURE);
+      break;
+    case 'q':
+      exit(EXIT_SUCCESS);
+    }
+
+    for (unsigned n = 0; n < cnt; n++) {
+      switch (*bufp) {
+      case 'a':
+      case 'i':
+      case 'c':
+        fgets(lines[curr + n], sizeof(*lines), stdin);
+        break;
+      case 'n':
+        if (*lines[curr + n])
+          printf("\033[2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+      case 'p': {
+        char *end = lines[curr + n];
+        for (char *start = end; *start; start = end) {
+          fputs(hi_c(&end), stdout);
+          printf("%.*s", (int)(end - start), start);
+        }
+      } break;
+      case 'x':
+        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+        break;
+      case 'e':
+        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+          nlines = ++cnt;
+        break;
+      case 'w':
+        cnt = nlines;
+        fputs(lines[n], fp);
+        break;
+      }
+
+    }
+
+    if (fp && fclose(fp) == EOF)
+      perror("fclose"), exit(EXIT_FAILURE);
+  }
+}
+fish: Job 1, 'bin/st2 st3.c' terminated by signal SIGSEGV (Address boundary error)
+! bin/st2 st3.c
+:116gpkcc3a
+    if (*++bufp == '\n' || *bufp == '\0')
+    if (*bufp == '\n')
+      fputs("\033[m:", stdout);
+      bufp = fgets(buf, sizeof(buf), stdin);
+      continue;
+    }
+:116gc
+    if (*bufp == '\n') {
+:130gp2i
+      printf("?\n");
+      if (*bufp != '\n')
+        bufp++;
+:20n
+  131       if (*bufp != '\n')
+  132         bufp++;
+  133       continue;
+  134     }
+  135 
+  136     FILE *fp = NULL;
+  137 
+  138     switch (*bufp) {
+  139     case 'g':
+  140       curr = cnt - 1;
+  141       break;
+  142     case 'j':
+  143       curr += cnt;
+  144       break;
+  145     case 'k':
+  146       curr -= cnt;
+  147       break;
+  148     case 'd':
+  149       nlines -= cnt;
+  150       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+:w
+:139g9d
+:20n
+  139     case 'd':
+  140       nlines -= cnt;
+  141       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+  142       memset(lines[nlines], 0, cnt * sizeof(*lines));
+  143       break;
+  144     case 'a':
+  145       curr++;
+  146     case 'i':
+  147       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  148       nlines += cnt;
+  149       break;
+  150     case 'y':
+  151       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  152       break;
+  153     case 'x':
+  154       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  155       nlines += cnt * ncut;
+  156     case 'e':
+  157       fp = fopen(argv[1], "r");
+  158       if (fp == NULL)
+:10j10n
+  169 
+  170     for (unsigned n = 0; n < cnt; n++) {
+  171       switch (*bufp) {
+  172       case 'a':
+  173       case 'i':
+  174       case 'c':
+  175         fgets(lines[curr + n], sizeof(*lines), stdin);
+  176         break;
+  177       case 'n':
+  178         if (*lines[curr + n])
+:20j20n
+  199 
+  200     }
+  201 
+  202     if (fp && fclose(fp) == EOF)
+  203       perror("fclose"), exit(EXIT_FAILURE);
+  204   }
+  205 }
+:202gcc18i
+    switch (*bufp) {
+      case 'g':
+      curr = cnt - 1;
+    case 'j':
+    case 'a':
+    case 'c':
+    case 'n':
+    case 'p':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'e':
+    case 'w':
+      if (fclose(fp) == EOF)
+        perror("fclose"), exit(EXIT_FAILURE);
+    }
+
+    bufp++;
+:200g40n
+  200     }
+  201 
+  202     switch (*bufp) {
+  203       case 'g':
+  204       curr = cnt - 1;
+  205     case 'j':
+  206     case 'a':
+  207     case 'c':
+  208     case 'n':
+  209     case 'p':
+  210       curr += cnt;
+  211       break;
+  212     case 'k':
+  213       curr -= cnt;
+  214       break;
+  215     case 'e':
+  216     case 'w':
+  217       if (fclose(fp) == EOF)
+  218         perror("fclose"), exit(EXIT_FAILURE);
+  219     }
+  220 
+  221     bufp++;
+  222   }
+  223 }
+:203gc 
+    case 'g':
+:204gpi
+      curr = cnt - 1;
+      break;
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:158:11: error: ‘fpncut’ undeclared (first use in this function); did you mean ‘ncut’?
+  158 |       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      |           ^~~~~~
+      |           ncut
+st3.c:158:11: note: each undeclared identifier is reported only once for each function it appears in
+st3.c:158:17: error: expected ‘)’ before ‘]’ token
+  158 |       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      |          ~      ^
+      |                 )
+st3.c:158:17: error: expected statement before ‘]’ token
+st3.c:158:7: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  158 |       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      |       ^~
+st3.c:158:18: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  158 |       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      |                  ^
+st3.c:158:18: error: expected expression before ‘,’ token
+st3.c:158:18: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+st3.c:158:31: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+  158 |       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      |                               ^
+st3.c:158:31: warning: statement with no effect [-Wunused-value]
+st3.c:158:65: error: expected ‘;’ before ‘)’ token
+  158 |       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      |                                                                 ^
+      |                                                                 ;
+st3.c:158:65: error: expected statement before ‘)’ token
+st3.c:160:5: error: duplicate case value
+  160 |     case 'e':
+      |     ^~~~
+st3.c:156:5: note: previously used here
+  156 |     case 'e':
+      |     ^~~~
+st3.c: At top level:
+st3.c:210:4: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before 'e'
+  210 | se 'e':
+      |    ^~~
+st3.c:214:5: error: expected identifier or ‘(’ before ‘}’ token
+  214 |     }
+      |     ^
+st3.c:216:9: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘++’ token
+  216 |     bufp++;
+      |         ^~
+st3.c:217:3: error: expected identifier or ‘(’ before ‘}’ token
+  217 |   }
+      |   ^
+st3.c:218:1: error: expected identifier or ‘(’ before ‘}’ token
+  218 | }
+      | ^
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:158gkk4n
+  156     case 'e':
+  157       fp = fopen(argv[1], "r");
+  158       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  159       nlines += cnt * ncut;
+:120g
+:40n
+  120       continue;
+  121     }
+  122   begin:;
+  123     int nread;
+  124     unsigned cnt;
+  125     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  126       nread = 0, cnt = 1;
+  127     bufp += nread;
+  128 
+  129     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+  130       printf("?\n");
+  131       if (*bufp != '\n')
+  132         bufp++;
+  133       continue;
+  134     }
+  135 
+  136     FILE *fp = NULL;
+  137 
+  138     switch (*bufp) {
+  139     case 'd':
+  140       nlines -= cnt;
+  141       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+  142       memset(lines[nlines], 0, cnt * sizeof(*lines));
+  143       break;
+  144     case 'a':
+  145       curr++;
+  146     case 'i':
+  147       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  148       nlines += cnt;
+  149       break;
+  150     case 'y':
+  151       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  152       break;
+  153     case 'x':
+  154       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  155       nlines += cnt * ncut;
+  156     case 'e':
+  157       fp = fopen(argv[1], "r");
+  158       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  159       nlines += cnt * ncut;
+:150g20n
+  150     case 'y':
+  151       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  152       break;
+  153     case 'x':
+  154       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  155       nlines += cnt * ncut;
+  156     case 'e':
+  157       fp = fopen(argv[1], "r");
+  158       if (fpncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  159       nlines += cnt * ncut;
+  160     case 'e':
+  161       fp = fopen(argv[1], "r");
+  162       if (fp == NULL)
+  163         perror("fopen"), exit(EXIT_FAILURE);
+  164       break;
+  165     case 'w':
+  166       fp = fopen(argv[1], "w");
+  167       if (fp == NULL)
+  168         perror("fopen"), exit(EXIT_FAILURE);
+  169       break;
+:156g4dwq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c:206:4: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before 'e'
+  206 | se 'e':
+      |    ^~~
+st3.c:210:5: error: expected identifier or ‘(’ before ‘}’ token
+  210 |     }
+      |     ^
+st3.c:212:9: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘++’ token
+  212 |     bufp++;
+      |         ^~
+st3.c:213:3: error: expected identifier or ‘(’ before ‘}’ token
+  213 |   }
+      |   ^
+st3.c:214:1: error: expected identifier or ‘(’ before ‘}’ token
+  214 | }
+      | ^
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:206gkkkkk20n
+  201 
+  202     if (fp && fclose(fp) == EOF)
+  203       perror("fclose"), exit(EXIT_FAILURE);
+  204   }
+  205 }
+  206 se 'e':
+  207     case 'w':
+  208       if (fclose(fp) == EOF)
+  209         perror("fclose"), exit(EXIT_FAILURE);
+  210     }
+  211 
+  212     bufp++;
+  213   }
+  214 }
+:kkkk20n
+:200g20n
+  200     }
+  201 
+  202     if (fp && fclose(fp) == EOF)
+  203       perror("fclose"), exit(EXIT_FAILURE);
+  204   }
+  205 }
+  206 se 'e':
+  207     case 'w':
+  208       if (fclose(fp) == EOF)
+  209         perror("fclose"), exit(EXIT_FAILURE);
+  210     }
+  211 
+  212     bufp++;
+  213   }
+  214 }
+:200g21a
+
+    switch (*bufp) {
+    case 'g':
+      curr = cnt - 1;
+      break;
+    case 'j':
+    case 'a':
+    case 'c':
+    case 'n':
+    case 'p':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+    case 'e':
+    case 'w':     
+      if (fclose(fp) == EOF)
+        perror("fclose"), exit(EXIT_FAILURE);
+    }
+
+:a
+    bufp++;
+:20n
+  224     if (fp && fclose(fp) == EOF)
+  225       perror("fclose"), exit(EXIT_FAILURE);
+  226   }
+  227 }
+  228 se 'e':
+  229     case 'w':
+  230       if (fclose(fp) == EOF)
+  231         perror("fclose"), exit(EXIT_FAILURE);
+  232     }
+  233 
+  234     bufp++;
+  235   }
+  236 }
+:224g10d
+:200g40n
+  200     }
+  201 
+  202     switch (*bufp) {
+  203     case 'g':
+  204       curr = cnt - 1;
+  205       break;
+  206     case 'j':
+  207     case 'a':
+  208     case 'c':
+  209     case 'n':
+  210     case 'p':
+  211       curr += cnt;
+  212       break;
+  213     case 'k':
+  214       curr -= cnt;
+  215       break;
+  216     case 'e':
+  217     case 'w':
+  218       if (fclose(fp) == EOF)
+  219         perror("fclose"), exit(EXIT_FAILURE);
+  220     }
+  221 
+  222 
+  223     bufp++;
+  224     bufp++;
+  225   }
+  226 }
+:222gdd
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st3.c
+:122gpk
+  begin:;
+:c
+
+:wq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:113:3: error: label ‘begin’ used but not defined
+  113 |   goto begin;
+      |   ^~~~
+make: *** [Makefile:3: st3] Error 1
+! bin/st3 st3.c
+:113gkk8n
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113   goto begin;
+  114 
+  115   while(!feof(stdin)) {
+  116     if (*bufp == '\n') {
+  117       fputs("\033[m:", stdout);
+  118 
+:113gdwq
+$ make st3
+mkdir -p bin
+gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+$ bin/st3 st2.c
+:100g40n
+  100       case 'x':
+  101         memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
+  102         break;
+  103       case 'e':
+  104         if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
+  105           nlines = ++cnt;
+  106         break;
+  107       case 'w':
+  108         cnt = nlines;
+  109         fputs(lines[n], fp);
+  110         break;
+  111       }
+  112     }
+  113 
+  114     switch (*bufp) {
+  115     case 'g':
+  116       curr = cnt - 1;
+  117       break;
+  118     case 'j':
+  119     case 'a':
+  120     case 'c':
+  121     case 'n':
+  122     case 'p':
+  123       curr += cnt;
+  124       break;
+  125     case 'k':
+  126       curr -= cnt;
+  127       break;
+  128     case 'e':
+  129       if (fclose(fp) == EOF)
+  130         perror("fclose"), exit(EXIT_FAILURE);
+  131     }
+  132 
+  133     bufp++;
+  134   }
+  135 }
+:128gpi
+    case 'e':
+    case 'w':
+:wq
+$ make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+& rm bin/st3
+& mv st3.c st2.c
+& make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+& bin/st2 Makefile
+:8n
+    1 st3:
+    2 	mkdir -p bin
+    3 	gcc -O2 -Wall -pedantic -std=c99 st3.c -o bin/st3
+    4 
+    5 st2:
+    6 	mkdir -p bin
+    7 	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+    8 
+:g4dwq
+& bin/st2 README.md 
+:8n
+    1 # #todo name
+    2 
+    3 _Minimal text editor bootstrapped from `cat`_
+    4 
+    5 The bootstrapping process consists of several stages:
+    6 
+    7 0. Write a bare-bones line editor on paper. Man pages are fair play.
+    8 1. Use `cat` with shell redirection to write the listing from stage 0 to a file. Tweak and repeat until it builds and runs.
+:n
+    9 2. Use the bare-bones line editor from stage 1 to bootstrap convenience features such as error handling and copy-paste.
+:kpkc
+2. Use the bare-bones line editor from stage 1 to bootstrap convenience features such as error handling and copy-paste.
+2. Use the bare-bones line editor from stage 1 to bootstrap convenience features such as copy-paste and syntax highlighting.
+:wq
+& bin/st2 st2.c
+:100g20n
+  100 
+  101 unsigned curr = 0;
+  102 unsigned nlines = 0;
+  103 char lines[65536][256] = {0};
+  104 unsigned ncut = 0;
+  105 char cut[256][256] = {0};
+  106 
+  107 int main(int argc, char **argv) {
+  108   if (argc != 2)
+  109     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  110 
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113 
+  114   while(!feof(stdin)) {
+  115     if (*bufp == '\n') {
+  116       fputs("\033[m:", stdout);
+  117 
+  118       bufp = fgets(buf, sizeof(buf), stdin);
+  119       continue;
+:20j20n
+  140       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+  141       memset(lines[nlines], 0, cnt * sizeof(*lines));
+  142       break;
+  143     case 'a':
+  144       curr++;
+  145     case 'i':
+  146       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  147       nlines += cnt;
+  148       break;
+  149     case 'y':
+  150       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  151       break;
+  152     case 'x':
+  153       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  154       nlines += cnt * ncut;
+  155     case 'e':
+  156       fp = fopen(argv[1], "r");
+  157       if (fp == NULL)
+  158         perror("fopen"), exit(EXIT_FAILURE);
+  159       break;
+:20n
+  160     case 'w':
+  161       fp = fopen(argv[1], "w");
+  162       if (fp == NULL)
+  163         perror("fopen"), exit(EXIT_FAILURE);
+  164       break;
+  165     case 'q':
+  166       exit(EXIT_SUCCESS);
+  167     }
+  168 
+  169     for (unsigned n = 0; n < cnt; n++) {
+  170       switch (*bufp) {
+  171       case 'a':
+  172       case 'i':
+  173       case 'c':
+  174         fgets(lines[curr + n], sizeof(*lines), stdin);
+  175         break;
+  176       case 'n':
+  177         if (*lines[curr + n])
+  178           printf("\033[2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+  179       case 'p': {
+:178gpkc
+          printf("\033[2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+          printf("\033[;2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+:wq
+& bin/st2 Makefile
+:8n
+    1 st2:
+    2 	mkdir -p bin
+    3 	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+    4 
+    5 st1:
+    6 	mkdir -p bin
+    7 	gcc -O2 -Wall -Werror -pedantic -std=c99 st1.c -o bin/st1
+    8 
+:7g3a
+
+st0:
+	echo "if only"
+:wq
+& bin/st2 st2.c
+:100g20n
+  100 
+  101 unsigned curr = 0;
+  102 unsigned nlines = 0;
+  103 char lines[65536][256] = {0};
+  104 unsigned ncut = 0;
+  105 char cut[256][256] = {0};
+  106 
+  107 int main(int argc, char **argv) {
+  108   if (argc != 2)
+  109     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  110 
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113 
+  114   while(!feof(stdin)) {
+  115     if (*bufp == '\n') {
+  116       fputs("\033[m:", stdout);
+  117 
+  118       bufp = fgets(buf, sizeof(buf), stdin);
+  119       continue;
+:101gd110gi
+  unsigned curr = 0;
+:117gpkd
+
+:114gpkc
+  while(!feof(stdin)) {
+  while (!feof(stdin)) {
+:wq
+& make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+& bin/st2 st2.c
+:20g20n
+   20 
+   21 char *hi_default = "\033[m";
+   22 char *hi_keyword = "\033[;1m";
+   23 char *hi_comment = "\033[;2;3m";
+   24 char *hi_operator = "\033[;2m";
+   25 char *hi_literal = "\033[;3m";
+   26 
+   27 int isident(int c) { return c == '_' || isalnum(c); }
+   28 char *hi_c(char **src) {
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+   31     "default", "do", "double", "else", "enum", "extern",
+   32     "float", "for", "goto", "if", "inline", "int",
+   33     "long", "register", "restrict", "return", "short", "signed",
+   34     "sizeof", "static", "struct", "switch", "true", "typedef",
+   35     "union", "unsigned", "void", "volatile", "while", "_Bool",
+   36     "_Complex", "_Imaginary", NULL,
+   37   };
+   38   static char *pps[] = {
+   39     "if", "elif", "else", "endif", "ifdef", "ifndef",
+:34g3c
+    "sizeof", "static", "struct", "switch", "typedef", "union",
+    "unsigned", "void", "volatile", "while", "_Bool", "_Complex",
+    "_Imaginary", NULL,
+:wq
+& make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+& bin/st2 st2.c
+:100g20n
+  100 
+  101 unsigned nlines = 0;
+  102 char lines[65536][256] = {0};
+  103 unsigned ncut = 0;
+  104 char cut[256][256] = {0};
+  105 
+  106 int main(int argc, char **argv) {
+  107   if (argc != 2)
+  108     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  109 
+  110   unsigned curr = 0;
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113 
+  114   while (!feof(stdin)) {
+  115     if (*bufp == '\n') {
+  116       fputs("\033[m:", stdout);
+  117       bufp = fgets(buf, sizeof(buf), stdin);
+  118       continue;
+  119     }
+:20n
+  120 
+  121     int nread;
+  122     unsigned cnt;
+  123     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  124       nread = 0, cnt = 1;
+  125     bufp += nread;
+  126 
+  127     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+  128       printf("?\n");
+  129       if (*bufp != '\n')
+  130         bufp++;
+  131       continue;
+  132     }
+  133 
+  134     FILE *fp = NULL;
+  135 
+  136     switch (*bufp) {
+  137     case 'd':
+  138       nlines -= cnt;
+  139       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+:20n
+  140       memset(lines[nlines], 0, cnt * sizeof(*lines));
+  141       break;
+  142     case 'a':
+  143       curr++;
+  144     case 'i':
+  145       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  146       nlines += cnt;
+  147       break;
+  148     case 'y':
+  149       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  150       break;
+  151     case 'x':
+  152       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  153       nlines += cnt * ncut;
+  154     case 'e':
+  155       fp = fopen(argv[1], "r");
+  156       if (fp == NULL)
+  157         perror("fopen"), exit(EXIT_FAILURE);
+  158       break;
+  159     case 'w':
+:146g3a
+    case 'c':
+      for (unsigned n = 0; n < cnt; n++)
+        fgets(lines[curr], sizeof(*lines), stdin);
+:148gc
+      for (unsigned last = curr + cnt; curr < last; curr++)
+:140g20n
+  140       memset(lines[nlines], 0, cnt * sizeof(*lines));
+  141       break;
+  142     case 'a':
+  143       curr++;
+  144     case 'i':
+  145       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  146       nlines += cnt;
+  147     case 'c':
+  148       for (unsigned last = curr + cnt; curr < last; curr++)
+  149         fgets(lines[curr], sizeof(*lines), stdin);
+  150       break;
+  151     case 'y':
+  152       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  153       break;
+  154     case 'x':
+  155       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  156       nlines += cnt * ncut;
+  157     case 'e':
+  158       fp = fopen(argv[1], "r");
+  159       if (fp == NULL)
+:156g2a
+      for (unsigned last = curr + cnt * ncut; curr < last; curr += ncut)
+        memcpy(lines[curr], *cut, ncut * sizeof(*cut));
+:150g20n
+  150       break;
+  151     case 'y':
+  152       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  153       break;
+  154     case 'x':
+  155       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  156       nlines += cnt * ncut;
+  157       for (unsigned last = curr + cnt * ncut; curr < last; curr += ncut)
+  158         memcpy(lines[curr], *cut, ncut * sizeof(*cut));
+  159     case 'e':
+  160       fp = fopen(argv[1], "r");
+  161       if (fp == NULL)
+  162         perror("fopen"), exit(EXIT_FAILURE);
+  163       break;
+  164     case 'w':
+  165       fp = fopen(argv[1], "w");
+  166       if (fp == NULL)
+  167         perror("fopen"), exit(EXIT_FAILURE);
+  168       break;
+  169     case 'q':
+:162ga
+      for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+:163g2a
+      if (fclose(fp) == EOF)
+        perror("fclose"), exit(EXIT_FAILURE);
+:160g20n
+  160       fp = fopen(argv[1], "r");
+  161       if (fp == NULL)
+  162         perror("fopen"), exit(EXIT_FAILURE);
+  163       for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+  164       if (fclose(fp) == EOF)
+  165         perror("fclose"), exit(EXIT_FAILURE);
+  166       break;
+  167     case 'w':
+  168       fp = fopen(argv[1], "w");
+  169       if (fp == NULL)
+  170         perror("fopen"), exit(EXIT_FAILURE);
+  171       break;
+  172     case 'q':
+  173       exit(EXIT_SUCCESS);
+  174     }
+  175 
+  176     for (unsigned n = 0; n < cnt; n++) {
+  177       switch (*bufp) {
+  178       case 'a':
+  179       case 'i':
+:170g3a
+      for (unsigned n = 0; n < nlines; n++)
+        fputs(lines[n], fp);  
+      if (fclose(fp) == EOF)
+:i
+        perror("fclose"), exit(EXIT_FAILURE);
+:165g30n
+  165         perror("fclose"), exit(EXIT_FAILURE);
+  166       break;
+  167     case 'w':
+  168       fp = fopen(argv[1], "w");
+  169       if (fp == NULL)
+  170         perror("fopen"), exit(EXIT_FAILURE);
+  171       for (unsigned n = 0; n < nlines; n++)
+  172         fputs(lines[n], fp);
+  173       if (fclose(fp) == EOF)
+  174         perror("fclose"), exit(EXIT_FAILURE);
+  175       break;
+  176     case 'q':
+  177       exit(EXIT_SUCCESS);
+  178     }
+  179 
+  180     for (unsigned n = 0; n < cnt; n++) {
+  181       switch (*bufp) {
+  182       case 'a':
+  183       case 'i':
+  184       case 'c':
+  185         fgets(lines[curr + n], sizeof(*lines), stdin);
+  186         break;
+  187       case 'n':
+  188         if (*lines[curr + n])
+  189           printf("\033[;2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+  190       case 'p': {
+  191         char *end = lines[curr + n];
+  192         for (char *start = end; *start; start = end) {
+  193           fputs(hi_c(&end), stdout);
+  194           printf("%.*s", (int)(end - start), start);
+:w
+:136g9a
+    case 'g':
+      curr = cnt - 1;
+      break;
+    case 'j':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
+:150g20n
+  150       break;
+  151     case 'a':
+  152       curr++;
+  153     case 'i':
+  154       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  155       nlines += cnt;
+  156     case 'c':
+  157       for (unsigned last = curr + cnt; curr < last; curr++)
+  158         fgets(lines[curr], sizeof(*lines), stdin);
+  159       break;
+  160     case 'y':
+  161       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  162       break;
+  163     case 'x':
+  164       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  165       nlines += cnt * ncut;
+  166       for (unsigned last = curr + cnt * ncut; curr < last; curr += ncut)
+  167         memcpy(lines[curr], *cut, ncut * sizeof(*cut));
+  168     case 'e':
+  169       fp = fopen(argv[1], "r");
+:167g11a
+        break;
+    case 'n':
+    case 'p':    
+      for (unsigned last = curr + cnt; curr < last; curr++) {
+        if (*bufp == 'n' && *lines[curr])
+          printf("\033[;2;3m%5u ", curr + 1); // 65536 is 5 chars long
+        char *end = lines[curr];
+        for (char *start = end; *start; start = end) {
+          fputs(hi_c(&end), stdout);
+          printf("%.*s", (int)(end - start), start);
+        }
+:2i
+      }
+      break;
+:w
+:e
+:182gp
+      fp = fopen(argv[1], "r");
+:182gc
+      fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+:181gi
+    case 'e':
+:kkkkk20n
+  176           fputs(hi_c(&end), stdout);
+  177           printf("%.*s", (int)(end - start), start);
+  178         }
+  179       }
+  180       break;
+  181     case 'e':
+  182     case 'e':
+  183       fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+  184       if (fp == NULL)
+  185         perror("fopen"), exit(EXIT_FAILURE);
+  186       for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+  187       if (fclose(fp) == EOF)
+  188         perror("fclose"), exit(EXIT_FAILURE);
+  189       break;
+  190     case 'w':
+  191       fp = fopen(argv[1], "w");
+  192       if (fp == NULL)
+  193         perror("fopen"), exit(EXIT_FAILURE);
+  194       for (unsigned n = 0; n < nlines; n++)
+  195         fputs(lines[n], fp);
+:182gc
+    case 'w':
+:185ga
+      if (*bufp == 'e')
+:c
+        for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+:i
+      else
+:180g20n
+  180       break;
+  181     case 'e':
+  182     case 'w':
+  183       fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+  184       if (fp == NULL)
+  185         perror("fopen"), exit(EXIT_FAILURE);
+  186       if (*bufp == 'e')
+  187         for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+  188       else
+  189       if (fclose(fp) == EOF)
+  190         perror("fclose"), exit(EXIT_FAILURE);
+  191       break;
+  192     case 'w':
+  193       fp = fopen(argv[1], "w");
+  194       if (fp == NULL)
+  195         perror("fopen"), exit(EXIT_FAILURE);
+  196       for (unsigned n = 0; n < nlines; n++)
+  197         fputs(lines[n], fp);
+  198       if (fclose(fp) == EOF)
+  199         perror("fclose"), exit(EXIT_FAILURE);
+:188g2a
+        for (unsigned n = 0; n < nlines; fputs(lines[n++], fp));
+
+:kd
+:180g20n
+  180       break;
+  181     case 'e':
+  182     case 'w':
+  183       fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+  184       if (fp == NULL)
+  185         perror("fopen"), exit(EXIT_FAILURE);
+  186       if (*bufp == 'e')
+  187         for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+  188       else
+  189         for (unsigned n = 0; n < nlines; fputs(lines[n++], fp));
+  190       if (fclose(fp) == EOF)
+  191         perror("fclose"), exit(EXIT_FAILURE);
+  192       break;
+  193     case 'w':
+  194       fp = fopen(argv[1], "w");
+  195       if (fp == NULL)
+  196         perror("fopen"), exit(EXIT_FAILURE);
+  197       for (unsigned n = 0; n < nlines; n++)
+  198         fputs(lines[n], fp);
+  199       if (fclose(fp) == EOF)
+:193g9d190g20n
+  190       if (fclose(fp) == EOF)
+  191         perror("fclose"), exit(EXIT_FAILURE);
+  192       break;
+  193     case 'q':
+  194       exit(EXIT_SUCCESS);
+  195     }
+  196 
+  197     for (unsigned n = 0; n < cnt; n++) {
+  198       switch (*bufp) {
+  199       case 'a':
+  200       case 'i':
+  201       case 'c':
+  202         fgets(lines[curr + n], sizeof(*lines), stdin);
+  203         break;
+  204       case 'n':
+  205         if (*lines[curr + n])
+  206           printf("\033[;2;3m%5u ", curr + n + 1); // 65536 is 5 chars long
+  207       case 'p': {
+  208         char *end = lines[curr + n];
+  209         for (char *start = end; *start; start = end) {
+:w
+:197g40d190g20n
+  190       if (fclose(fp) == EOF)
+  191         perror("fclose"), exit(EXIT_FAILURE);
+  192       break;
+  193     case 'q':
+  194       exit(EXIT_SUCCESS);
+  195     }
+  196 
+  197     case 'p':
+  198       curr += cnt;
+  199       break;
+  200     case 'k':
+  201       curr -= cnt;
+  202       break;
+  203     case 'e':
+  204     case 'w':
+  205       if (fclose(fp) == EOF)
+  206         perror("fclose"), exit(EXIT_FAILURE);
+  207     }
+  208 
+  209     bufp++;
+:197g12d190g20n
+  190       if (fclose(fp) == EOF)
+  191         perror("fclose"), exit(EXIT_FAILURE);
+  192       break;
+  193     case 'q':
+  194       exit(EXIT_SUCCESS);
+  195     }
+  196 
+  197     bufp++;
+  198   }
+  199 }
+:wq
+& make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+& bin/st2 st2.c
+:180g20n
+  180       break;
+  181     case 'e':
+  182     case 'w':
+  183       fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+  184       if (fp == NULL)
+  185         perror("fopen"), exit(EXIT_FAILURE);
+  186       if (*bufp == 'e')
+  187         for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+  188       else
+  189         for (unsigned n = 0; n < nlines; fputs(lines[n++], fp));
+  190       if (fclose(fp) == EOF)
+  191         perror("fclose"), exit(EXIT_FAILURE);
+  192       break;
+  193     case 'q':
+  194       exit(EXIT_SUCCESS);
+  195     }
+  196 
+  197     bufp++;
+  198   }
+  199 }
+:183gpkc
+      fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+      FILE *fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+:182gc
+    case 'w': {
+:192gc
+    } break;
+:134g2p2k
+    FILE *fp = NULL;
+
+:2d
+:wq
+& make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+& bin/st2 st2.c
+:999n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 #include <ctype.h>
+    5 
+    6 // g - go to line number N
+    7 // j - move down N lines
+    8 // k - move up N lines
+    9 // a - append N new lines below
+   10 // i - insert N new lines above
+   11 // c - rewrite next N lines
+   12 // d - delete next N lines
+   13 // y - yank (copy) next N lines
+   14 // x - paste last yank N times
+   15 // n - print next N lines numbered
+   16 // p - print next N lines
+   17 // e - read file from disk
+   18 // w - write file to disk
+   19 // q - quit without confirmation
+   20 
+   21 char *hi_default = "\033[m";
+   22 char *hi_keyword = "\033[;1m";
+   23 char *hi_comment = "\033[;2;3m";
+   24 char *hi_operator = "\033[;2m";
+   25 char *hi_literal = "\033[;3m";
+   26 
+   27 int isident(int c) { return c == '_' || isalnum(c); }
+   28 char *hi_c(char **src) {
+   29   static char *kws[] = {
+   30     "auto", "break", "case", "char", "const", "continue",
+   31     "default", "do", "double", "else", "enum", "extern",
+   32     "float", "for", "goto", "if", "inline", "int",
+   33     "long", "register", "restrict", "return", "short", "signed",
+   34     "sizeof", "static", "struct", "switch", "typedef", "union",
+   35     "unsigned", "void", "volatile", "while", "_Bool", "_Complex",
+   36     "_Imaginary", NULL,
+   37   };
+   38   static char *pps[] = {
+   39     "if", "elif", "else", "endif", "ifdef", "ifndef",
+   40     "define", "undef", "include", "line", "error", "pragma",
+   41     NULL,
+   42   };
+   43   static char *ops[] = {
+   44     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   45     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   46     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   47     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   48     ">=", "[", "]", "->", ".", "(", ")", ",",
+   49     "?", ":", "sizeof", NULL,
+   50   };
+   51 
+   52   if (isspace(**src))
+   53     return ++*src, hi_default;
+   54 
+   55   if (strncmp(*src, "//", 2) == 0) {
+   56     while (**src && *++*src != '\n');
+   57     return hi_comment;
+   58   }
+   59 
+   60   for (char **kw = kws; *kw; kw++)
+   61     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   62       if (!isident((*src)[strlen(*kw)]))
+   63         return *src += strlen(*kw), hi_keyword;
+   64 
+   65   if (isdigit(**src)) {
+   66     while (isident(*++*src));
+   67     return hi_literal;
+   68   }
+   69 
+   70   if (isident(**src)) {
+   71     while (isident(*++*src));
+   72     return hi_default;
+   73   }
+   74 
+   75   for (char **op = ops; *op; op++)
+   76     if (strncmp(*src, *op, strlen(*op)) == 0)
+   77       return *src += strlen(*op), hi_operator;
+   78 
+   79   if (**src == '"' || **src == '\'') {
+   80     char quote = **src;
+   81     while (**src && **src != '\n' && *++*src != quote)
+   82       if (**src == '\\')
+   83         ++*src;
+   84     if (**src == quote)
+   85       ++*src;
+   86     return hi_literal;
+   87   }
+   88 
+   89   if (**src == '#') {
+   90     while (isspace(*++*src));
+   91     for (char **pp = pps; *pp; pp++)
+   92       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   93         if (!isident((*src)[strlen(*pp)]))
+   94           return *src += strlen(*pp), hi_keyword;
+   95     return hi_default;
+   96   }
+   97 
+   98   return ++*src, hi_default;
+   99 }
+  100 
+  101 unsigned nlines = 0;
+  102 char lines[65536][256] = {0};
+  103 unsigned ncut = 0;
+  104 char cut[256][256] = {0};
+  105 
+  106 int main(int argc, char **argv) {
+  107   if (argc != 2)
+  108     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  109 
+  110   unsigned curr = 0;
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113 
+  114   while (!feof(stdin)) {
+  115     if (*bufp == '\n') {
+  116       fputs("\033[m:", stdout);
+  117       bufp = fgets(buf, sizeof(buf), stdin);
+  118       continue;
+  119     }
+  120 
+  121     int nread;
+  122     unsigned cnt;
+  123     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  124       nread = 0, cnt = 1;
+  125     bufp += nread;
+  126 
+  127     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+  128       printf("?\n");
+  129       if (*bufp != '\n')
+  130         bufp++;
+  131       continue;
+  132     }
+  133 
+  134     switch (*bufp) {
+  135     case 'g':
+  136       curr = cnt - 1;
+  137       break;
+  138     case 'j':
+  139       curr += cnt;
+  140       break;
+  141     case 'k':
+  142       curr -= cnt;
+  143       break;
+  144     case 'd':
+  145       nlines -= cnt;
+  146       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+  147       memset(lines[nlines], 0, cnt * sizeof(*lines));
+  148       break;
+  149     case 'a':
+  150       curr++;
+  151     case 'i':
+  152       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  153       nlines += cnt;
+  154     case 'c':
+  155       for (unsigned last = curr + cnt; curr < last; curr++)
+  156         fgets(lines[curr], sizeof(*lines), stdin);
+  157       break;
+  158     case 'y':
+  159       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  160       break;
+  161     case 'x':
+  162       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  163       nlines += cnt * ncut;
+  164       for (unsigned last = curr + cnt * ncut; curr < last; curr += ncut)
+  165         memcpy(lines[curr], *cut, ncut * sizeof(*cut));
+  166       break;
+  167     case 'n':
+  168     case 'p':
+  169       for (unsigned last = curr + cnt; curr < last; curr++) {
+  170         if (*bufp == 'n' && *lines[curr])
+  171           printf("\033[;2;3m%5u ", curr + 1); // 65536 is 5 chars long
+  172         char *end = lines[curr];
+  173         for (char *start = end; *start; start = end) {
+  174           fputs(hi_c(&end), stdout);
+  175           printf("%.*s", (int)(end - start), start);
+  176         }
+  177       }
+  178       break;
+  179     case 'e':
+  180     case 'w': {
+  181       FILE *fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+  182       if (fp == NULL)
+  183         perror("fopen"), exit(EXIT_FAILURE);
+  184       if (*bufp == 'e')
+  185         for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+  186       else
+  187         for (unsigned n = 0; n < nlines; fputs(lines[n++], fp));
+  188       if (fclose(fp) == EOF)
+  189         perror("fclose"), exit(EXIT_FAILURE);
+  190     } break;
+  191     case 'q':
+  192       exit(EXIT_SUCCESS);
+  193     }
+  194 
+  195     bufp++;
+  196   }
+  197 }
+:21gpkcpkcpkcpkcpkci
+char *hi_default = "\033[m";
+#define HI_DEFAULT "\033[m" // (reset)
+char *hi_keyword = "\033[;1m";
+#define HI_KEYWORD "\033[;1m" // bold
+char *hi_comment = "\033[;2;3m";
+#define HI_COMMENT "\033[;2;3m" // dim italic
+char *hi_operator = "\033[;2m";
+#define HI_OPERATOR "\033[;2m" // dim
+char *hi_literal = "\033[;3m";
+#define HI_LITERAL "\033[;3m" // italic
+#define HI_LINENO "\033[;2;3m" // dim italic
+:53gpkc
+  if (isspace(**src))
+  if (isspace(**src))
+:54gpkc
+    return ++*src, hi_default;
+    return ++*src, HI_DEFAULT;
+:58gpkc
+    return hi_comment;
+    return HI_COMMENT;
+:64gpkc
+        return *src += strlen(*kw), hi_keyword;
+        return *src += strlen(*kw), HI_KEYWORD;
+:68gpkc
+    return hi_literal;
+    return HI_LITERAL; 
+:73gpkc
+    return hi_default;
+    return HI_DEFAULT;
+:78gpkc
+      return *src += strlen(*op), hi_operator;
+      return *src += strlen(*op), HI_OPERATOR;
+:87gpkc
+    return hi_literal;
+    return HI_LITERAL;
+:95gpkc
+          return *src += strlen(*pp), hi_keyword;
+          return *src += strlen(*pp), HI_KEYWORD;
+:pkc
+    return hi_default;
+    return HI_DEFAULT;
+:99gpkc
+  return ++*src, hi_default;
+  return ++*src, HI_DEFAULT;
+:117gpkc
+      fputs("\033[m:", stdout);
+      fputs(HI_DEFAULT ":", stdout);
+:172gpkc
+          printf("\033[;2;3m%5u ", curr + 1); // 65536 is 5 chars long
+          printf(HI_LINENO "%5u ", curr + 1); // 65536 is 5 chars long
+:wq
+& bin/st2 st2.c
+:59g7a
+
+  if (strncmp(*src, "/*", 2) == 0) {
+    while (*++*src && strncmp(*src, "*/", 2) != 0);
+    if (**src) 
+      *src += 2;
+    return HI_COMMENT;
+  }
+:85g7jp
+    if (**src == quote)
+:kc
+    if (**src)
+:pkc
+      ++*src;
+      *src += 1;
+:wq
+& make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+&

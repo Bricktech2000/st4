@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 // g - go to line number N
 // j - move down N lines
@@ -17,7 +18,94 @@
 // w - write file to disk
 // q - quit without confirmation
 
-unsigned curr = 0;
+#define HI_DEFAULT "\033[m" // (reset)
+#define HI_KEYWORD "\033[;1m" // bold
+#define HI_COMMENT "\033[;2;3m" // dim italic
+#define HI_OPERATOR "\033[;2m" // dim
+#define HI_LITERAL "\033[;3m" // italic
+#define HI_LINENO "\033[;2;3m" // dim italic
+
+int isident(int c) { return c == '_' || isalnum(c); }
+char *hi_c(char **src) {
+  static char *kws[] = {
+    "auto", "break", "case", "char", "const", "continue",
+    "default", "do", "double", "else", "enum", "extern",
+    "float", "for", "goto", "if", "inline", "int",
+    "long", "register", "restrict", "return", "short", "signed",
+    "sizeof", "static", "struct", "switch", "typedef", "union",
+    "unsigned", "void", "volatile", "while", "_Bool", "_Complex",
+    "_Imaginary", NULL,
+  };
+  static char *pps[] = {
+    "if", "elif", "else", "endif", "ifdef", "ifndef",
+    "define", "undef", "include", "line", "error", "pragma",
+    NULL,
+  };
+  static char *ops[] = {
+    "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+    "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+    "/", "%", "~", "&", "|", "^", "<<", ">>",
+    "!", "&&", "||", "==", "!=", "<", ">", "<=",
+    ">=", "[", "]", "->", ".", "(", ")", ",",
+    "?", ":", "sizeof", NULL,
+  };
+
+  if (isspace(**src))
+    return ++*src, HI_DEFAULT;
+
+  if (strncmp(*src, "//", 2) == 0) {
+    while (**src && *++*src != '\n');
+    return HI_COMMENT;
+  }
+
+  if (strncmp(*src, "/*", 2) == 0) {
+    while (*++*src && strncmp(*src, "*/", 2) != 0);
+    if (**src)
+      *src += 2;
+    return HI_COMMENT;
+  }
+
+  for (char **kw = kws; *kw; kw++)
+    if (strncmp(*src, *kw, strlen(*kw)) == 0)
+      if (!isident((*src)[strlen(*kw)]))
+        return *src += strlen(*kw), HI_KEYWORD;
+
+  if (isdigit(**src)) {
+    while (isident(*++*src));
+    return HI_LITERAL;
+  }
+
+  if (isident(**src)) {
+    while (isident(*++*src));
+    return HI_DEFAULT;
+  }
+
+  for (char **op = ops; *op; op++)
+    if (strncmp(*src, *op, strlen(*op)) == 0)
+      return *src += strlen(*op), HI_OPERATOR;
+
+  if (**src == '"' || **src == '\'') {
+    char quote = **src;
+    while (**src && **src != '\n' && *++*src != quote)
+      if (**src == '\\')
+        ++*src;
+    if (**src)
+      *src += 1;
+    return HI_LITERAL;
+  }
+
+  if (**src == '#') {
+    while (isspace(*++*src));
+    for (char **pp = pps; *pp; pp++)
+      if (strncmp(*src, *pp, strlen(*pp)) == 0)
+        if (!isident((*src)[strlen(*pp)]))
+          return *src += strlen(*pp), HI_KEYWORD;
+    return HI_DEFAULT;
+  }
+
+  return ++*src, HI_DEFAULT;
+}
+
 unsigned nlines = 0;
 char lines[65536][256] = {0};
 unsigned ncut = 0;
@@ -27,12 +115,13 @@ int main(int argc, char **argv) {
   if (argc != 2)
     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
 
+  unsigned curr = 0;
   char buf[64] = "e\n";
   char *bufp = buf;
 
-  while(!feof(stdin)) {
+  while (!feof(stdin)) {
     if (*bufp == '\n') {
-      putchar(':');
+      fputs(HI_DEFAULT ":", stdout);
       bufp = fgets(buf, sizeof(buf), stdin);
       continue;
     }
@@ -50,9 +139,16 @@ int main(int argc, char **argv) {
       continue;
     }
 
-    FILE *fp = NULL;
-
     switch (*bufp) {
+    case 'g':
+      curr = cnt - 1;
+      break;
+    case 'j':
+      curr += cnt;
+      break;
+    case 'k':
+      curr -= cnt;
+      break;
     case 'd':
       nlines -= cnt;
       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
@@ -63,6 +159,9 @@ int main(int argc, char **argv) {
     case 'i':
       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
       nlines += cnt;
+    case 'c':
+      for (unsigned last = curr + cnt; curr < last; curr++)
+        fgets(lines[curr], sizeof(*lines), stdin);
       break;
     case 'y':
       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
@@ -70,65 +169,35 @@ int main(int argc, char **argv) {
     case 'x':
       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
       nlines += cnt * ncut;
-    case 'e':
-      fp = fopen(argv[1], "r");
-      if (fp == NULL)
-        perror("fopen"), exit(EXIT_FAILURE);
+      for (unsigned last = curr + cnt * ncut; curr < last; curr += ncut)
+        memcpy(lines[curr], *cut, ncut * sizeof(*cut));
       break;
-    case 'w':
-      fp = fopen(argv[1], "w");
-      if (fp == NULL)
-        perror("fopen"), exit(EXIT_FAILURE);
-      break;
-    case 'q':
-      exit(EXIT_SUCCESS);
-    }
-
-    for (unsigned n = 0; n < cnt; n++) {
-      switch (*bufp) {
-      case 'a':
-      case 'i':
-      case 'c':
-        fgets(lines[curr + n], sizeof(*lines), stdin);
-        break;
-      case 'n':
-        if (*lines[curr + n])
-          printf("%5u ", curr + n + 1); // 65536 is 5 chars long
-      case 'p':
-        fputs(lines[curr + n], stdout);
-        break;
-      case 'x':
-        memcpy(lines[curr + n * ncut], *cut, ncut * sizeof(*cut));
-        break;
-      case 'e':
-        if (fgets(lines[n], sizeof(*lines), fp) != NULL)  
-          nlines = ++cnt;
-        break;
-      case 'w':
-        cnt = nlines;
-        fputs(lines[n], fp);
-        break;
-      }
-    }
-
-    switch (*bufp) {
-    case 'g':
-      curr = cnt - 1;
-      break;
-    case 'j':
-    case 'a':
-    case 'c':
     case 'n':
     case 'p':
-      curr += cnt;
-      break;
-    case 'k':
-      curr -= cnt;
+      for (unsigned last = curr + cnt; curr < last; curr++) {
+        if (*bufp == 'n' && *lines[curr])
+          printf(HI_LINENO "%5u ", curr + 1); // 65536 is 5 chars long
+        char *end = lines[curr];
+        for (char *start = end; *start; start = end) {
+          fputs(hi_c(&end), stdout);
+          printf("%.*s", (int)(end - start), start);
+        }
+      }
       break;
     case 'e':
-    case 'w':
+    case 'w': {
+      FILE *fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+      if (fp == NULL)
+        perror("fopen"), exit(EXIT_FAILURE);
+      if (*bufp == 'e')
+        for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+      else
+        for (unsigned n = 0; n < nlines; fputs(lines[n++], fp));
       if (fclose(fp) == EOF)
         perror("fclose"), exit(EXIT_FAILURE);
+    } break;
+    case 'q':
+      exit(EXIT_SUCCESS);
     }
 
     bufp++;
