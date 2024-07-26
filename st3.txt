@@ -1,0 +1,4880 @@
+& cp st2.c st3.c
+& bin/st2 st3.c
+:100g20n
+  100 
+  101 unsigned nlines = 0;
+  102 char lines[65536][256] = {0};
+  103 unsigned ncut = 0;
+  104 char cut[256][256] = {0};
+  105 
+  106 int main(int argc, char **argv) {
+  107   if (argc != 2)
+  108     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  109 
+  110   unsigned curr = 0;
+  111   char buf[64] = "e\n";
+  112   char *bufp = buf;
+  113 
+  114   while (!feof(stdin)) {
+  115     if (*bufp == '\n') {
+  116       fputs("\033[m:", stdout);
+  117       bufp = fgets(buf, sizeof(buf), stdin);
+  118       continue;
+  119     }
+:100g5d20n
+  100 
+  101 int main(int argc, char **argv) {
+  102   if (argc != 2)
+  103     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  104 
+  105   unsigned curr = 0;
+  106   char buf[64] = "e\n";
+  107   char *bufp = buf;
+  108 
+  109   while (!feof(stdin)) {
+  110     if (*bufp == '\n') {
+  111       fputs("\033[m:", stdout);
+  112       bufp = fgets(buf, sizeof(buf), stdin);
+  113       continue;
+  114     }
+  115 
+  116     int nread;
+  117     unsigned cnt;
+  118     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  119       nread = 0, cnt = 1;
+:105g90d
+fish: Job 1, 'bin/st2 st3.c' terminated by signal SIGSEGV (Address boundary error)
+! bin/st2 st3.c
+:100g5d105g80d20n
+  105     } break;
+  106     case 'q':
+  107       exit(EXIT_SUCCESS);
+  108     }
+  109 
+  110     bufp++;
+  111   }
+  112 }
+:105g7dw
+:90g20n
+   90     while (isspace(*++*src));
+   91     for (char **pp = pps; *pp; pp++)
+   92       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   93         if (!isident((*src)[strlen(*pp)]))
+   94           return *src += strlen(*pp), hi_keyword;
+   95     return hi_default;
+   96   }
+   97 
+   98   return ++*src, hi_default;
+   99 }
+  100 
+  101 int main(int argc, char **argv) {
+  102   if (argc != 2)
+  103     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  104 
+  105 }
+:103gpkc
+    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+    fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+:99g5a
+
+unsigned rows = 40;
+unsigned cols = 120;
+
+void render(char *buf, unsigned rows, unsigned cols) {                  
+:4i
+  unsigned row = 0, col = 0;
+
+
+
+:90g20n
+   90     while (isspace(*++*src));
+   91     for (char **pp = pps; *pp; pp++)
+   92       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   93         if (!isident((*src)[strlen(*pp)]))
+   94           return *src += strlen(*pp), hi_keyword;
+   95     return hi_default;
+   96   }
+   97 
+   98   return ++*src, hi_default;
+   99 }
+  100 
+  101 unsigned rows = 40;
+  102 unsigned cols = 120;
+  103 
+  104 void render(char *buf, unsigned rows, unsigned cols) {
+  105   unsigned row = 0, col = 0;
+  106 
+  107 
+  108 
+  109 
+:101gdc
+unsigned rows = 40, cols = 120;
+:105g5a
+  fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  char *hi = hi_default;
+  for (; *buf; buf++) {
+    char *hi = hi_c(&end);
+    if (end - start + col > cols) {
+:108gpkc
+  for (; *buf; buf++) {
+  for (char *start = buf; *start; start = buf) {
+:jpkc
+    if (end - start + col > cols) {
+    if (buf - start + col > cols) {
+:5i
+      printf("%.*s\n", (int)(cols - start), start);                              
+      printf("      %.*s", (int)(buf - cols), cols);
+
+
+
+:99g20n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105 
+  106   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  107   char *hi = hi_default;
+  108   for (char *start = buf; *start; start = buf) {
+  109     char *hi = hi_c(&end);
+  110     if (buf - start + col > cols) {
+  111       printf("%.*s\n", (int)(cols - start), start);
+  112       printf("      %.*s", (int)(buf - cols), cols);
+  113 
+  114 
+  115 
+  116 
+  117 
+  118 
+:111gppkkcc
+      printf("%.*s\n", (int)(cols - start), start);
+      printf("      %.*s", (int)(buf - cols), cols);
+      printf("%.*s\n", (int)(cols - col), start);
+      start += cols - col;                                  
+:i
+      printf("      %.*s", (int)(buf - start), start);
+:109gpkc
+    char *hi = hi_c(&end);
+    fputs(hi_c(&end), stdout);
+:113gp5c
+      printf("      %.*s", (int)(buf - start), start);
+      if (++row >= rows)
+        break;
+      printf("\n      ");  
+    }
+    
+:i
+    printf("%.*s", (int)(buf - start), start);
+:112gp
+      start += cols - col;
+:99g20n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105 
+  106   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  107   char *hi = hi_default;
+  108   for (char *start = buf; *start; start = buf) {
+  109     fputs(hi_c(&end), stdout);
+  110     if (buf - start + col > cols) {
+  111       printf("%.*s\n", (int)(cols - col), start);
+  112       start += cols - col;
+  113       printf("      %.*s", (int)(buf - start), start);
+  114       if (++row >= rows)
+  115         break;
+  116       printf("\n      ");
+  117     }
+  118 
+:113gd
+:112gpkc
+      start += cols - col;
+      start += cols - col;            
+:116gpkc
+    }
+    }
+:115gpkc
+      printf("\n      ");
+      printf("\n      "), col = 6;
+:w
+:110gpkc
+    if (buf - start + col > cols) {
+    if (buf - start + col >= cols) {
+:107gpkd
+  char *hi = hi_default;
+:105gda
+
+:99g20n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     fputs(hi_c(&end), stdout);
+  109     if (buf - start + col >= cols) {
+  110       printf("%.*s\n", (int)(cols - col), start);
+  111       start += cols - col;
+  112       if (++row >= rows)
+  113         break;
+  114       printf("\n      "), col = 6;
+  115     }
+  116 
+  117     printf("%.*s", (int)(buf - start), start);
+  118 
+:113gd
+:112gpkc
+      start += cols - col;
+      start += cols - col;            
+:116gpkc
+    }
+    }
+:115gpkc
+      printf("\n      ");
+      printf("\n      "), col = 6;
+:w
+:110gpkc
+    if (buf - start + col > cols) {
+    if (buf - start + col >= cols) {
+:107gpkd
+  char *hi = hi_default;
+:105gda
+
+:99g20n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     fputs(hi_c(&end), stdout);
+  109     if (buf - start + col >= cols) {
+  110       printf("%.*s\n", (int)(cols - col), start);
+  111       start += cols - col;
+  112       if (++row >= rows)
+  113         break;
+  114       printf("\n      "), col = 6;
+  115     }
+  116 
+  117     printf("%.*s", (int)(buf - start), start);
+  118 
+:w
+:108g2i
+    if (**buf == '\n') {
+      printf("\033[;2;3m%5u ", row + 1), col = 6, buf++;
+:kkpkcpkc
+    if (**buf == '\n') {
+    if (**buf == '\n')
+      printf("\033[;2;3m%5u ", row + 1), col = 6, buf++;
+      printf("\n\033[;2;3m%5u ", row + 1), col = 6, buf++;
+:ipkc
+    else
+    fputs(hi_c(&end), stdout);
+      fputs(hi_c(&end), stdout);
+:w
+:99g20n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (**buf == '\n')
+  109       printf("\n\033[;2;3m%5u ", row + 1), col = 6, buf++;
+  110     else
+  111       fputs(hi_c(&end), stdout);
+  112     if (buf - start + col >= cols) {
+  113       printf("%.*s\n", (int)(cols - col), start);
+  114       start += cols - col;
+  115       if (++row >= rows)
+  116         break;
+  117       printf("\n      "), col = 6;
+  118     }
+:109gpkc
+      printf("\n\033[;2;3m%5u ", row + 1), col = 6, buf++;
+      printf("\n\033[;2;3m%5u ", ++lineno), col = 6, bufp++;       
+:2ic
+      if (++row >= rows)
+        break;
+    } else
+:108gpkc
+    if (**buf == '\n')
+    if (**buf == '\n') {
+:99g20n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (**buf == '\n') {
+  109       printf("\n\033[;2;3m%5u ", ++lineno), col = 6, bufp++;
+  110       if (++row >= rows)
+  111         break;
+  112     } else
+  113       fputs(hi_c(&end), stdout);
+  114     if (buf - start + col >= cols) {
+  115       printf("%.*s\n", (int)(cols - col), start);
+  116       start += cols - col;
+  117       if (++row >= rows)
+  118         break;
+:w
+:113ga
+
+:103gpkc
+void render(char *buf, unsigned rows, unsigned cols) {
+void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+:w
+:99g40n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (**buf == '\n') {
+  109       printf("\n\033[;2;3m%5u ", ++lineno), col = 6, bufp++;
+  110       if (++row >= rows)
+  111         break;
+  112     } else
+  113       fputs(hi_c(&end), stdout);
+  114 
+  115     if (buf - start + col >= cols) {
+  116       printf("%.*s\n", (int)(cols - col), start);
+  117       start += cols - col;
+  118       if (++row >= rows)
+  119         break;
+  120       printf("\n      "), col = 6;
+  121     }
+  122 
+  123     printf("%.*s", (int)(buf - start), start);
+  124 
+  125 int main(int argc, char **argv) {
+  126   if (argc != 2)
+  127     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  128 
+  129 }
+:123g2a
+  }
+}
+:99g40n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (**buf == '\n') {
+  109       printf("\n\033[;2;3m%5u ", ++lineno), col = 6, bufp++;
+  110       if (++row >= rows)
+  111         break;
+  112     } else
+  113       fputs(hi_c(&end), stdout);
+  114 
+  115     if (buf - start + col >= cols) {
+  116       printf("%.*s\n", (int)(cols - col), start);
+  117       start += cols - col;
+  118       if (++row >= rows)
+  119         break;
+  120       printf("\n      "), col = 6;
+  121     }
+  122 
+  123     printf("%.*s", (int)(buf - start), start);
+  124 
+  125 int main(int argc, char **argv) {
+  126   if (argc != 2)
+  127     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  128 
+  129 }
+:123g2a
+  }
+}
+:109gpkc
+      printf("\n\033[;2;3m%5u ", ++lineno), col = 6, bufp++;
+      printf("\n\033[;2;3m%5u ", ++lineno), col = 6, buf++;
+:111gaacc
+      continue;
+    }
+
+    fputs(hi_c(&end), stdout);
+:99g40nw
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (**buf == '\n') {
+  109       printf("\n\033[;2;3m%5u ", ++lineno), col = 6, buf++;
+  110       if (++row >= rows)
+  111         break;
+  112       continue;
+  113     } else
+  114     }
+  115 
+  116     fputs(hi_c(&end), stdout);
+  117     if (buf - start + col >= cols) {
+  118       printf("%.*s\n", (int)(cols - col), start);
+  119       start += cols - col;
+  120       if (++row >= rows)
+  121         break;
+  122       printf("\n      "), col = 6;
+  123     }
+  124 
+  125     printf("%.*s", (int)(buf - start), start);
+  126   }
+  127 }
+  128 
+  129 int main(int argc, char **argv) {
+  130   if (argc != 2)
+  131     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  132 
+  133 }
+:113gdjda
+
+:99g40nw
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (**buf == '\n') {
+  109       printf("\n\033[;2;3m%5u ", ++lineno), col = 6, buf++;
+  110       if (++row >= rows)
+  111         break;
+  112       continue;
+  113     }
+  114     fputs(hi_c(&end), stdout);
+  115 
+  116     if (buf - start + col >= cols) {
+  117       printf("%.*s\n", (int)(cols - col), start);
+  118       start += cols - col;
+  119       if (++row >= rows)
+  120         break;
+  121       printf("\n      "), col = 6;
+  122     }
+  123 
+  124     printf("%.*s", (int)(buf - start), start);
+  125   }
+  126 }
+  127 
+  128 int main(int argc, char **argv) {
+  129   if (argc != 2)
+  130     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  131 
+  132 }
+:113ga
+
+:w
+:131g8a
+
+  FILE *fp;
+  if (fp == NULL)              
+    perror("fopen"), exit(EXIT_FAILURE);
+  fseek(fp, 0, SEEK_END);
+  long size = ftell(fp);
+  rewind(fp);
+
+:5i
+  char *buf = malloc(size + 1);
+  fread(buf, size, sizeof(*buf), fp);
+  buf[size] = '\0';
+  fclose(fp);
+
+:3i
+  render(buf, 0, rows, cols);
+  free(buf);
+
+:125g20n
+  125     printf("%.*s", (int)(buf - start), start);
+  126   }
+  127 }
+  128 
+  129 int main(int argc, char **argv) {
+  130   if (argc != 2)
+  131     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  132 
+  133   FILE *fp;
+  134   if (fp == NULL)
+  135     perror("fopen"), exit(EXIT_FAILURE);
+  136   fseek(fp, 0, SEEK_END);
+  137   long size = ftell(fp);
+  138   rewind(fp);
+  139 
+  140   char *buf = malloc(size + 1);
+  141   fread(buf, size, sizeof(*buf), fp);
+  142   buf[size] = '\0';
+  143   fclose(fp);
+  144 
+:n
+  145   render(buf, 0, rows, cols);
+:nnnnn
+  146   free(buf);
+  147 
+  148 
+  149 }
+:147g2dw
+:133gpkc
+  FILE *fp;
+  FILE *fp = fopen(argv[1], "r");
+:wq
+& bin/st2 Makefile 
+:5n
+    1 st2:
+    2 	mkdir -p bin
+    3 	gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+    4 
+    5 st1:
+:g4i
+st3:
+	mkdir -p bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘render’:
+st3.c:108:9: error: invalid type argument of unary ‘*’ (have ‘int’)
+  108 |     if (**buf == '\n') {
+      |         ^~~~~
+st3.c:115:17: error: ‘end’ undeclared (first use in this function)
+  115 |     fputs(hi_c(&end), stdout);
+      |                 ^~~
+st3.c:115:17: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:108gpkc
+    if (**buf == '\n') {
+    if (*buf == '\n') {
+:115gpkc
+    fputs(hi_c(&end), stdout);
+    fputs(hi_c(&buf), stdout);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:109gydjjx99g20n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (*buf == '\n') {
+  109       if (++row >= rows)
+  110         break;
+  111       printf("\n\033[;2;3m%5u ", ++lineno), col = 6, buf++;
+  112       continue;
+  113     }
+  114 
+  115     fputs(hi_c(&buf), stdout);
+  116 
+  117     if (buf - start + col >= cols) {
+  118       printf("%.*s\n", (int)(cols - col), start);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:125gpi 
+    printf("%.*s", (int)(buf - start), start);
+    col += buf - start;
+:111gpkci
+      printf("\n\033[;2;3m%5u ", ++lineno), col = 6, buf++;
+      printf("\n\033[;2;3m%5u ", ++lineno);
+      col = 6, buf++;
+:123gpkci
+      printf("\n      "), col = 6;
+      printf("\n      "); 
+      col = 6;
+:119gpkc
+      printf("%.*s\n", (int)(cols - col), start);
+      printf("%.*s", (int)(cols - col), start);
+:118gpkc
+    if (buf - start + col >= cols) {
+    while (buf - start + col >= cols) {
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:99g40n
+   99 }
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     if (*buf == '\n') {
+  109       if (++row >= rows)
+  110         break;
+  111       printf("\n\033[;2;3m%5u ", ++lineno);
+  112       col = 6, buf++;
+  113       continue;
+  114     }
+  115 
+  116     fputs(hi_c(&buf), stdout);
+  117 
+  118     while (buf - start + col >= cols) {
+  119       printf("%.*s", (int)(cols - col), start);
+  120       start += cols - col;
+  121       if (++row >= rows)
+  122         break;
+  123       printf("\n      ");
+  124       col = 6;
+  125     }
+  126 
+  127     printf("%.*s", (int)(buf - start), start);
+  128     col += buf - start;
+  129   }
+  130 }
+  131 
+  132 int main(int argc, char **argv) {
+  133   if (argc != 2)
+  134     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  135 
+  136   FILE *fp = fopen(argv[1], "r");
+  137   if (fp == NULL)
+  138     perror("fopen"), exit(EXIT_FAILURE);
+:122gpkc
+        break;
+        return;
+:113gpkd
+      continue;
+:110gpkc
+        break;
+        return;
+:108gpkc
+    if (*buf == '\n') {
+    while (*buf == '\n') {
+:112gpkc
+      col = 6, buf++;
+      col = 6, buf++, start++;
+:105g2a
+  printf("\033[;2;3m%5u ", ++lineno);
+  col = 6;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:131gpk
+}
+:3i
+                      
+  while (++row < rows)
+    printf("\n\033[;2;3m~     ");
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:100g40n
+  100 
+  101 unsigned rows = 40, cols = 120;
+  102 
+  103 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  104   unsigned row = 0, col = 0;
+  105   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  106   printf("\033[;2;3m%5u ", ++lineno);
+  107   col = 6;
+  108 
+  109   for (char *start = buf; *start; start = buf) {
+  110     while (*buf == '\n') {
+  111       if (++row >= rows)
+  112         return;
+  113       printf("\n\033[;2;3m%5u ", ++lineno);
+  114       col = 6, buf++, start++;
+  115     }
+  116 
+  117     fputs(hi_c(&buf), stdout);
+  118 
+  119     while (buf - start + col >= cols) {
+  120       printf("%.*s", (int)(cols - col), start);
+  121       start += cols - col;
+  122       if (++row >= rows)
+  123         return;
+  124       printf("\n      ");
+  125       col = 6;
+  126     }
+  127 
+  128     printf("%.*s", (int)(buf - start), start);
+  129     col += buf - start;
+  130   }
+  131 
+  132   while (++row < rows)
+  133     printf("\n\033[;2;3m~     ");
+  134 }
+  135 
+  136 int main(int argc, char **argv) {
+  137   if (argc != 2)
+  138     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  139 
+:133gpkc
+    printf("\n\033[;2;3m~     ");
+    printf("\n\033[;2;3m~     "), col = 6;
+:128gpkcc
+    printf("%.*s", (int)(buf - start), start);
+    printf("%.*s", (int)(buf - start), start), col += buf - start;
+
+:kd
+:124gpkdc
+      printf("\n      ");
+      printf("\n      "), col = 6;   
+:113gpkcpkc
+      printf("\n\033[;2;3m%5u ", ++lineno);
+      printf("\n\033[;2;3m%5u ", ++lineno), col = 6;
+      col = 6, buf++, start++;
+      buf++, start++;
+:106gpkdc
+  printf("\033[;2;3m%5u ", ++lineno);
+  printf("\033[;2;3m%5u ", ++linono), col = 6;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘render’:
+st3.c:106:31: error: ‘linono’ undeclared (first use in this function); did you mean ‘lineno’?
+  106 |   printf("\033[;2;3m%5u ", ++linono), col = 6;
+      |                               ^~~~~~
+      |                               lineno
+st3.c:106:31: note: each undeclared identifier is reported only once for each function it appears in
+st3.c:106:38: error: left-hand operand of comma expression has no effect [-Werror=unused-value]
+  106 |   printf("\033[;2;3m%5u ", ++linono), col = 6;
+      |                                      ^
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:106gpkc
+  printf("\033[;2;3m%5u ", ++linono), col = 6;
+  printf("\033[;2;3m%5u ", ++lineno), col = 6;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:138g20n
+  138   if (fp == NULL)
+  139     perror("fopen"), exit(EXIT_FAILURE);
+  140   fseek(fp, 0, SEEK_END);
+  141   long size = ftell(fp);
+  142   rewind(fp);
+  143 
+  144   char *buf = malloc(size + 1);
+  145   fread(buf, size, sizeof(*buf), fp);
+  146   buf[size] = '\0';
+  147   fclose(fp);
+  148 
+  149   render(buf, 0, rows, cols);
+  150   free(buf);
+  151 }
+:130g8n
+  130     printf("\n\033[;2;3m~     "), col = 6;
+  131 }
+  132 
+  133 int main(int argc, char **argv) {
+  134   if (argc != 2)
+  135     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  136 
+  137   FILE *fp = fopen(argv[1], "r");
+:135g8a
+
+  unsigned rows = 0, cols = 0;
+  unsigned row = 0, col = 0;
+  do {         
+    fputs("\033[99B\033[99C", stdout); // move down then right
+    fputs("\033[6n", stdout); // request cursor position
+    if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+      fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+:i
+  } while (row != rows || col != cols);
+:139gpi
+  do {
+    rows = row, cols = col;
+:101gpkdd
+unsigned rows = 40, cols = 120;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:135gpki
+  unsigned rows = 0, cols = 0;
+  // XXX stty -icanon -echo -nl
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:124gpkc
+    printf("%.*s", (int)(buf - start), start), col += buf - start;
+    col += printf("%.*s", (int)(buf - start), start);
+:128gpkc
+    printf("\n\033[;2;3m~     "), col = 6;
+    printf("\n\033[;2;3m"), col = printf("~     ");
+:121gpkc
+      printf("\n      "), col = 6;
+      printf("\n"), col = printf("      ");
+:117gpdkc
+      printf("%.*s", (int)(cols - col), start);
+      start += printf("%.*s", (int)(cols - col), start);
+:110gpkc
+      printf("\n\033[;2;3m%5u ", ++lineno), col = 6;
+      printf("\n\033[;2;3m"), col = printf("%5u ", ++lineno);
+:104gpkc
+  printf("\033[;2;3m%5u ", ++lineno), col = 6;
+  printf("\033[;2;3m"), col = printf("%5u ", ++lineno);
+:w
+:104gpkc
+  printf("\033[;2;3m"), col = printf("%5u ", ++lineno);
+  fputs("\033[;2;3m", stdout), col = printf("%5u ", ++lineno);
+:110gpkc
+      printf("\n\033[;2;3m"), col = printf("%5u ", ++lineno);
+      fputs("\n\033[;2;3m", stdout), col = printf("%5u ", ++lineno);
+:120gpkc
+      printf("\n"), col = printf("      ");
+      fputs("\n", stdout), col = printf("      ");
+:127gpkc
+    printf("\n\033[;2;3m"), col = printf("~     ");
+    fputs("\n\033[;2;3m", stdout), col = printf("~     ");
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:999n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 #include <ctype.h>
+    5 
+    6 // g - go to line number N
+    7 // j - move down N lines
+    8 // k - move up N lines
+    9 // a - append N new lines below
+   10 // i - insert N new lines above
+   11 // c - rewrite next N lines
+   12 // d - delete next N lines
+   13 // y - yank (copy) next N lines
+   14 // x - paste last yank N times
+   15 // n - print next N lines numbered
+   16 // p - print next N lines
+   17 // e - read file from disk
+   18 // w - write file to disk
+   19 // q - quit without confirmation
+   20 
+   21 #define HI_DEFAULT "\033[m"
+   22 #define HI_KEYWORD "\033[;1m"
+   23 #define HI_COMMENT "\033[;2;3m"
+   24 #define HI_OPERATOR "\033[;2m"
+   25 #define HI_LITERAL "\033[;3m"
+   26 #define HI_LINENO "\033[;2;3m"
+   27 
+   28 int isident(int c) { return c == '_' || isalnum(c); }
+   29 char *hi_c(char **src) {
+   30   static char *kws[] = {
+   31     "auto", "break", "case", "char", "const", "continue",
+   32     "default", "do", "double", "else", "enum", "extern",
+   33     "float", "for", "goto", "if", "inline", "int",
+   34     "long", "register", "restrict", "return", "short", "signed",
+   35     "sizeof", "static", "struct", "switch", "typedef", "union",
+   36     "unsigned", "void", "volatile", "while", "_Bool", "_Complex",
+   37     "_Imaginary", NULL,
+   38   };
+   39   static char *pps[] = {
+   40     "if", "elif", "else", "endif", "ifdef", "ifndef",
+   41     "define", "undef", "include", "line", "error", "pragma",
+   42     NULL,
+   43   };
+   44   static char *ops[] = {
+   45     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   46     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   47     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   48     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   49     ">=", "[", "]", "->", ".", "(", ")", ",",
+   50     "?", ":", "sizeof", NULL,
+   51   };
+   52 
+   53   if (isspace(**src))
+   54     return ++*src, hi_default;
+   55 
+   56   if (strncmp(*src, "//", 2) == 0) {
+   57     while (**src && *++*src != '\n');
+   58     return hi_comment;
+   59   }
+   60 
+   61   for (char **kw = kws; *kw; kw++)
+   62     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   63       if (!isident((*src)[strlen(*kw)]))
+   64         return *src += strlen(*kw), hi_keyword;
+   65 
+   66   if (isdigit(**src)) {
+   67     while (isident(*++*src));
+   68     return hi_literal;
+   69   }
+   70 
+   71   if (isident(**src)) {
+   72     while (isident(*++*src));
+   73     return hi_default;
+   74   }
+   75 
+   76   for (char **op = ops; *op; op++)
+   77     if (strncmp(*src, *op, strlen(*op)) == 0)
+   78       return *src += strlen(*op), hi_operator;
+   79 
+   80   if (**src == '"' || **src == '\'') {
+   81     char quote = **src;
+   82     while (**src && **src != '\n' && *++*src != quote)
+   83       if (**src == '\\')
+   84         ++*src;
+   85     if (**src == quote)
+   86       ++*src;
+   87     return hi_literal;
+   88   }
+   89 
+   90   if (**src == '#') {
+   91     while (isspace(*++*src));
+   92     for (char **pp = pps; *pp; pp++)
+   93       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   94         if (!isident((*src)[strlen(*pp)]))
+   95           return *src += strlen(*pp), hi_keyword;
+   96     return hi_default;
+   97   }
+   98 
+   99   return ++*src, hi_default;
+  100 }
+  101 
+  102 void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+  103   unsigned row = 0, col = 0;
+  104   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  105   fputs("\033[;2;3m", stdout), col = printf("%5u ", ++lineno);
+  106 
+  107   for (char *start = buf; *start; start = buf) {
+  108     while (*buf == '\n') {
+  109       if (++row >= rows)
+  110         return;
+  111       fputs("\n\033[;2;3m", stdout), col = printf("%5u ", ++lineno);
+  112       buf++, start++;
+  113     }
+  114 
+  115     fputs(hi_c(&buf), stdout);
+  116 
+  117     while (buf - start + col >= cols) {
+  118       start += printf("%.*s", (int)(cols - col), start);
+  119       if (++row >= rows)
+  120         return;
+  121       fputs("\n", stdout), col = printf("      ");
+  122     }
+  123 
+  124     col += printf("%.*s", (int)(buf - start), start);
+  125   }
+  126 
+  127   while (++row < rows)
+  128     fputs("\n\033[;2;3m", stdout), col = printf("~     ");
+  129 }
+  130 
+  131 int main(int argc, char **argv) {
+  132   if (argc != 2)
+  133     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  134 
+  135   // XXX stty -icanon -echo -nl
+  136   unsigned rows = 0, cols = 0;
+  137   unsigned row = 0, col = 0;
+  138   do {
+  139     rows = row, cols = col;
+  140     fputs("\033[99B\033[99C", stdout); // move down then right
+  141     fputs("\033[6n", stdout); // request cursor position
+  142     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  143       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  144   } while (row != rows || col != cols);
+  145 
+  146   FILE *fp = fopen(argv[1], "r");
+  147   if (fp == NULL)
+  148     perror("fopen"), exit(EXIT_FAILURE);
+  149   fseek(fp, 0, SEEK_END);
+  150   long size = ftell(fp);
+  151   rewind(fp);
+  152 
+  153   char *buf = malloc(size + 1);
+  154   fread(buf, size, sizeof(*buf), fp);
+  155   buf[size] = '\0';
+  156   fclose(fp);
+  157 
+  158   render(buf, 0, rows, cols);
+  159   free(buf);
+  160 }
+:21gpkcpkcpkcpkcpkcpkci
+char *hi_default = "\033[m";
+#define HI_DEFAULT "\033[m" // (reset)
+char *hi_keyword = "\033[;1m";
+#define HI_KEYWORD "\033[;1m" // bold
+char *hi_comment = "\033[;2;3m";
+#define HI_COMMENT "\033[;2;3m" // dim italic
+char *hi_operator = "\033[;2m";
+#define HI_OPERATOR "\033[;2m" // dim
+char *hi_literal = "\033[;3m";
+#define HI_LITERAL "\033[;3m" // italic
+
+#define HI_LINENO "\033[;2;3m" // dim italic
+
+:w
+:54gpkc
+    return ++*src, hi_default;
+    return ++*src, HI_DEFAULT;
+:58gpkc
+    return hi_comment;
+    return HI_COMMENT;
+:64gpkc
+        return *src += strlen(*kw), hi_keyword;
+        return *src += strlen(*kw), HI_KEYWORD;
+:68gpkc
+    return hi_literal;
+    return HI_LITERAL;
+:73gpkc
+    return hi_default;
+    return HI_DEFAULT;
+:78gpkc
+      return *src += strlen(*op), hi_operator;
+      return *src += strlen(*op), HI_OPERATOR;
+:87gpkc
+    return hi_literal;
+    return HI_LITERAL;
+:95gpkc
+          return *src += strlen(*pp), hi_keyword;
+          return *src += strlen(*pp), HI_KEYWORD;
+:pkc
+    return hi_default;
+    return HI_DEFAULT;
+:99gpkc
+  return ++*src, hi_default;
+  return ++*src, HI_DEFAULT;
+:105gpkc
+  fputs("\033[;2;3m", stdout), col = printf("%5u ", ++lineno);
+  fputs(HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+:111gpkc
+      fputs("\n\033[;2;3m", stdout), col = printf("%5u ", ++lineno);
+      fputs("\n" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+:128gpkc
+    fputs("\n\033[;2;3m", stdout), col = printf("~     ");
+    fputs("\n" HI_LINENO, stdout), col = printf("~     "); 
+:w
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:20n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 #include <ctype.h>
+    5 
+    6 // g - go to line number N
+    7 // j - move down N lines
+    8 // k - move up N lines
+    9 // a - append N new lines below
+   10 // i - insert N new lines above
+   11 // c - rewrite next N lines
+   12 // d - delete next N lines
+   13 // y - yank (copy) next N lines
+   14 // x - paste last yank N times
+   15 // n - print next N lines numbered
+   16 // p - print next N lines
+   17 // e - read file from disk
+   18 // w - write file to disk
+   19 // q - quit without confirmation
+   20 
+:6g15dwq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:88gpi
+  unsigned row = 0, col = 0;
+  unsigned crow = 0, ccol = 0;
+:97gpi
+      fputs("\n" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+      if (buf == cursor)
+:i
+        crow = row, ccol = col;
+:111gpki
+
+
+:111gjd
+:w
+:112gpk2i
+    col += printf("%.*s", (int)(buf - start), start);
+    if (start <= cursor && cursor <= buf)
+      ccol = cursor - start + col, crow = row;
+:kpkc
+      ccol = cursor - start + col, crow = row;
+      crow = row, ccol = cursor - start + col;
+:105gpi
+    while (buf - start + col >= cols) {
+      if (start <= cursor && cursor <= cols - col + start)
+:i
+        crow = row, ccol = cursor - start + col;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘render’:
+st3.c:98:18: error: ‘cursor’ undeclared (first use in this function)
+   98 |       if (buf == cursor)
+      |                  ^~~~~~
+st3.c:98:18: note: each undeclared identifier is reported only once for each function it appears in
+st3.c:89:22: error: variable ‘ccol’ set but not used [-Werror=unused-but-set-variable]
+   89 |   unsigned crow = 0, ccol = 0;
+      |                      ^~~~
+st3.c:89:12: error: variable ‘crow’ set but not used [-Werror=unused-but-set-variable]
+   89 |   unsigned crow = 0, ccol = 0;
+      |            ^~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:87gpkc
+void render(char *buf, unsigned lineno, unsigned rows, unsigned cols) {
+void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+:140g20n
+  140     perror("fopen"), exit(EXIT_FAILURE);
+  141   fseek(fp, 0, SEEK_END);
+  142   long size = ftell(fp);
+  143   rewind(fp);
+  144 
+  145   char *buf = malloc(size + 1);
+  146   fread(buf, size, sizeof(*buf), fp);
+  147   buf[size] = '\0';
+  148   fclose(fp);
+  149 
+  150   render(buf, 0, rows, cols);
+  151   free(buf);
+  152 }
+:150gci 
+  render(buf, 0, &buf[0], rows, cols);
+  getchar();
+:110g20n
+  110         return;
+  111       fputs("\n", stdout), col = printf("      ");
+  112     }
+  113 
+  114     if (start <= cursor && cursor <= buf)
+  115       crow = row, ccol = cursor - start + col;
+  116     col += printf("%.*s", (int)(buf - start), start);
+  117   }
+  118 
+  119   while (++row < rows)
+  120     fputs("\n" HI_LINENO, stdout), col = printf("~     ");
+  121 }
+  122 
+  123 int main(int argc, char **argv) {
+  124   if (argc != 2)
+  125     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  126 
+  127   // XXX stty -icanon -echo -nl
+  128   unsigned rows = 0, cols = 0;
+  129   unsigned row = 0, col = 0;
+:120g2a
+
+  printf("\033[%u;%uH", crow, ccol); // move cursor
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:90g50n
+   90   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+   91   fputs(HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   for (char *start = buf; *start; start = buf) {
+   94     while (*buf == '\n') {
+   95       if (++row >= rows)
+   96         return;
+   97       fputs("\n" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   98       if (buf == cursor)
+   99         crow = row, ccol = col;
+  100       buf++, start++;
+  101     }
+  102 
+  103     fputs(hi_c(&buf), stdout);
+  104 
+  105     while (buf - start + col >= cols) {
+  106       if (start <= cursor && cursor <= cols - col + start)
+  107         crow = row, ccol = cursor - start + col;
+  108       start += printf("%.*s", (int)(cols - col), start);
+  109       if (++row >= rows)
+  110         return;
+  111       fputs("\n", stdout), col = printf("      ");
+  112     }
+  113 
+  114     if (start <= cursor && cursor <= buf)
+  115       crow = row, ccol = cursor - start + col;
+  116     col += printf("%.*s", (int)(buf - start), start);
+  117   }
+  118 
+  119   while (++row < rows)
+  120     fputs("\n" HI_LINENO, stdout), col = printf("~     ");
+  121 
+  122   printf("\033[%u;%uH", crow, ccol); // move cursor
+  123 }
+  124 
+  125 int main(int argc, char **argv) {
+  126   if (argc != 2)
+  127     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  128 
+  129   // XXX stty -icanon -echo -nl
+  130   unsigned rows = 0, cols = 0;
+  131   unsigned row = 0, col = 0;
+  132   do {
+  133     rows = row, cols = col;
+  134     fputs("\033[99B\033[99C", stdout); // move down then right
+  135     fputs("\033[6n", stdout); // request cursor position
+  136     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  137       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  138   } while (row != rows || col != cols);
+  139 
+:96gpkc
+        return;
+        goto brk;  
+:110gpkc
+        return;
+        goto brk;
+:117gpi
+  }
+brk:
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:123gpkc
+  printf("\033[%u;%uH", crow, ccol); // move cursor
+  printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:90g20n
+   90   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+   91   fputs(HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   for (char *start = buf; *start; start = buf) {
+   94     while (*buf == '\n') {
+   95       if (++row >= rows)
+   96         goto brk;
+   97       fputs("\n" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   98       if (buf == cursor)
+   99         crow = row, ccol = col;
+  100       buf++, start++;
+  101     }
+  102 
+  103     fputs(hi_c(&buf), stdout);
+  104 
+  105     while (buf - start + col >= cols) {
+  106       if (start <= cursor && cursor <= cols - col + start)
+  107         crow = row, ccol = cursor - start + col;
+  108       start += printf("%.*s", (int)(cols - col), start);
+  109       if (++row >= rows)
+:98g2y2d95gxwq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:140g20n
+  140 
+  141   FILE *fp = fopen(argv[1], "r");
+  142   if (fp == NULL)
+  143     perror("fopen"), exit(EXIT_FAILURE);
+  144   fseek(fp, 0, SEEK_END);
+  145   long size = ftell(fp);
+  146   rewind(fp);
+  147 
+  148   char *buf = malloc(size + 1);
+  149   fread(buf, size, sizeof(*buf), fp);
+  150   buf[size] = '\0';
+  151   fclose(fp);
+  152 
+  153   render(buf, 0, &buf[0], rows, cols);
+  154   getchar();
+  155   free(buf);
+  156 }
+:153gccii
+  for (char *cursor = buf; *cursor; cursor++)
+    render(buf, 0, cursor, rows, cols), getchar();
+
+
+:kkddwq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:90g40n
+   90   fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+   91   fputs(HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   for (char *start = buf; *start; start = buf) {
+   94     while (*buf == '\n') {
+   95       if (buf == cursor)
+   96         crow = row, ccol = col;
+   97       if (++row >= rows)
+   98         goto brk;
+   99       fputs("\n" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  100       buf++, start++;
+  101     }
+  102 
+  103     fputs(hi_c(&buf), stdout);
+  104 
+  105     while (buf - start + col >= cols) {
+  106       if (start <= cursor && cursor <= cols - col + start)
+  107         crow = row, ccol = cursor - start + col;
+  108       start += printf("%.*s", (int)(cols - col), start);
+  109       if (++row >= rows)
+  110         goto brk;
+  111       fputs("\n", stdout), col = printf("      ");
+  112     }
+  113 
+  114     if (start <= cursor && cursor <= buf)
+  115       crow = row, ccol = cursor - start + col;
+  116     col += printf("%.*s", (int)(buf - start), start);
+  117   }
+  118 brk:
+  119 
+  120   while (++row < rows)
+  121     fputs("\n" HI_LINENO, stdout), col = printf("~     ");
+  122 
+  123   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  124 }
+  125 
+  126 int main(int argc, char **argv) {
+  127   if (argc != 2)
+  128     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  129 
+:90gpkc
+  fputs("\033[2J\033[H", stdout); // erase screen and home cursor
+  fputs("\033[H"); // home cursor
+:c
+  fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+:99gpkc
+      fputs("\n" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+      fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+:111gpkc
+      fputs("\n", stdout), col = printf("      ");
+      fputs("\n\033[K", stdout), col = printf("      ");
+:121gpkc
+    fputs("\n" HI_LINENO, stdout), col = printf("~     ");
+    fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘render’:
+st3.c:90:3: error: too few arguments to function ‘fputs’
+   90 |   fputs("\033[H"); // home cursor
+      |   ^~~~~
+In file included from st3.c:1:
+/nix/store/lw5b7x8wndk7sdis78r2f8fy12ldmpwc-glibc-2.37-45-dev/include/stdio.h:655:12: note: declared here
+  655 | extern int fputs (const char *__restrict __s, FILE *__restrict __stream);
+      |            ^~~~~
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:90gpkc
+  fputs("\033[H"); // home cursor
+  fputs("\033[H", stdout); // home cursor 
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:90g20n
+   90   fputs("\033[H", stdout); // home cursor
+   91   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   for (char *start = buf; *start; start = buf) {
+   94     while (*buf == '\n') {
+   95       if (buf == cursor)
+   96         crow = row, ccol = col;
+   97       if (++row >= rows)
+   98         goto brk;
+   99       fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  100       buf++, start++;
+  101     }
+  102 
+  103     fputs(hi_c(&buf), stdout);
+  104 
+  105     while (buf - start + col >= cols) {
+  106       if (start <= cursor && cursor <= cols - col + start)
+  107         crow = row, ccol = cursor - start + col;
+  108       start += printf("%.*s", (int)(cols - col), start);
+  109       if (++row >= rows)
+:94gpk3i
+    while (*buf == '\n') {
+    if (buf == cursor)
+      crow = row, ccol = col;
+
+:jdd
+:kpkc
+    while (*buf == '\n') {
+    if (*buf == '\n') {
+:101gpi
+      buf++, start++;
+      continue;
+:wq    
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:120g40n
+  120 brk:
+  121 
+  122   while (++row < rows)
+  123     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  124 
+  125   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  126 }
+  127 
+  128 int main(int argc, char **argv) {
+  129   if (argc != 2)
+  130     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  131 
+  132   // XXX stty -icanon -echo -nl
+  133   unsigned rows = 0, cols = 0;
+  134   unsigned row = 0, col = 0;
+  135   do {
+  136     rows = row, cols = col;
+  137     fputs("\033[99B\033[99C", stdout); // move down then right
+  138     fputs("\033[6n", stdout); // request cursor position
+  139     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  140       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  141   } while (row != rows || col != cols);
+  142 
+  143   FILE *fp = fopen(argv[1], "r");
+  144   if (fp == NULL)
+  145     perror("fopen"), exit(EXIT_FAILURE);
+  146   fseek(fp, 0, SEEK_END);
+  147   long size = ftell(fp);
+  148   rewind(fp);
+  149 
+  150   char *buf = malloc(size + 1);
+  151   fread(buf, size, sizeof(*buf), fp);
+  152   buf[size] = '\0';
+  153   fclose(fp);
+  154 
+  155   for (char *cursor = buf; *cursor; cursor++)
+  156     render(buf, 0, cursor, rows, cols), getchar();
+  157   free(buf);
+  158 }
+:132g11y11d143gx120g40n
+  120 brk:
+  121 
+  122   while (++row < rows)
+  123     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  124 
+  125   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  126 }
+  127 
+  128 int main(int argc, char **argv) {
+  129   if (argc != 2)
+  130     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  131 
+  132   FILE *fp = fopen(argv[1], "r");
+  133   if (fp == NULL)
+  134     perror("fopen"), exit(EXIT_FAILURE);
+  135   fseek(fp, 0, SEEK_END);
+  136   long size = ftell(fp);
+  137   rewind(fp);
+  138 
+  139   char *buf = malloc(size + 1);
+  140   fread(buf, size, sizeof(*buf), fp);
+  141   buf[size] = '\0';
+  142   fclose(fp);
+  143   // XXX stty -icanon -echo -nl
+  144   unsigned rows = 0, cols = 0;
+  145   unsigned row = 0, col = 0;
+  146   do {
+  147     rows = row, cols = col;
+  148     fputs("\033[99B\033[99C", stdout); // move down then right
+  149     fputs("\033[6n", stdout); // request cursor position
+  150     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  151       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  152   } while (row != rows || col != cols);
+  153 
+  154 
+  155   for (char *cursor = buf; *cursor; cursor++)
+  156     render(buf, 0, cursor, rows, cols), getchar();
+  157   free(buf);
+  158 }
+:142ga
+
+:154gdwq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:90g40n
+   90   fputs("\033[H", stdout); // home cursor
+   91   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   for (char *start = buf; *start; start = buf) {
+   94     if (buf == cursor)
+   95       crow = row, ccol = col;
+   96 
+   97     if (*buf == '\n') {
+   98       if (++row >= rows)
+   99         goto brk;
+  100       fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  101       buf++, start++;
+  102       continue;
+  103     }
+  104 
+  105     fputs(hi_c(&buf), stdout);
+  106 
+  107     while (buf - start + col >= cols) {
+  108       if (start <= cursor && cursor <= cols - col + start)
+  109         crow = row, ccol = cursor - start + col;
+  110       start += printf("%.*s", (int)(cols - col), start);
+  111       if (++row >= rows)
+  112         goto brk;
+  113       fputs("\n\033[K", stdout), col = printf("      ");
+  114     }
+  115 
+  116     if (start <= cursor && cursor <= buf)
+  117       crow = row, ccol = cursor - start + col;
+  118     col += printf("%.*s", (int)(buf - start), start);
+  119   }
+  120 brk:
+  121 
+  122   while (++row < rows)
+  123     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  124 
+  125   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  126 }
+  127 
+  128 int main(int argc, char **argv) {
+  129   if (argc != 2)
+:93gp8i
+  for (char *start = buf; *start; start = buf) {
+    fputs(hi_c(&buf), stdout);
+
+    for (; start < buf; start++) {
+      if (start == cursor) 
+        crow = row, ccol = col;
+
+      if (*buf == '\n') {
+        if (++row >= rows)
+:8i
+          goto brk;
+        fputs("\n\033K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+        continue;
+      }
+
+      if (++col >= cols) {
+        if (++row >= rows)
+          goto brk;
+:8i
+        fputs("\n\033[K", stdout), col = printf("      ");
+      }       
+
+      putchar(**start), col++;
+    }
+  }
+brk:
+
+:kd90g40n
+   90   fputs("\033[H", stdout); // home cursor
+   91   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   for (char *start = buf; *start; start = buf) {
+   94     fputs(hi_c(&buf), stdout);
+   95 
+   96     for (; start < buf; start++) {
+   97       if (start == cursor)
+   98         crow = row, ccol = col;
+   99 
+  100       if (*buf == '\n') {
+  101         if (++row >= rows)
+  102           goto brk;
+  103         fputs("\n\033K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  104         continue;
+  105       }
+  106 
+  107       if (++col >= cols) {
+  108         if (++row >= rows)
+  109           goto brk;
+  110         fputs("\n\033[K", stdout), col = printf("      ");
+  111       }
+  112 
+  113       putchar(**start), col++;
+  114     }
+  115   }
+  116 brk:
+  117     if (buf == cursor)
+  118       crow = row, ccol = col;
+  119 
+  120     if (*buf == '\n') {
+  121       if (++row >= rows)
+  122         goto brk;
+  123       fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  124       buf++, start++;
+  125       continue;
+  126     }
+  127 
+  128     fputs(hi_c(&buf), stdout);
+  129 
+:107gpkc
+      if (++col >= cols) {
+      if (col >= cols) {
+:117g20d117g20n
+  117     }
+  118 
+  119     if (start <= cursor && cursor <= buf)
+  120       crow = row, ccol = cursor - start + col;
+  121     col += printf("%.*s", (int)(buf - start), start);
+  122   }
+  123 brk:
+  124 
+  125   while (++row < rows)
+  126     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  127 
+  128   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  129 }
+  130 
+  131 int main(int argc, char **argv) {
+  132   if (argc != 2)
+  133     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  134 
+  135   FILE *fp = fopen(argv[1], "r");
+  136   if (fp == NULL)
+:117g7dwq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘render’:
+st3.c:113:15: error: invalid type argument of unary ‘*’ (have ‘int’)
+  113 |       putchar(**start), col++;
+      |               ^~~~~~~
+st3.c:113:23: error: left-hand operand of comma expression has no effect [-Werror=unused-value]
+  113 |       putchar(**start), col++;
+      |                       ^
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:113gpkc
+      putchar(**start), col++;
+      putchar(*start), col++;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:103gpkc
+        fputs("\n\033K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+        fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+:100gpkc
+      if (*buf == '\n') {
+      if (*start == '\n') {
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:100g20n
+  100       if (*start == '\n') {
+  101         if (++row >= rows)
+  102           goto brk;
+  103         fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  104         continue;
+  105       }
+  106 
+  107       if (col >= cols) {
+  108         if (++row >= rows)
+  109           goto brk;
+  110         fputs("\n\033[K", stdout), col = printf("      ");
+  111       }
+  112 
+  113       putchar(*start), col++;
+  114     }
+  115   }
+  116 brk:
+  117 
+  118   while (++row < rows)
+  119     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+:107gpk8i
+      if (col >= cols) {
+      int offset = (start - line) % 8 - 8;   
+      for (; offset < 0; offset++) {
+        if (col >= cols) {
+          if (++row >= rows)
+            goto brk;
+          fputs("\n\033[K", stdout), col = printf("      ");
+        }
+
+:4i
+        if (*start == '\t')  
+          putchar(' '), col++;
+        else
+          putchar(*start), col++;
+:107gpkcc
+      int offset = (start - line) % 8 - 8;
+      int niter = start == '\t' ? 8 - (start - line) % 8 : 1; 
+      for (; niter > 0; niter--) { 
+:kk10n
+  107       int niter = start == '\t' ? 8 - (start - line) % 8 : 1;
+  108       for (; niter > 0; niter--) {
+  109         if (col >= cols) {
+  110           if (++row >= rows)
+  111             goto brk;
+  112           fputs("\n\033[K", stdout), col = printf("      ");
+  113         }
+  114 
+  115         if (*start == '\t')
+  116           putchar(' '), col++;
+:20n
+  117         else
+  118           putchar(*start), col++;
+  119       if (col >= cols) {
+  120         if (++row >= rows)
+  121           goto brk;
+  122         fputs("\n\033[K", stdout), col = printf("      ");
+  123       }
+  124 
+  125       putchar(*start), col++;
+  126     }
+  127   }
+  128 brk:
+  129 
+  130   while (++row < rows)
+  131     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  132 
+  133   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  134 }
+  135 
+  136 int main(int argc, char **argv) {
+:119gddddjdd
+:100g40n
+  100       if (*start == '\n') {
+  101         if (++row >= rows)
+  102           goto brk;
+  103         fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  104         continue;
+  105       }
+  106 
+  107       int niter = start == '\t' ? 8 - (start - line) % 8 : 1;
+  108       for (; niter > 0; niter--) {
+  109         if (col >= cols) {
+  110           if (++row >= rows)
+  111             goto brk;
+  112           fputs("\n\033[K", stdout), col = printf("      ");
+  113         }
+  114 
+  115         if (*start == '\t')
+  116           putchar(' '), col++;
+  117         else
+  118           putchar(*start), col++;
+  119       }
+  120     }
+  121   }
+  122 brk:
+  123 
+  124   while (++row < rows)
+  125     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  126 
+  127   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  128 }
+  129 
+  130 int main(int argc, char **argv) {
+  131   if (argc != 2)
+  132     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  133 
+  134   FILE *fp = fopen(argv[1], "r");
+  135   if (fp == NULL)
+  136     perror("fopen"), exit(EXIT_FAILURE);
+  137   fseek(fp, 0, SEEK_END);
+  138   long size = ftell(fp);
+  139   rewind(fp);
+:103gpi
+        fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+        line = start + 1;
+:80g20n
+   80           return *src += strlen(*pp), HI_KEYWORD;
+   81     return HI_DEFAULT;
+   82   }
+   83 
+   84   return ++*src, HI_DEFAULT;
+   85 }
+   86 
+   87 void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+   88   unsigned row = 0, col = 0;
+   89   unsigned crow = 0, ccol = 0;
+   90   fputs("\033[H", stdout); // home cursor
+   91   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   for (char *start = buf; *start; start = buf) {
+   94     fputs(hi_c(&buf), stdout);
+   95 
+   96     for (; start < buf; start++) {
+   97       if (start == cursor)
+   98         crow = row, ccol = col;
+   99 
+:92ga
+  char *line = buf;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘render’:
+st3.c:109:25: error: comparison between pointer and integer [-Werror]
+  109 |       int niter = start == '\t' ? 8 - (start - line) % 8 : 1;
+      |                         ^~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:109gpkc
+      int niter = start == '\t' ? 8 - (start - line) % 8 : 1;
+      int niter = *start == '\t' ? 8 - (start - line) % 8 : 1;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:117gpkdddc
+        if (*start == '\t')
+        putchar(*start == '\t' ? ' ' : *start), col++;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:90g30n
+   90   fputs("\033[H", stdout); // home cursor
+   91   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   char *line = buf;
+   94   for (char *start = buf; *start; start = buf) {
+   95     fputs(hi_c(&buf), stdout);
+   96 
+   97     for (; start < buf; start++) {
+   98       if (start == cursor)
+   99         crow = row, ccol = col;
+  100 
+  101       if (*start == '\n') {
+  102         if (++row >= rows)
+  103           goto brk;
+  104         fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  105         line = start + 1;
+  106         continue;
+  107       }
+  108 
+  109       int niter = *start == '\t' ? 8 - (start - line) % 8 : 1;
+  110       for (; niter > 0; niter--) {
+  111         if (col >= cols) {
+  112           if (++row >= rows)
+  113             goto brk;
+  114           fputs("\n\033[K", stdout), col = printf("      ");
+  115         }
+  116 
+  117         putchar(*start == '\t' ? ' ' : *start), col++;
+  118       }
+  119     }
+:115gp8i 
+        }
+        
+        if (start == cursor)
+          crow = row, ccol = col;
+ 
+        if (*start == '\n') {
+          if (++row >= rows)
+            goto brk;
+          fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+:3i
+          line = start + 1;
+          break;
+        }
+:98g11dwq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:100g20n
+  100         if (col >= cols) {
+  101           if (++row >= rows)
+  102             goto brk;
+  103           fputs("\n\033[K", stdout), col = printf("      ");
+  104         }
+  105 
+  106         if (start == cursor)
+  107           crow = row, ccol = col;
+  108 
+  109         if (*start == '\n') {
+  110           if (++row >= rows)
+  111             goto brk;
+  112           fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  113           line = start + 1;
+  114           break;
+  115         }
+  116 
+  117         putchar(*start == '\t' ? ' ' : *start), col++;
+  118       }
+  119     }
+:114gdpkccci
+        }
+        } else if (*start == '\t')
+          putchar(' '), col++;
+        else
+          putchar(*start), col++;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:150gp
+};
+:8i
+
+enum key getkey(void) {
+  char c;
+
+  if ((c = getchar()) != KEY_ESC) 
+    return c;
+
+  if ((c = getchar()) != '[')
+:8i
+    return c;
+
+  if ((c = getchar()) >= '0' && c <= '9') {
+  switch (c = getchar()) {  
+  case 'A':
+    return KEY_UP;
+  case 'B':
+    return KEY_DOWN;
+:8i
+  case 'C':
+    return KEY_RIGHT;
+  case 'D':
+    return ARR_LEFT;
+  case 'D':
+    return KEY_HOME;
+  case 'F':
+    return KEY_END;
+:150g20n
+  150 };
+  151 
+  152 enum key getkey(void) {
+  153   char c;
+  154 
+  155   if ((c = getchar()) != KEY_ESC)
+  156     return c;
+  157 
+  158   if ((c = getchar()) != '[')
+  159     return c;
+  160 
+  161   if ((c = getchar()) >= '0' && c <= '9') {
+  162   switch (c = getchar()) {
+  163   case 'A':
+  164     return KEY_UP;
+  165   case 'B':
+  166     return KEY_DOWN;
+  167   case 'C':
+  168     return KEY_RIGHT;
+  169   case 'D':
+:20n
+  170     return ARR_LEFT;
+  171   case 'D':
+  172     return KEY_HOME;
+  173   case 'F':
+  174     return KEY_END;
+  175 
+  176 int main(int argc, char **argv) {
+  177   if (argc != 2)
+  178     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  179 
+  180   FILE *fp = fopen(argv[1], "r");
+  181   if (fp == NULL)
+  182     perror("fopen"), exit(EXIT_FAILURE);
+  183   fseek(fp, 0, SEEK_END);
+  184   long size = ftell(fp);
+  185   rewind(fp);
+  186 
+  187   char *buf = malloc(size + 1);
+  188   fread(buf, size, sizeof(*buf), fp);
+  189   buf[size] = '\0';
+:164gpkc
+    return KEY_UP;
+    return ARR_UP;
+:166gc
+    return ARR_DOWN;
+:168gc
+    return ARR_RIGHT;
+:161gd
+:170gpkc
+  case 'D':
+  case 'H':
+:w   
+   
+:174g8i
+  }
+
+  if (c < '0' || c > '9')
+    return KEY_UNK;
+
+  if (getchar() != '~')
+    return KEY_UNK;
+
+:8i
+  switch (c) {
+  case '3':  
+    return KEY_DEL;
+  case '5':
+    return KEY_PGUP;
+  case '6':
+    return KEY_PGDN;
+  }
+:3i
+
+  return KEY_UNK;
+}
+:w
+:139gpi
+  CTRL_Z = 26,
+
+:139gp
+  CTRL_Z = 26,
+:kkp
+  CTRL_X = 24,
+:138g5n
+  138   CTRL_X = 24,
+  139   CTRL_Z = 26,
+  140 
+  141   KEY_BS = 127,
+  142   KEY_DEL = 256,
+:140gd
+:129gpi
+enum KEY {
+  KEY_UNK,
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c:153:6: error: ISO C forbids forward references to ‘enum’ types [-Werror=pedantic]
+  153 | enum key getkey(void) {
+      |      ^~~
+st3.c:153:10: error: return type is an incomplete type
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c: In function ‘getkey’:
+st3.c:156:26: error: ‘KEY_ESC’ undeclared (first use in this function); did you mean ‘KEY_END’?
+  156 |   if ((c = getchar()) != KEY_ESC)
+      |                          ^~~~~~~
+      |                          KEY_END
+st3.c:156:26: note: each undeclared identifier is reported only once for each function it appears in
+st3.c:157:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  157 |     return c;
+      |            ^
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:160:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  160 |     return c;
+      |            ^
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:164:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  164 |     return ARR_UP;
+      |            ^~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:166:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  166 |     return ARR_DOWN;
+      |            ^~~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:168:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  168 |     return ARR_RIGHT;
+      |            ^~~~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:170:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  170 |     return ARR_LEFT;
+      |            ^~~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:172:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  172 |     return KEY_HOME;
+      |            ^~~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:174:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  174 |     return KEY_END;
+      |            ^~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:178:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  178 |     return KEY_UNK;
+      |            ^~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:181:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  181 |     return KEY_UNK;
+      |            ^~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:185:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  185 |     return KEY_DEL;
+      |            ^~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:187:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  187 |     return KEY_PGUP;
+      |            ^~~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:189:12: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  189 |     return KEY_PGDN;
+      |            ^~~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+st3.c:192:10: error: ‘return’ with a value, in function returning void [-Werror=return-type]
+  192 |   return KEY_UNK;
+      |          ^~~~~~~
+st3.c:153:10: note: declared here
+  153 | enum key getkey(void) {
+      |          ^~~~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:129gpkc
+enum KEY {
+enum key {
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘getkey’:
+st3.c:156:26: error: ‘KEY_ESC’ undeclared (first use in this function); did you mean ‘KEY_END’?
+  156 |   if ((c = getchar()) != KEY_ESC)
+      |                          ^~~~~~~
+      |                          KEY_END
+st3.c:156:26: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:156gpkc
+  if ((c = getchar()) != KEY_ESC)
+  if ((c = getchar()) != '\033')
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:220g20n
+  220   } while (row != rows || col != cols);
+  221 
+  222   for (char *cursor = buf; *cursor; cursor++)
+  223     render(buf, 0, cursor, rows, cols), getchar();
+  224   free(buf);
+  225 }
+:222g2c6i
+  char *cursor = buf;
+  while (1) {
+    switch (getkey()) {
+    case CTRL_Q:
+      goto brk;
+    case ARR_UP:
+      break;
+    case ARR_DOWN:
+:6i
+      break;
+    case ARR_LEFT:
+      cursor--;
+      break;
+    case ARR_RIGHT:
+      cursor++;
+:4i
+      break;
+    default:
+      ; // TODO append
+    }
+:2i
+  }
+
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:222:17: error: initialization of ‘char’ from ‘char *’ makes integer from pointer without a cast [-Werror=int-conversion]
+  222 |   char *cursor = buf;
+      |                 ^~~
+st3.c:226:7: error: label ‘brk’ used but not defined
+  226 |       goto brk;
+      |       ^~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:240g20n
+  240   }
+  241 
+  242   free(buf);
+  243 }
+:240ga
+brk:
+:222gp
+  char *cursor = buf;
+:2a
+    render(buf, 0, cursor, rows, cols);
+
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:240gp
+      ; // TODO append
+:p
+    }
+:n
+  242   }
+:n
+  243 brk:
+:n
+  244 
+:n
+  245   free(buf);
+:ki
+  fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+& bin/st2 st3.c
+:220g20n
+  220   } while (row != rows || col != cols);
+  221 
+  222   char *cursor = buf;
+  223   while (1) {
+  224     render(buf, 0, cursor, rows, cols);
+  225 
+  226     switch (getkey()) {
+  227     case CTRL_Q:
+  228       goto brk;
+  229     case ARR_UP:
+  230       break;
+  231     case ARR_DOWN:
+  232       break;
+  233     case ARR_LEFT:
+  234       cursor--;
+  235       break;
+  236     case ARR_RIGHT:
+  237       cursor++;
+  238       break;
+  239     default:
+:222gpkc
+  char *cursor = buf;
+  char *cursor = buf, *virtual = buf, line;
+:234gpkc
+      cursor--;
+      virtual = --cursor;
+:237gpkc
+      cursor++;
+      virtual = ++cursor;
+:231gp4i
+    case ARR_DOWN:
+      line = memrchr(cursor, '\n', cursor - buf);
+      line = line ? line : buf;
+      virtual = cursor - line + memchr(cursor, '\n', buf + size - cursor);
+      // XXX NULL        
+:2i
+      cursor = memchr(other, '\n', virtual - other);  
+                                         
+:w    
+:230g8n
+  230       break;
+  231     case ARR_DOWN:
+  232       line = memrchr(cursor, '\n', cursor - buf);
+  233       line = line ? line : buf;
+  234       virtual = cursor - line + memchr(cursor, '\n', buf + size - cursor);
+  235       // XXX NULL
+  236       cursor = memchr(other, '\n', virtual - other);
+  237 
+:232gpkc
+      line = memrchr(cursor, '\n', cursor - buf);
+      line = clamp_memrchr(cursor, '\n', cursor - buf);
+:pkc
+      line = line ? line : buf;
+      other = clamp_memchr(cursor, '\n', buf + size - cursor);
+:ic
+      // XXX UB past too-far 
+      virtual = cursor - line + other;
+:p
+      // XXX NULL
+:kdpkc
+      cursor = memchr(other, '\n', virtual - other);
+      cursor = clamp_memchr(other, '\n', virtual - other);
+:p
+
+:kd
+:w
+:222gpkc
+  char *cursor = buf, *virtual = buf, line;
+  char *cursor = buf, *virtual = cursor;           
+:i
+  char *line, *other;
+:w
+:190g20n
+  190   }
+  191 
+  192   return KEY_UNK;
+  193 }
+  194 
+  195 int main(int argc, char **argv) {
+  196   if (argc != 2)
+  197     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  198 
+  199   FILE *fp = fopen(argv[1], "r");
+  200   if (fp == NULL)
+  201     perror("fopen"), exit(EXIT_FAILURE);
+  202   fseek(fp, 0, SEEK_END);
+  203   long size = ftell(fp);
+  204   rewind(fp);
+  205 
+  206   char *buf = malloc(size + 1);
+  207   fread(buf, size, sizeof(*buf), fp);
+  208   buf[size] = '\0';
+  209   fclose(fp);
+:193g6a
+
+void *clamp_memchr(const void *s, int c, size_t n) {
+  void *p = memchr(s, c, n);
+  return p ? p : s + n;
+}
+
+:4i
+void *clamp_memrchr(const void *s, int c, size_t n) {
+  void *p = memrchr(s, c, n);
+  return p ? p : s - n;
+}
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘clamp_memchr’:
+st3.c:197:20: error: pointer of type ‘void *’ used in arithmetic [-Werror=pointer-arith]
+  197 |   return p ? p : s + n;
+      |                    ^
+st3.c:197:16: error: return discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+  197 |   return p ? p : s + n;
+      |          ~~~~~~^~~~~~~
+st3.c: In function ‘clamp_memrchr’:
+st3.c:201:13: error: implicit declaration of function ‘memrchr’; did you mean ‘memchr’? [-Werror=implicit-function-declaration]
+  201 |   void *p = memrchr(s, c, n);
+      |             ^~~~~~~
+      |             memchr
+st3.c:201:13: error: initialization of ‘void *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+st3.c:202:20: error: pointer of type ‘void *’ used in arithmetic [-Werror=pointer-arith]
+  202 |   return p ? p : s - n;
+      |                    ^
+st3.c:202:16: error: return discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+  202 |   return p ? p : s - n;
+      |          ~~~~~~^~~~~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:197gpkc
+  return p ? p : s + n;
+  return p ? p : (unsigned char *)s + n;
+:195gpkc
+void *clamp_memchr(const void *s, int c, size_t n) {
+void *clamp_memchr(void *s, int c, size_t n) {
+:202gpkc
+  return p ? p : s - n;
+  return p ? p : (unsigned char *)s - n;
+:200gpkc
+void *clamp_memrchr(const void *s, int c, size_t n) {
+void *clamp_memrchr(void *s, int c, size_t n) {
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘clamp_memrchr’:
+st3.c:201:13: error: implicit declaration of function ‘memrchr’; did you mean ‘memchr’? [-Werror=implicit-function-declaration]
+  201 |   void *p = memrchr(s, c, n);
+      |             ^~~~~~~
+      |             memchr
+st3.c:201:13: error: initialization of ‘void *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:193gn
+  193 }
+:^C⏎                                                                                                                    ! bin/st2 st3.c
+:190g20n
+  190   }
+  191 
+  192   return KEY_UNK;
+  193 }
+  194 
+  195 void *clamp_memchr(void *s, int c, size_t n) {
+  196   void *p = memchr(s, c, n);
+  197   return p ? p : (unsigned char *)s + n;
+  198 }
+  199 
+  200 void *clamp_memrchr(void *s, int c, size_t n) {
+  201   void *p = memrchr(s, c, n);
+  202   return p ? p : (unsigned char *)s - n;
+  203 }
+  204 
+  205 int main(int argc, char **argv) {
+  206   if (argc != 2)
+  207     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  208 
+  209   FILE *fp = fopen(argv[1], "r");
+:193g6a
+
+void *memrchr(void *s, int c, size_t n) {
+  unsigned char *cp = (unsigned char *)s + n;
+  for (; n > 0; n--)       
+    if (*--cp == (unsigned char)c)
+      return cp;
+:2i
+  return NULL;
+}
+:w
+:200g20n
+  200   return NULL;
+  201 }
+  202 
+  203 void *clamp_memchr(void *s, int c, size_t n) {
+  204   void *p = memchr(s, c, n);
+  205   return p ? p : (unsigned char *)s + n;
+  206 }
+  207 
+  208 void *clamp_memrchr(void *s, int c, size_t n) {
+  209   void *p = memrchr(s, c, n);
+  210   return p ? p : (unsigned char *)s - n;
+  211 }
+  212 
+  213 int main(int argc, char **argv) {
+  214   if (argc != 2)
+  215     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  216 
+  217   FILE *fp = fopen(argv[1], "r");
+  218   if (fp == NULL)
+  219     perror("fopen"), exit(EXIT_FAILURE);
+:210gpkc
+  return p ? p : (unsigned char *)s - n;
+  return p ? p : s;                 
+:w
+:250g20n
+  250     case ARR_DOWN:
+  251       line = clamp_memrchr(cursor, '\n', cursor - buf);
+  252       other = clamp_memchr(cursor, '\n', buf + size - cursor);
+  253       // XXX UB past too-far
+  254       virtual = cursor - line + other;
+  255       cursor = clamp_memchr(other, '\n', virtual - other);
+  256       break;
+  257     case ARR_LEFT:
+  258       virtual = --cursor;
+  259       break;
+  260     case ARR_RIGHT:
+  261       virtual = ++cursor;
+  262       break;
+  263     default:
+  264       ; // TODO append
+  265     }
+  266   }
+  267 brk:
+  268 
+  269   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+:251gpkc
+      line = clamp_memrchr(cursor, '\n', cursor - buf);
+      line = clamp_memrchr(buf, '\n', cursor - buf);
+:pkc
+      other = clamp_memchr(cursor, '\n', buf + size - cursor);
+      other = clamp_memchr(cursor, '\n', buf + size - cursor);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:251gpkc
+      line = clamp_memchr(buf, '\n', cursor - buf) + 1;
+      line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+:pkc
+      other = clamp_memchr(cursor, '\n', buf + size - cursor);
+      other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:220g20n
+  220   fseek(fp, 0, SEEK_END);
+  221   long size = ftell(fp);
+  222   rewind(fp);
+  223 
+  224   char *buf = malloc(size + 1);
+  225   fread(buf, size, sizeof(*buf), fp);
+  226   buf[size] = '\0';
+  227   fclose(fp);
+  228 
+  229   // XXX stty -icanon -echo -nl
+  230   unsigned rows = 0, cols = 0;
+  231   unsigned row = 0, col = 0;
+  232   do {
+  233     rows = row, cols = col;
+  234     fputs("\033[99B\033[99C", stdout); // move down then right
+  235     fputs("\033[6n", stdout); // request cursor position
+  236     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  237       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  238   } while (row != rows || col != cols);
+  239 
+:224gpcci 
+  char *buf = malloc(size + 1);
+  char *buf = malloc(size + 2);
+  fread(buf + 1, size, sizeof(*buf), fp);
+  buf[0] = '\n';
+:240g20n
+  240 
+  241   char *cursor = buf, *virtual = cursor;
+  242   char *line, *other;
+  243   while (1) {
+  244     render(buf, 0, cursor, rows, cols);
+  245 
+  246     switch (getkey()) {
+  247     case CTRL_Q:
+  248       goto brk;
+  249     case ARR_UP:
+  250       break;
+  251     case ARR_DOWN:
+  252       line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+  253       other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+  254       // XXX UB past too-far
+  255       virtual = cursor - line + other;
+  256       cursor = clamp_memchr(other, '\n', virtual - other);
+  257       break;
+  258     case ARR_LEFT:
+  259       virtual = --cursor;
+:244gpkc
+    render(buf, 0, cursor, rows, cols);
+    render(buf + 1, cursor, rows, cols);
+:252gpkcpkc
+      line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+      line = (char *)memrchr(buf, '\n', cursor - buf) + 1;
+      other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+      other = (char *)memchr(cursor, '\n', buf + size - cursor) + 1;
+:jpkc
+      virtual = cursor - line + other;
+      virtual = virtual - line + other;
+:56gpkc
+  if (isident(**src)) {
+  if (isident(**src)) {
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:225:9: error: redefinition of ‘buf’
+  225 |   char *buf = malloc(size + 2);
+      |         ^~~
+st3.c:224:9: note: previous definition of ‘buf’ with type ‘char *’
+  224 |   char *buf = malloc(size + 1);
+      |         ^~~
+st3.c:244:21: error: passing argument 2 of ‘render’ makes integer from pointer without a cast [-Werror=int-conversion]
+  244 |     render(buf + 1, cursor, rows, cols);
+      |                     ^~~~~~
+      |                     |
+      |                     char *
+st3.c:87:33: note: expected ‘unsigned int’ but argument is of type ‘char *’
+   87 | void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+      |                        ~~~~~~~~~^~~~~~
+st3.c:244:29: error: passing argument 3 of ‘render’ makes pointer from integer without a cast [-Werror=int-conversion]
+  244 |     render(buf + 1, cursor, rows, cols);
+      |                             ^~~~
+      |                             |
+      |                             unsigned int
+st3.c:87:47: note: expected ‘char *’ but argument is of type ‘unsigned int’
+   87 | void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+      |                                         ~~~~~~^~~~~~
+st3.c:244:5: error: too few arguments to function ‘render’
+  244 |     render(buf + 1, cursor, rows, cols);
+      |     ^~~~~~
+st3.c:87:6: note: declared here
+   87 | void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+      |      ^~~~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:220g20n
+  220   fseek(fp, 0, SEEK_END);
+  221   long size = ftell(fp);
+  222   rewind(fp);
+  223 
+  224   char *buf = malloc(size + 1);
+  225   char *buf = malloc(size + 2);
+  226   fread(buf + 1, size, sizeof(*buf), fp);
+  227   buf[0] = '\n';
+  228   fclose(fp);
+  229 
+  230   // XXX stty -icanon -echo -nl
+  231   unsigned rows = 0, cols = 0;
+  232   unsigned row = 0, col = 0;
+  233   do {
+  234     rows = row, cols = col;
+  235     fputs("\033[99B\033[99C", stdout); // move down then right
+  236     fputs("\033[6n", stdout); // request cursor position
+  237     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  238       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  239   } while (row != rows || col != cols);
+:224gd227gi
+  buf[size] = '\0';
+:244gpkc
+    render(buf + 1, cursor, rows, cols);
+    render(buf + 1, 0, cursor, rows, cols);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:241gn
+  241   char *cursor = buf, *virtual = cursor;
+:kpkc
+  char *cursor = buf, *virtual = cursor;
+  char *cursor = buf + 1, *virtual = cursor;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:240g20n
+  240 
+  241   char *cursor = buf + 1, *virtual = cursor;
+  242   char *line, *other;
+  243   while (1) {
+  244     render(buf + 1, 0, cursor, rows, cols);
+  245 
+  246     switch (getkey()) {
+  247     case CTRL_Q:
+  248       goto brk;
+  249     case ARR_UP:
+  250       break;
+  251     case ARR_DOWN:
+  252       line = (char *)memrchr(buf, '\n', cursor - buf) + 1;
+  253       other = (char *)memchr(cursor, '\n', buf + size - cursor) + 1;
+  254       // XXX UB past too-far
+  255       virtual = virtual - line + other;
+  256       cursor = clamp_memchr(other, '\n', virtual - other);
+  257       break;
+  258     case ARR_LEFT:
+  259       virtual = --cursor;
+:249gp5i
+    case ARR_UP:
+      line = (char *)memchr(buf, '\n', cursor - buf) + 1;
+      other = (char *)memrchr(buf, '\n', line - 2 - buf) + 1;
+      virtual = virtual - line + other;
+      cursor = clamp_memchr(other, '\n', virtual - other); 
+      line = other;
+:250gp
+      line = (char *)memchr(buf, '\n', cursor - buf) + 1;
+:kd
+:242gpkc
+  char *line, *other;
+  char *line = buf + 1, *other;       
+:260gnnnn
+  260       cursor = clamp_memchr(other, '\n', virtual - other);
+  261       break;
+  262     case ARR_LEFT:
+  263       virtual = --cursor;
+:260gpi
+      cursor = clamp_memchr(other, '\n', virtual - other);
+      line = other;
+:250g10n
+  250       other = (char *)memrchr(buf, '\n', line - 2 - buf) + 1;
+  251       virtual = virtual - line + other;
+  252       cursor = clamp_memchr(other, '\n', virtual - other);
+  253       line = other;
+  254       break;
+  255     case ARR_DOWN:
+  256       line = (char *)memrchr(buf, '\n', cursor - buf) + 1;
+  257       other = (char *)memchr(cursor, '\n', buf + size - cursor) + 1;
+  258       // XXX UB past too-far
+  259       virtual = virtual - line + other;
+:256gd
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:250gpkc
+      other = (char *)memrchr(buf, '\n', line - 2 - buf) + 1;
+      other = (char *)memrchr(buf, '\n', line - 1 - buf) + 1;
+:wq
+& bin/st2 st3.c
+:220g20n
+  220   fseek(fp, 0, SEEK_END);
+  221   long size = ftell(fp);
+  222   rewind(fp);
+  223 
+  224   char *buf = malloc(size + 2);
+  225   fread(buf + 1, size, sizeof(*buf), fp);
+  226   buf[0] = '\n';
+  227   buf[size] = '\0';
+  228   fclose(fp);
+  229 
+  230   // XXX stty -icanon -echo -nl
+  231   unsigned rows = 0, cols = 0;
+  232   unsigned row = 0, col = 0;
+  233   do {
+  234     rows = row, cols = col;
+  235     fputs("\033[99B\033[99C", stdout); // move down then right
+  236     fputs("\033[6n", stdout); // request cursor position
+  237     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  238       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  239   } while (row != rows || col != cols);
+:224gpkc
+  char *buf = malloc(size + 2);
+  char *buf = malloc(size + 1);
+:pkc
+  fread(buf + 1, size, sizeof(*buf), fp);
+  fread(buf, size, sizeof(*buf), fp);
+:d  
+:10j20n
+  236     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  237       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  238   } while (row != rows || col != cols);
+  239 
+  240   char *cursor = buf + 1, *virtual = cursor;
+  241   char *line = buf + 1, *other;
+  242   while (1) {
+  243     render(buf + 1, 0, cursor, rows, cols);
+  244 
+  245     switch (getkey()) {
+  246     case CTRL_Q:
+  247       goto brk;
+  248     case ARR_UP:
+  249       other = (char *)memrchr(buf, '\n', line - 1 - buf) + 1;
+  250       virtual = virtual - line + other;
+  251       cursor = clamp_memchr(other, '\n', virtual - other);
+  252       line = other;
+  253       break;
+  254     case ARR_DOWN:
+  255       other = (char *)memchr(cursor, '\n', buf + size - cursor) + 1;
+:240gpkcpkc
+  char *cursor = buf + 1, *virtual = cursor;
+  char *cursor = buf, *virtual = cursor;
+  char *line = buf + 1, *other;
+  char *line = buf, *other;
+:jpkc
+    render(buf + 1, 0, cursor, rows, cols);
+    render(buf, 0, cursor, rows, cols);    
+:249gpkc
+      other = (char *)memrchr(buf, '\n', line - 1 - buf) + 1;
+      other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+:255gpkc
+      other = (char *)memchr(cursor, '\n', buf + size - cursor) + 1;
+      other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+:224gpkc
+  char *buf = malloc(size + 1);
+  char *buf = malloc(size + 2), buf++; // for too-far for clamp_memrchr
+:w     
+:200g20n
+  200   return NULL;
+  201 }
+  202 
+  203 void *clamp_memchr(void *s, int c, size_t n) {
+  204   void *p = memchr(s, c, n);
+  205   return p ? p : (unsigned char *)s + n;
+  206 }
+  207 
+  208 void *clamp_memrchr(void *s, int c, size_t n) {
+  209   void *p = memrchr(s, c, n);
+  210   return p ? p : s;
+  211 }
+  212 
+  213 int main(int argc, char **argv) {
+  214   if (argc != 2)
+  215     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  216 
+  217   FILE *fp = fopen(argv[1], "r");
+  218   if (fp == NULL)
+  219     perror("fopen"), exit(EXIT_FAILURE);
+:210gpkc
+  return p ? p : s;
+  return p ? p : (unsigned char *)s - 1;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:224:36: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘++’ token
+  224 |   char *buf = malloc(size + 2), buf++; // for too-far for clamp_memrchr
+      |                                    ^~
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:224gpkci
+  char *buf = malloc(size + 2), buf++; // for too-far for clamp_memrchr
+  char *buf = malloc(size + 2);
+  buf++; // for too-far for clamp_memrchr
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:275:3: error: ‘free’ called on pointer ‘buf’ with nonzero offset 1 [-Werror=free-nonheap-object]
+  275 |   free(buf);
+      |   ^~~~~~~~~
+st3.c:224:15: note: returned from ‘malloc’
+  224 |   char *buf = malloc(size + 2);
+      |               ^~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:250g40n
+  250       other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+  251       virtual = virtual - line + other;
+  252       cursor = clamp_memchr(other, '\n', virtual - other);
+  253       line = other;
+  254       break;
+  255     case ARR_DOWN:
+  256       other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+  257       // XXX UB past too-far
+  258       virtual = virtual - line + other;
+  259       cursor = clamp_memchr(other, '\n', virtual - other);
+  260       line = other;
+  261       break;
+  262     case ARR_LEFT:
+  263       virtual = --cursor;
+  264       break;
+  265     case ARR_RIGHT:
+  266       virtual = ++cursor;
+  267       break;
+  268     default:
+  269       ; // TODO append
+  270     }
+  271   }
+  272 brk:
+  273 
+  274   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+  275   free(buf);
+  276 }
+:275gpkc
+  free(buf);
+  buf--, free(buf);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:240g20n
+  240 
+  241   char *cursor = buf, *virtual = cursor;
+  242   char *line = buf, *other;
+  243   while (1) {
+  244     render(buf, 0, cursor, rows, cols);
+  245 
+  246     switch (getkey()) {
+  247     case CTRL_Q:
+  248       goto brk;
+  249     case ARR_UP:
+  250       other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+  251       virtual = virtual - line + other;
+  252       cursor = clamp_memchr(other, '\n', virtual - other);
+  253       line = other;
+  254       break;
+  255     case ARR_DOWN:
+  256       other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+  257       // XXX UB past too-far
+  258       virtual = virtual - line + other;
+  259       cursor = clamp_memchr(other, '\n', virtual - other);
+:249gpi
+    case ARR_UP:
+      line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1; 
+:255gjpi
+    case ARR_DOWN:
+      line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+:242gpkc
+  char *line = buf, *other;
+  char *line, *other;
+:240g20n
+  240 
+  241   char *cursor = buf, *virtual = cursor;
+  242   char *line, *other;
+  243   while (1) {
+  244     render(buf, 0, cursor, rows, cols);
+  245 
+  246     switch (getkey()) {
+  247     case CTRL_Q:
+  248       goto brk;
+  249     case ARR_UP:
+  250       line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+  251       other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+  252       virtual = virtual - line + other;
+  253       cursor = clamp_memchr(other, '\n', virtual - other);
+  254       line = other;
+  255       break;
+  256     case ARR_DOWN:
+  257       line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+  258       other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+  259       // XXX UB past too-far
+:8n
+  260       virtual = virtual - line + other;
+  261       cursor = clamp_memchr(other, '\n', virtual - other);
+  262       line = other;
+  263       break;
+  264     case ARR_LEFT:
+  265       virtual = --cursor;
+  266       break;
+  267     case ARR_RIGHT:
+:262gd254gd
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:260g20n
+  260       cursor = clamp_memchr(other, '\n', virtual - other);
+  261       break;
+  262     case ARR_LEFT:
+  263       virtual = --cursor;
+  264       break;
+  265     case ARR_RIGHT:
+  266       virtual = ++cursor;
+  267       break;
+  268     default:
+  269       ; // TODO append
+  270     }
+  271   }
+  272 brk:
+  273 
+  274   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+  275   buf--, free(buf);
+  276 }
+:242gpi
+  char *line, *other;
+  enum key key;
+:247gpkc
+    switch (getkey()) {
+    switch (key = getkey()) {
+:268gp
+      break;
+:p
+    default:
+:ki
+    case KEY_ENTER:
+:i
+      key = '\n';
+:n
+  271     default:
+:pkc
+      ; // TODO append
+      buf = realloc(buf - 1, ++size) + 1;
+:i
+      memmove(cursor, cursor - 1, buf + size - cursor);
+:ki
+      virtual = ++cursor;
+:w
+:272gpkc
+      buf = realloc(buf - 1, ++size) + 1;
+      buf = realloc(--buf, ++size), buf++;
+:280gpkc
+  buf--, free(buf);
+  free(--buf);
+:w  
+:265g8n
+  265       break;
+  266     case ARR_RIGHT:
+  267       virtual = ++cursor;
+  268       break;
+  269     case KEY_ENTER:
+  270       key = '\n';
+  271     default:
+  272       buf = realloc(--buf, ++size), buf++;
+:268gp4i
+      break;
+    case KEY_BS:
+      buf = realloc(--buf, --size), buf++;
+      memmove(cursor - 1, cursor, buf + size - cursor);
+      virtual = --cursor;
+:i    
+      break;
+:265g8n
+  265       break;
+  266     case ARR_RIGHT:
+  267       virtual = ++cursor;
+  268       break;
+  269     case KEY_BS:
+  270       buf = realloc(--buf, --size), buf++;
+  271       memmove(cursor - 1, cursor, buf + size - cursor);
+  272       virtual = --cursor;
+:270gydjx267g8n
+  267       virtual = ++cursor;
+  268       break;
+  269     case KEY_BS:
+  270       memmove(cursor - 1, cursor, buf + size - cursor);
+  271       buf = realloc(--buf, --size), buf++;
+  272       virtual = --cursor;
+  273       break;
+  274     case KEY_ENTER:
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:275g8n
+  275       key = '\n';
+  276     default:
+  277       buf = realloc(--buf, ++size), buf++;
+  278       virtual = ++cursor;
+  279       memmove(cursor, cursor - 1, buf + size - cursor);
+  280     }
+  281   }
+  282 brk:
+:278gpkcpkci
+      virtual = ++cursor;
+      memmove(cursor + 1, cursor, buf + size - cursor - 1);
+      memmove(cursor, cursor - 1, buf + size - cursor);
+      *cursor = key;                    
+      virtual = ++cursor;
+:kkdc
+      *cursor = key, virtual = ++cursor;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:268gpi
+      break;
+    case KEY_DEL:
+:i 
+      virtual = ++cursor;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:250g40n
+  250     case ARR_UP:
+  251       line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+  252       other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+  253       virtual = virtual - line + other;
+  254       cursor = clamp_memchr(other, '\n', virtual - other);
+  255       break;
+  256     case ARR_DOWN:
+  257       line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+  258       other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+  259       // XXX UB past too-far
+  260       virtual = virtual - line + other;
+  261       cursor = clamp_memchr(other, '\n', virtual - other);
+  262       break;
+  263     case ARR_LEFT:
+  264       virtual = --cursor;
+  265       break;
+  266     case ARR_RIGHT:
+  267       virtual = ++cursor;
+  268       break;
+  269     case KEY_DEL:
+  270       virtual = cursor++;
+  271     case KEY_BS:
+  272       memmove(cursor - 1, cursor, buf + size - cursor);
+  273       buf = realloc(--buf, --size), buf++;
+  274       virtual = --cursor;
+  275       break;
+  276     case KEY_ENTER:
+  277       key = '\n';
+  278     default:
+  279       buf = realloc(--buf, ++size), buf++;
+  280       memmove(cursor + 1, cursor, buf + size - cursor - 1);
+  281       *cursor = key, virtual = ++cursor;
+  282     }
+  283   }
+  284 brk:
+  285 
+  286   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+  287   free(--buf);
+  288 }
+:273gpkc
+      buf = realloc(--buf, --size), buf++;
+      buf = realloc(--buf, --size + 2), buf++;
+:273gpkc
+      buf = realloc(--buf, --size + 2), buf++;
+      buf = realloc(--buf, --size + 2), buf++;
+:279gpkc
+      buf = realloc(--buf, ++size), buf++;
+      buf = realloc(--buf, ++size + 2), buf++;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:273gpkc
+      buf = realloc(--buf, --size + 2), buf++;
+      cursor -= (size_t)buf, buf = realloc(--buf, --size + 2), cursor += (size_t)++buf;
+:279gpkc
+      buf = realloc(--buf, ++size + 2), buf++;
+      cursor -= (size_t)buf, buf = realloc(--buf, ++size + 2), cursor += (size_t)++buf;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:240g60n
+  240 
+  241   char *cursor = buf, *virtual = cursor;
+  242   char *line, *other;
+  243   enum key key;
+  244   while (1) {
+  245     render(buf, 0, cursor, rows, cols);
+  246 
+  247     switch (key = getkey()) {
+  248     case CTRL_Q:
+  249       goto brk;
+  250     case ARR_UP:
+  251       line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+  252       other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+  253       virtual = virtual - line + other;
+  254       cursor = clamp_memchr(other, '\n', virtual - other);
+  255       break;
+  256     case ARR_DOWN:
+  257       line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+  258       other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+  259       // XXX UB past too-far
+  260       virtual = virtual - line + other;
+  261       cursor = clamp_memchr(other, '\n', virtual - other);
+  262       break;
+  263     case ARR_LEFT:
+  264       virtual = --cursor;
+  265       break;
+  266     case ARR_RIGHT:
+  267       virtual = ++cursor;
+  268       break;
+  269     case KEY_DEL:
+  270       virtual = cursor++;
+  271     case KEY_BS:
+  272       memmove(cursor - 1, cursor, buf + size - cursor);
+  273       cursor -= (size_t)buf, buf = realloc(--buf, --size + 2), cursor += (size_t)++buf;
+  274       virtual = --cursor;
+  275       break;
+  276     case KEY_ENTER:
+  277       key = '\n';
+  278     default:
+  279       cursor -= (size_t)buf, buf = realloc(--buf, ++size + 2), cursor += (size_t)++buf;
+  280       memmove(cursor + 1, cursor, buf + size - cursor - 1);
+  281       *cursor = key, virtual = ++cursor;
+  282     }
+  283   }
+  284 brk:
+  285 
+  286   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+  287   free(--buf);
+  288 }
+:253gpkc
+      virtual = virtual - line + other;
+      virtual -= line - other;
+:pkc
+      cursor = clamp_memchr(other, '\n', virtual - other);
+      cursor = clamp_memchr(other, '\n', buf + virtual - other) - buf; 
+:251gpkc
+      line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+      line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+:241gpkc
+  char *cursor = buf, *virtual = cursor;
+  size_t cursor = 0, virtual = cursor;
+:257gpkc
+      line = (char *)clamp_memrchr(buf, '\n', cursor - buf) + 1;
+      line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+:pkc
+      other = (char *)clamp_memchr(cursor, '\n', buf + size - cursor) + 1;
+      other = (char *)clamp_memchr(buf + cursor, '\n', size - cursor) + 1;
+:pk
+      // XXX UB past too-far
+:d
+:pkc
+      virtual = virtual - line + other;
+      virtual += other - line;
+:pkc
+      cursor = clamp_memchr(other, '\n', virtual - other);
+      cursor = clamp_memchr(other' \n', buf + virtual - other) - buf;
+:272gpkc
+      cursor -= (size_t)buf, buf = realloc(--buf, --size + 2), cursor += (size_t)++buf;
+      buf = realloc(--buf, --size + 2), buf++;
+:271gpkc
+      memmove(cursor - 1, cursor, buf + size - cursor);
+      memmove(buf + cursor - 1, buf + cursor, size - cursor);
+:278gpkc
+      cursor -= (size_t)buf, buf = realloc(--buf, ++size + 2), cursor += (size_t)++buf;
+      buf = realloc(--buf, ++size + 2), buf++;
+:pkc
+      memmove(cursor + 1, cursor, buf + size - cursor - 1);
+      memmove(buf + cursor + 1, buf + cursor, size - cursor - 1);
+:pkc
+      *cursor = key, virtual = ++cursor;
+      buf[cursor] = key, virtual = ++cursor;
+:w
+:80g20n
+   80           return *src += strlen(*pp), HI_KEYWORD;
+   81     return HI_DEFAULT;
+   82   }
+   83 
+   84   return ++*src, HI_DEFAULT;
+   85 }
+   86 
+   87 void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+   88   unsigned row = 0, col = 0;
+   89   unsigned crow = 0, ccol = 0;
+   90   fputs("\033[H", stdout); // home cursor
+   91   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   92 
+   93   char *line = buf;
+   94   for (char *start = buf; *start; start = buf) {
+   95     fputs(hi_c(&buf), stdout);
+   96 
+   97     for (; start < buf; start++) {
+   98       int niter = *start == '\t' ? 8 - (start - line) % 8 : 1;
+   99       for (; niter > 0; niter--) {
+:87gpkc
+void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+void render(char *buf, unsigned lineno, size_t cursor, unsigned rows, unsigned cols) {
+:100g20n
+  100         if (col >= cols) {
+  101           if (++row >= rows)
+  102             goto brk;
+  103           fputs("\n\033[K", stdout), col = printf("      ");
+  104         }
+  105 
+  106         if (start == cursor)
+  107           crow = row, ccol = col;
+  108 
+  109         if (*start == '\n') {
+  110           if (++row >= rows)
+  111             goto brk;
+  112           fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  113           line = start + 1;
+  114         } else if (*start == '\t')
+  115           putchar(' '), col++;
+  116         else
+  117           putchar(*start), col++;
+  118       }
+  119     }
+:106gpkc
+        if (start == cursor)
+        if (start == buf + cursor)
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:254:65: error: invalid operands to binary - (have ‘void *’ and ‘char *’)
+  254 |       cursor = clamp_memchr(other, '\n', buf + virtual - other) - buf;
+      |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^
+      |                |
+      |                void *
+st3.c:260:34: error: multi-character character constant [-Werror=multichar]
+  260 |       cursor = clamp_memchr(other' \n', buf + virtual - other) - buf;
+      |                                  ^~~~~
+st3.c:260:34: error: expected ‘)’ before '\x200a'
+  260 |       cursor = clamp_memchr(other' \n', buf + virtual - other) - buf;
+      |                            ~     ^~~~~
+      |                                  )
+st3.c:260:16: error: too few arguments to function ‘clamp_memchr’
+  260 |       cursor = clamp_memchr(other' \n', buf + virtual - other) - buf;
+      |                ^~~~~~~~~~~~
+st3.c:203:7: note: declared here
+  203 | void *clamp_memchr(void *s, int c, size_t n) {
+      |       ^~~~~~~~~~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:254gpkc
+      cursor = clamp_memchr(other, '\n', buf + virtual - other) - buf;
+      cursor = (char *)clamp_memchr(other, '\n', buf + virtual - other) - buf;
+:260gpkc
+      cursor = clamp_memchr(other' \n', buf + virtual - other) - buf;
+      cursor = (char *)clamp_memchr(other, '\n', buf + virtual - other) - buf;
+:269gpkc
+      virtual = cursor++;
+      cursor++;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:245gpkc
+    render(buf, 0, cursor, rows, cols);
+    render(buf, 0, buf + cursor, rows, cols);
+:106gpkc
+        if (start == buf + cursor)
+        if (start == cursor)
+:87gpkc
+void render(char *buf, unsigned lineno, size_t cursor, unsigned rows, unsigned cols) {
+void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:271gpk
+      memmove(buf + cursor - 1, buf + cursor, size - cursor);
+:c
+      memmove(buf + cursor - 1, buf + cursor, size - cursor + 1);
+:279gpkc
+      memmove(buf + cursor + 1, buf + cursor, size - cursor - 1);
+      memmove(buf + cursor + 1, buf + cursor, size - cursor);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:40g20n
+   40 
+   41   if (strncmp(*src, "//", 2) == 0) {
+   42     while (**src && *++*src != '\n');
+   43     return HI_COMMENT;
+   44   }
+   45 
+   46   for (char **kw = kws; *kw; kw++)
+   47     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   48       if (!isident((*src)[strlen(*kw)]))
+   49         return *src += strlen(*kw), HI_KEYWORD;
+   50 
+   51   if (isdigit(**src)) {
+   52     while (isident(*++*src));
+   53     return HI_LITERAL;
+   54   }
+   55 
+   56   if (isident(**src)) {
+   57     while (isident(*++*src));
+   58     return HI_DEFAULT;
+   59   }
+:45g5i
+
+  if (strncmp(*src, "/*", 2) == 0) {
+    while (*++*src && strncmp(*src, "*/", 2) != 0);
+    return HI_COMMENT;
+  }
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:47gpii
+    while (*++*src && strncmp(*src, "*/", 2) != 0);
+    if (**src)
+      *src += 2;
+:75gpkc
+      if (**src == '\\')
+      if (**src == '\\')
+:75gjjpkc
+    if (**src == quote)
+    if (**src) 
+:78gpkc
+      ++*src;
+      *src += 1;
+:wq
+& bin/st2 st3.c
+:119gpi
+          fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+          fputs(hi, stdout); // for '\n' within a highlight region
+:102gpkc
+    fputs(hi_c(&buf), stdout);
+    fputs(hi = hi_c(&buf), stdout);
+:100gpkc
+  char *line = buf;
+  char *hi, *line = buf;
+:110gpkci
+          fputs("\n\033[K", stdout), col = printf("      ");
+          fputs("\n\033[K" HI_LINENO, stdout), col = printf("      ");
+          fputs(hi, stdout); // to preserve highlight across line wraps   
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 README.md
+:10n
+    1 # #todo name
+    2 
+    3 _Minimal text editor bootstrapped from `cat`_
+    4 
+    5 The bootstrapping process consists of several stages:
+    6 
+    7 0. Write a bare-bones line editor on paper. Man pages are fair play.
+    8 1. Use `cat` with shell redirection to write the listing from stage 0 to a file. Tweak and repeat until it builds and runs.
+    9 2. Use the bare-bones line editor from stage 1 to bootstrap convenience features such as copy-paste and syntax highlighting.
+:9ga
+3. Use the more mature line editor from stage 2 to write a bare-bones interactive screen-based editor.
+:gc 
+# st4
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:250g20n
+  250   size_t cursor = 0, virtual = cursor;
+  251   char *line, *other;
+  252   enum key key;
+  253   while (1) {
+  254     render(buf, 0, buf + cursor, rows, cols);
+  255 
+  256     switch (key = getkey()) {
+  257     case CTRL_Q:
+  258       goto brk;
+  259     case ARR_UP:
+  260       line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+  261       other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+  262       virtual -= line - other;
+  263       cursor = (char *)clamp_memchr(other, '\n', buf + virtual - other) - buf;
+  264       break;
+  265     case ARR_DOWN:
+  266       line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+  267       other = (char *)clamp_memchr(buf + cursor, '\n', size - cursor) + 1;
+  268       virtual += other - line;
+  269       cursor = (char *)clamp_memchr(other, '\n', buf + virtual - other) - buf;
+:258gp4i
+      goto brk;
+    case CTRL_S:
+      if ((fp = fopen(argv[1], "w")) == NULL) 
+        perror("fopen"), exit(EXIT_FAILURE);
+      if (fwrite(buf, sizeof(*buf), size, fp) != size)
+:ii
+        perror("fwrite"), exit(EXIT_FAILURE);
+      break;
+:w
+:235gpkci
+  fread(buf, size, sizeof(*buf), fp);
+  if (fread(buf, sizeof(*buf), size, fp) != size)
+    perror("fread"), exit(EXIT_FAILURE);
+:229gpkci
+  fseek(fp, 0, SEEK_END);
+  if (fseek(fp, 0, SEEK_END) != 0)
+    perror("fseek"), exit(EXIT_FAILURE);
+:w
+:kkpkc
+  if (fseek(fp, 0, SEEK_END) != 0)
+  if (fseek(fp, 0, SEEK_END) == -1)
+:jp
+  long size = ftell(fp);
+:kci
+  long size = ftell(fp);
+  if (size == -1)
+:i
+    perror("ftell"), exit(EXIT_FAILURE);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:230g20n
+  230     perror("fseek"), exit(EXIT_FAILURE);
+  231   long size = ftell(fp);
+  232   if (size == -1)
+  233     perror("ftell"), exit(EXIT_FAILURE);
+  234   rewind(fp);
+  235 
+  236   char *buf = malloc(size + 2);
+  237   buf++; // for too-far for clamp_memrchr
+  238   if (fread(buf, sizeof(*buf), size, fp) != size)
+  239     perror("fread"), exit(EXIT_FAILURE);
+  240   buf[size] = '\0';
+  241   fclose(fp);
+  242 
+  243   // XXX stty -icanon -echo -nl
+  244   unsigned rows = 0, cols = 0;
+  245   unsigned row = 0, col = 0;
+  246   do {
+  247     rows = row, cols = col;
+  248     fputs("\033[99B\033[99C", stdout); // move down then right
+  249     fputs("\033[6n", stdout); // request cursor position
+:241gpkci
+  fclose(fp);
+  if (fclose(fp) == EOF)
+    perror("fclose"), exit(EXIT_FAILURE);
+:260g8n
+  260 
+  261     switch (key = getkey()) {
+  262     case CTRL_Q:
+  263       goto brk;
+  264     case CTRL_S:
+  265       if ((fp = fopen(argv[1], "w")) == NULL)
+  266         perror("fopen"), exit(EXIT_FAILURE);
+  267       if (fwrite(buf, sizeof(*buf), size, fp) != size)
+:nn
+  268         perror("fwrite"), exit(EXIT_FAILURE);
+  269       break;
+:kpkii
+      break;
+      if (fclose(fp) == EOF)
+        perror("fclose"), exit(EXIT_FAILURE);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:257gpkdc
+  enum key key;
+  for (enum key key = CTRL_O; ; key = getkey()) {
+:nnn
+  258     render(buf, 0, buf + cursor, rows, cols);
+  259 
+  260     switch (key = getkey()) {
+:kpkc
+    switch (key = getkey()) {
+    switch (key) {
+:nnnnn
+  261     case CTRL_Q:
+  262       goto brk;
+  263     case CTRL_S:
+  264       if ((fp = fopen(argv[1], "w")) == NULL)
+  265         perror("fopen"), exit(EXIT_FAILURE);
+:262gp10i
+      goto brk;
+    case CTRL_O:
+      FILE *fp = fopen(argv[1], "r");
+      if (fp == NULL)
+        perror("fopen"), exit(EXIT_FAILURE);
+      if (fseek(fp, 0, SEEK_END) == -1)
+        perror("fseek"), exit(EXIT_FAILURE);
+      if ((size = ftell(fp)) == -1)
+        perror("ftell"), exit(EXIT_FAILURE);
+      rewind(fp);
+
+:8i
+      free(buf), buf = malloc(size + 2);
+      buf++; // too-far for clamp_memrchr
+      if (fread(buf, sizeof(*buf), size, fp) != size)
+        perror("fread"), exit(EXIT_FAILURE);
+      buf[size] = '\0';
+      if (fclose(fp) == EOF)
+        perror("fclose"), exit(EXIT_FAILURE);
+    } break;
+:626gjpkc
+
+:262gjpkc
+    case CTRL_O:
+    case CTRL_O: {
+:w
+:18jnnnnn
+  282       if ((fp = fopen(argv[1], "w")) == NULL)
+  283         perror("fopen"), exit(EXIT_FAILURE);
+  284       if (fwrite(buf, sizeof(*buf), size, fp) != size)
+  285         perror("fwrite"), exit(EXIT_FAILURE);
+  286       if (fclose(fp) == EOF)
+:281gpkc
+    case CTRL_S:
+    case CTRL_S: {
+:pkci
+      if ((fp = fopen(argv[1], "w")) == NULL)
+      FILE *fp = fopen(argv[1], "w");
+      if (fp == NULL)
+:286gnnn
+  286         perror("fwrite"), exit(EXIT_FAILURE);
+  287       if (fclose(fp) == EOF)
+  288         perror("fclose"), exit(EXIT_FAILURE);
+:nn
+  289       break;
+  290     case ARR_UP:
+:kkpkc
+      break;
+    } break;
+:w
+:220g20n
+  220 }
+  221 
+  222 int main(int argc, char **argv) {
+  223   if (argc != 2)
+  224     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  225 
+  226   FILE *fp = fopen(argv[1], "r");
+  227   if (fp == NULL)
+  228     perror("fopen"), exit(EXIT_FAILURE);
+  229   if (fseek(fp, 0, SEEK_END) == -1)
+  230     perror("fseek"), exit(EXIT_FAILURE);
+  231   long size = ftell(fp);
+  232   if (size == -1)
+  233     perror("ftell"), exit(EXIT_FAILURE);
+  234   rewind(fp);
+  235 
+  236   char *buf = malloc(size + 2);
+  237   buf++; // for too-far for clamp_memrchr
+  238   if (fread(buf, sizeof(*buf), size, fp) != size)
+  239     perror("fread"), exit(EXIT_FAILURE);
+:226g18d
+:220g20n
+  220 }
+  221 
+  222 int main(int argc, char **argv) {
+  223   if (argc != 2)
+  224     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  225 
+  226   // XXX stty -icanon -echo -nl
+  227   unsigned rows = 0, cols = 0;
+  228   unsigned row = 0, col = 0;
+  229   do {
+  230     rows = row, cols = col;
+  231     fputs("\033[99B\033[99C", stdout); // move down then right
+  232     fputs("\033[6n", stdout); // request cursor position
+  233     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  234       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  235   } while (row != rows || col != cols);
+  236 
+  237   size_t cursor = 0, virtual = cursor;
+  238   char *line, *other;
+  239   for (enum key key = CTRL_O; ; key = getkey()) {
+:238gpkc
+  char *line, *other;
+  char *buf = NULL, *line, *other;
+:i
+  long size;
+:130g20n
+  130 brk:
+  131 
+  132   while (++row < rows)
+  133     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  134 
+  135   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  136 }
+  137 
+  138 enum key {
+  139   KEY_UNK,
+  140   CTRL_A = 1,
+  141   CTRL_C = 3,
+  142   CTRL_H = 8,
+  143   KEY_TAB = 9,
+  144   KEY_ENTER = 13,
+  145   CTRL_Q = 17,
+  146   CTRL_S = 19,
+  147   CTRL_V = 22,
+  148   CTRL_X = 24,
+  149   CTRL_Z = 26,
+:145gi
+  CTRL_O = 15,
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:282:23: error: ‘size’ may be used uninitialized [-Werror=maybe-uninitialized]
+  282 |       other = (char *)clamp_memchr(buf + cursor, '\n', size - cursor) + 1;
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+st3.c:240:8: note: ‘size’ was declared here
+  240 |   long size;
+      |        ^~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:240gpkc
+  long size;
+  long size = 0;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:240g8n 
+  240   long size = 0;
+  241   for (enum key key = CTRL_O; ; key = getkey()) {
+  242     render(buf, 0, buf + cursor, rows, cols);
+  243 
+  244     switch (key) {
+  245     case CTRL_Q:
+  246       goto brk;
+  247     case CTRL_O: {
+:242gydd300g20n
+  300       buf = realloc(--buf, ++size + 2), buf++;
+  301       memmove(buf + cursor + 1, buf + cursor, size - cursor);
+  302       buf[cursor] = key, virtual = ++cursor;
+  303     }
+  304   }
+  305 brk:
+  306 
+  307   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+  308   free(--buf);
+  309 }
+:303ga
+
+:x
+:255gpkc
+      free(buf), buf = malloc(size + 2);
+      free(--buf), buf = malloc(size + 2), buf++; // for too-far for clamp_memrchr
+:d
+:239gpkc
+  char *buf = NULL, *line, *other;
+  char *buf = (char *)1, *line, *other;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:240g20n
+  240   long size = 0;
+  241   for (enum key key = CTRL_O; ; key = getkey()) {
+  242     switch (key) {
+  243     case CTRL_Q:
+  244       goto brk;
+  245     case CTRL_O: {
+  246       FILE *fp = fopen(argv[1], "r");
+  247       if (fp == NULL)
+  248         perror("fopen"), exit(EXIT_FAILURE);
+  249       if (fseek(fp, 0, SEEK_END) == -1)
+  250         perror("fseek"), exit(EXIT_FAILURE);
+  251       if ((size = ftell(fp)) == -1)
+  252         perror("ftell"), exit(EXIT_FAILURE);
+  253       rewind(fp);
+  254 
+  255       free(--buf), buf = malloc(size + 2), buf++; // for too-far for clamp_memrchr
+  256       if (fread(buf, sizeof(*buf), size, fp) != size)
+  257         perror("fread"), exit(EXIT_FAILURE);
+  258       buf[size] = '\0';
+  259       if (fclose(fp) == EOF)
+:244gpi
+      goto brk;
+    case CTRL_H:
+:i
+      render(HELP, 0, NULL, hi_help, rows, cols);
+:ii
+      getkey();
+      break;
+:90g20n
+   90 
+   91   return ++*src, HI_DEFAULT;
+   92 }
+   93 
+   94 void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+   95   unsigned row = 0, col = 0;
+   96   unsigned crow = 0, ccol = 0;
+   97   fputs("\033[H", stdout); // home cursor
+   98   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+   99 
+  100   char *hi, *line = buf;
+  101   for (char *start = buf; *start; start = buf) {
+  102     fputs(hi = hi_c(&buf), stdout);
+  103 
+  104     for (; start < buf; start++) {
+  105       int niter = *start == '\t' ? 8 - (start - line) % 8 : 1;
+  106       for (; niter > 0; niter--) {
+  107         if (col >= cols) {
+  108           if (++row >= rows)
+  109             goto brk;
+:94gpkc
+void render(char *buf, unsigned lineno, char *cursor, unsigned rows, unsigned cols) {
+void render(char *buf, unsigned lineno, char *cursor, char *(*hi)(char **),              
+:i
+            unsigned rows, unsigned cols) {
+:101gp
+  char *hi, *line = buf;
+:kc
+  char *last_hi, *line = buf;
+:jp
+    fputs(hi = hi_c(&buf), stdout);
+:kc
+    fputs(last_hi = hi(&buf), stdout);
+:20n
+  104 
+  105     for (; start < buf; start++) {
+  106       int niter = *start == '\t' ? 8 - (start - line) % 8 : 1;
+  107       for (; niter > 0; niter--) {
+  108         if (col >= cols) {
+  109           if (++row >= rows)
+  110             goto brk;
+  111           fputs("\n\033[K" HI_LINENO, stdout), col = printf("      ");
+  112           fputs(hi, stdout); // to preserve highlight across line wraps
+  113         }
+  114 
+  115         if (start == cursor)
+  116           crow = row, ccol = col;
+  117 
+  118         if (*start == '\n') {
+  119           if (++row >= rows)
+  120             goto brk;
+  121           fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  122           fputs(hi, stdout); // for '\n' within a highlight region
+  123           line = start + 1;
+:112gpkc
+          fputs(hi, stdout); // to preserve highlight across line wraps
+          fputs(last_hi, stdout); // to preserve highlight across line wraps
+:122gpkc
+          fputs(hi, stdout); // for '\n' within a highlight region
+          fputs(lats_hi, stdout); // for '\n' within a highlight region
+:jj10n
+  125           putchar(' '), col++;
+  126         else
+  127           putchar(*start), col++;
+  128       }
+  129     }
+  130   }
+  131 brk:
+  132 
+  133   while (++row < rows)
+  134     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+:w
+:240g8n 
+  240   char *buf = (char *)1, *line, *other;
+  241   long size = 0;
+  242   for (enum key key = CTRL_O; ; key = getkey()) {
+  243     switch (key) {
+  244     case CTRL_Q:
+  245       goto brk;
+  246     case CTRL_H:
+  247       render(HELP, 0, NULL, hi_help, rows, cols);
+:242gpkc
+  for (enum key key = CTRL_O; ; key = getkey()) {
+  for (enum key key = CTRL_O;; key = getkey()) {
+:300g8n
+  300       break;
+  301     case KEY_ENTER:
+  302       key = '\n';
+  303     default:
+  304       buf = realloc(--buf, ++size + 2), buf++;
+  305       memmove(buf + cursor + 1, buf + cursor, size - cursor);
+  306       buf[cursor] = key, virtual = ++cursor;
+  307     }
+:8n
+  308 
+  309     render(buf, 0, buf + cursor, rows, cols);
+  310   }
+  311 brk:
+  312 
+  313   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+  314   free(--buf);
+  315 }
+:309gpkc
+    render(buf, 0, buf + cursor, rows, cols);
+    render(buf, 0, buf + corsor, hi_c, rows, cols); // TODO ft detect
+:90g8n
+   90 
+   91   return ++*src, HI_DEFAULT;
+   92 }
+   93 
+   94 void render(char *buf, unsigned lineno, char *cursor, char *(*hi)(char **),
+   95             unsigned rows, unsigned cols) {
+   96   unsigned row = 0, col = 0;
+   97   unsigned crow = 0, ccol = 0;
+:93g8i
+
+char *hi_help(char **src) {
+  if (**src == '<') {
+    while (**src && !isspace(**src) && *++*src != '>');
+    if (**src == '>')
+      return ++*src, HI_KEYWORD;
+    return HI_DEFAULT;
+  }
+:3i
+
+  return HI_DEFAULT;
+}
+:w 
+:kkp
+  return HI_DEFAULT;
+:kc
+  return ++*src, HI_DEFAULT;
+:w
+:kk8n
+  101 
+  102   return ++*src, HI_DEFAULT;
+  103 }
+  104 
+  105 void render(char *buf, unsigned lineno, char *cursor, char *(*hi)(char **),
+  106             unsigned rows, unsigned cols) {
+  107   unsigned row = 0, col = 0;
+  108   unsigned crow = 0, ccol = 0;
+:104g8i
+ 
+#define HELP                                                                   \
+  "<up>\tGo to previous line.\n"                                               \
+  "<down>\tGo to next line.\n"                                                 \
+  "<left>\tGo back one character.\n"                                           \ 
+  "<right>\tGo forward one character.\n"                                       \
+  "<bs>\tDelete character left of cursor.\t"                                   \
+  "<del>\tDelete character under cursor.\n"                                    \
+:kkpkc
+  "<bs>\tDelete character left of cursor.\t"                                   \
+  "<bs>\tDelete character left of cursor.\n"                                   \
+:4a
+  "\n"                                                                         \
+  "<c-q>\tQuit without confirmation.\n"                                        \
+  "<c-h>\tDisplay this help page.\n"                                           \
+  "<c-o>\tRead current file from disk.\n"                                      \
+:i
+  "<c-s>\tWrite current buffer into current file on disk.\n"                   \
+:kkp
+  "<c-o>\tRead current file from disk.\n"                                      \
+:kc
+  "<c-o>\tRead current file from disk into current buffer.\n"                  \
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘render’:
+st3.c:146:17: error: ‘lats_hi’ undeclared (first use in this function); did you mean ‘last_hi’?
+  146 |           fputs(lats_hi, stdout); // for '\n' within a highlight region
+      |                 ^~~~~~~
+      |                 last_hi
+st3.c:146:17: note: each undeclared identifier is reported only once for each function it appears in
+st3.c: In function ‘main’:
+st3.c:333:26: error: ‘corsor’ undeclared (first use in this function); did you mean ‘cursor’?
+  333 |     render(buf, 0, buf + corsor, hi_c, rows, cols); // TODO ft detect
+      |                          ^~~~~~
+      |                          cursor
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:146gpkc
+          fputs(lats_hi, stdout); // for '\n' within a highlight region
+          fputs(last_hi, stdout); // for '\n' within a highlight region
+:333gpkc
+    render(buf, 0, buf + corsor, hi_c, rows, cols); // TODO ft detect
+    render(buf, 0, buf + cursor, hi_c, rows, cols); // TODO ft detect
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:100g20n
+  100   }
+  101 
+  102   return ++*src, HI_DEFAULT;
+  103 }
+  104 
+  105 #define HELP                                                                   \
+  106   "<up>\tGo to previous line.\n"                                               \
+  107   "<down>\tGo to next line.\n"                                                 \
+  108   "<left>\tGo back one character.\n"                                           \
+  109   "<right>\tGo forward one character.\n"                                       \
+  110   "<bs>\tDelete character left of cursor.\n"                                   \
+  111   "<del>\tDelete character under cursor.\n"                                    \
+  112   "\n"                                                                         \
+  113   "<c-q>\tQuit without confirmation.\n"                                        \
+  114   "<c-h>\tDisplay this help page.\n"                                           \
+  115   "<c-o>\tRead current file from disk into buffer.\n"                          \
+  116   "<c-s>\tWrite buffer into current file on disk.\n"                           \
+  117 
+  118 void render(char *buf, unsigned lineno, char *cursor, char *(*hi)(char **),
+  119             unsigned rows, unsigned cols) {
+:116gpii
+  "<c-s>\tWrite current buffer into current file on disk.\n"                   \
+  "\n"                                                                         \  
+  "Keystrokes not listed above are inserted into\n"                            \
+:i
+  "the buffer left of the cursor.\n"                                           \
+:260g20n
+  260     fputs("\033[99B\033[99C", stdout); // move down then right
+  261     fputs("\033[6n", stdout); // request cursor position
+  262     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  263       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  264   } while (row != rows || col != cols);
+  265 
+  266   size_t cursor = 0, virtual = cursor;
+  267   char *buf = (char *)1, *line, *other;
+  268   long size = 0;
+  269   for (enum key key = CTRL_O;; key = getkey()) {
+  270     switch (key) {
+  271     case CTRL_Q:
+  272       goto brk;
+  273     case CTRL_H:
+  274       render(HELP, 0, NULL, hi_help, rows, cols);
+  275       getkey();
+  276       break;
+  277     case CTRL_O: {
+  278       FILE *fp = fopen(argv[1], "r");
+  279       if (fp == NULL)
+:268gpi
+  long size = 0;
+  enum key keys[8] = {0};
+:n
+  270   for (enum key key = CTRL_O;; key = getkey()) {
+:kp
+  for (enum key key = CTRL_O;; key = getkey()) {
+:i
+    memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+:ii
+    if (memcmp(seq, keys) == 0)
+      key = CTRL_H;
+:kkc
+    if (memcmp(seq, keys, sizeof(keys)) == 0)
+:p
+      key = CTRL_H;
+:i
+
+:w
+:kkp
+      key = CTRL_H;
+:kc
+      key = '\b'; // XXX nonportable
+:w
+:220g20n
+  220 
+  221   switch (c) {
+  222   case '3':
+  223     return KEY_DEL;
+  224   case '5':
+  225     return KEY_PGUP;
+  226   case '6':
+  227     return KEY_PGDN;
+  228   }
+  229 
+  230   return KEY_UNK;
+  231 }
+  232 
+  233 void *memrchr(void *s, int c, size_t n) {
+  234   unsigned char *cp = (unsigned char *)s + n;
+  235   for (; n > 0; n--)
+  236     if (*--cp == (unsigned char)c)
+  237       return cp;
+  238   return NULL;
+  239 }
+:232gii
+
+enum key seq[8] = {260, 259, 260, 259, 258, 258, 257, 257};
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:250g50n
+  250   return p ? p : (unsigned char *)s - 1;
+  251 }
+  252 
+  253 int main(int argc, char **argv) {
+  254   if (argc != 2)
+  255     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  256 
+  257   // XXX stty -icanon -echo -nl
+  258   unsigned rows = 0, cols = 0;
+  259   unsigned row = 0, col = 0;
+  260   do {
+  261     rows = row, cols = col;
+  262     fputs("\033[99B\033[99C", stdout); // move down then right
+  263     fputs("\033[6n", stdout); // request cursor position
+  264     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  265       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  266   } while (row != rows || col != cols);
+  267 
+  268   size_t cursor = 0, virtual = cursor;
+  269   char *buf = (char *)1, *line, *other;
+  270   long size = 0;
+  271   enum key keys[8] = {0};
+  272   for (enum key key = CTRL_O;; key = getkey()) {
+  273     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+  274     if (memcmp(seq, keys, sizeof(keys)) == 0)
+  275       key = '\b'; // XXX nonportable
+  276 
+  277     switch (key) {
+  278     case CTRL_Q:
+  279       goto brk;
+  280     case CTRL_H:
+  281       render(HELP, 0, NULL, hi_help, rows, cols);
+  282       getkey();
+  283       break;
+  284     case CTRL_O: {
+  285       FILE *fp = fopen(argv[1], "r");
+  286       if (fp == NULL)
+  287         perror("fopen"), exit(EXIT_FAILURE);
+  288       if (fseek(fp, 0, SEEK_END) == -1)
+  289         perror("fseek"), exit(EXIT_FAILURE);
+  290       if ((size = ftell(fp)) == -1)
+  291         perror("ftell"), exit(EXIT_FAILURE);
+  292       rewind(fp);
+  293 
+  294       free(--buf), buf = malloc(size + 2), buf++; // for too-far for clamp_memrchr
+  295       if (fread(buf, sizeof(*buf), size, fp) != size)
+  296         perror("fread"), exit(EXIT_FAILURE);
+  297       buf[size] = '\0';
+  298       if (fclose(fp) == EOF)
+  299         perror("fclose"), exit(EXIT_FAILURE);
+:257g11y11d    
+:261gi
+
+:xw
+:2450g20n
+:250g20n
+  250   return p ? p : (unsigned char *)s - 1;
+  251 }
+  252 
+  253 int main(int argc, char **argv) {
+  254   if (argc != 2)
+  255     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  256 
+  257   size_t cursor = 0, virtual = cursor;
+  258   char *buf = (char *)1, *line, *other;
+  259   long size = 0;
+  260   enum key keys[8] = {0};
+  261 
+  262   // XXX stty -icanon -echo -nl
+  263   unsigned rows = 0, cols = 0;
+  264   unsigned row = 0, col = 0;
+  265   do {
+  266     rows = row, cols = col;
+  267     fputs("\033[99B\033[99C", stdout); // move down then right
+  268     fputs("\033[6n", stdout); // request cursor position
+  269     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+:262gi
+refresh:
+:kp
+refresh:
+:kd
+:220g20n
+  220 
+  221   switch (c) {
+  222   case '3':
+  223     return KEY_DEL;
+  224   case '5':
+  225     return KEY_PGUP;
+  226   case '6':
+  227     return KEY_PGDN;
+  228   }
+  229 
+  230   return KEY_UNK;
+  231 }
+  232 
+  233 enum key seq[8] = {260, 259, 260, 259, 258, 258, 257, 257};
+  234 
+  235 void *memrchr(void *s, int c, size_t n) {
+  236   unsigned char *cp = (unsigned char *)s + n;
+  237   for (; n > 0; n--)
+  238     if (*--cp == (unsigned char)c)
+  239       return cp;
+:232giii
+
+void refresh(unsigned *rows, unsigned *cols) {
+}
+:kx
+:230g20n
+  230   return KEY_UNK;
+  231 }
+  232 
+  233 void refresh(unsigned *rows, unsigned *cols) {
+  234   // XXX stty -icanon -echo -nl
+  235   unsigned rows = 0, cols = 0;
+  236   unsigned row = 0, col = 0;
+  237   do {
+  238     rows = row, cols = col;
+  239     fputs("\033[99B\033[99C", stdout); // move down then right
+  240     fputs("\033[6n", stdout); // request cursor position
+  241     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  242       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  243   } while (row != rows || col != cols);
+  244 
+  245 }
+  246 
+  247 enum key seq[8] = {260, 259, 260, 259, 258, 258, 257, 257};
+  248 
+  249 void *memrchr(void *s, int c, size_t n) {
+:244gd
+:235gd
+:237gpkc
+    rows = row, cols = col;
+    *rows = row, *cols = col;
+:240gpkc
+    if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+    if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+:242gpkc
+  } while (row != rows || col != cols);
+  } while (row != *rows || col != *cols);
+:250g20n
+  250     if (*--cp == (unsigned char)c)
+  251       return cp;
+  252   return NULL;
+  253 }
+  254 
+  255 void *clamp_memchr(void *s, int c, size_t n) {
+  256   void *p = memchr(s, c, n);
+  257   return p ? p : (unsigned char *)s + n;
+  258 }
+  259 
+  260 void *clamp_memrchr(void *s, int c, size_t n) {
+  261   void *p = memrchr(s, c, n);
+  262   return p ? p : (unsigned char *)s - 1;
+  263 }
+  264 
+  265 int main(int argc, char **argv) {
+  266   if (argc != 2)
+  267     fputs("Usage: st3 <filename>\n", stdout), exit(EXIT_FAILURE);
+  268 
+  269   size_t cursor = 0, virtual = cursor;
+:270g20n
+  270   char *buf = (char *)1, *line, *other;
+  271   long size = 0;
+  272   enum key keys[8] = {0};
+  273 
+  274   // XXX stty -icanon -echo -nl
+  275   unsigned rows = 0, cols = 0;
+  276   unsigned row = 0, col = 0;
+  277   do {
+  278     rows = row, cols = col;
+  279     fputs("\033[99B\033[99C", stdout); // move down then right
+  280     fputs("\033[6n", stdout); // request cursor position
+  281     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
+  282       fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+  283   } while (row != rows || col != cols);
+  284 
+  285   for (enum key key = CTRL_O;; key = getkey()) {
+  286     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+  287     if (memcmp(seq, keys, sizeof(keys)) == 0)
+  288       key = '\b'; // XXX nonportable
+  289 
+:274gdjc
+  refresh(&rows, &cols);
+:pk
+  do {
+:ddddddd
+:w
+:269g5y5d
+:20n
+  269   unsigned rows = 0, cols = 0;
+  270   refresh(&rows, &cols);
+  271 
+  272   for (enum key key = CTRL_O;; key = getkey()) {
+  273     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+  274     if (memcmp(seq, keys, sizeof(keys)) == 0)
+  275       key = '\b'; // XXX nonportable
+  276 
+  277     switch (key) {
+  278     case CTRL_Q:
+  279       goto brk;
+  280     case CTRL_H:
+  281       render(HELP, 0, NULL, hi_help, rows, cols);
+  282       getkey();
+  283       break;
+  284     case CTRL_O: {
+  285       FILE *fp = fopen(argv[1], "r");
+  286       if (fp == NULL)
+  287         perror("fopen"), exit(EXIT_FAILURE);
+  288       if (fseek(fp, 0, SEEK_END) == -1)
+:272gxw
+:kkk8n
+  274   long size = 0;
+  275   enum key keys[8] = {0};
+  276 
+  277   for (enum key key = CTRL_O;; key = getkey()) {
+  278     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+  279     if (memcmp(seq, keys, sizeof(keys)) == 0)
+  280       key = '\b'; // XXX nonportable
+  281 
+:270gpkc
+  refresh(&rows, &cols);
+  reinit(&rows, &cols);
+:233gp
+void refresh(unsigned *rows, unsigned *cols) {
+:kc
+void reinit(unsigned *rows, unsigned *cols) {
+:283gp
+    case CTRL_Q:
+:pp 
+      goto brk;
+    case CTRL_H:
+:ppp
+      render(HELP, 0, NULL, hi_help, rows, cols);
+      getkey();
+      break;
+:iii
+    case CTRL_L:
+      reinit(&rows, &cols);
+      break;
+:w   
+:275gp
+  enum key keys[8] = {0};
+:kc
+  enum key key = CTRL_O, keys[8] = {0};
+:277gpkc
+  for (enum key key = CTRL_O;; key = getkey()) {
+  while (1) {
+:8n
+  278     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+  279     if (memcmp(seq, keys, sizeof(keys)) == 0)
+  280       key = '\b'; // XXX nonportable
+  281 
+  282     switch (key) {
+  283     case CTRL_Q:
+  284       goto brk;
+  285     case CTRL_H:
+:278g4y4d
+:330g30n
+  330       virtual = ++cursor;
+  331       break;
+  332     case KEY_DEL:
+  333       cursor++;
+  334     case KEY_BS:
+  335       memmove(buf + cursor - 1, buf + cursor, size - cursor + 1);
+  336       buf = realloc(--buf, --size + 2), buf++;
+  337       virtual = --cursor;
+  338       break;
+  339     case KEY_ENTER:
+  340       key = '\n';
+  341     default:
+  342       buf = realloc(--buf, ++size + 2), buf++;
+  343       memmove(buf + cursor + 1, buf + cursor, size - cursor);
+  344       buf[cursor] = key, virtual = ++cursor;
+  345     }
+  346 
+  347     render(buf, 0, buf + cursor, hi_c, rows, cols); // TODO ft detect
+  348   }
+  349 brk:
+  350 
+  351   fputs("\033[2J\033[H", stdout); // clear screen and home cursor
+  352   free(--buf);
+  353 }
+:348gi
+
+:x
+:344g8n
+  344       buf[cursor] = key, virtual = ++cursor;
+  345     }
+  346 
+  347     render(buf, 0, buf + cursor, hi_c, rows, cols); // TODO ft detect
+  348 
+  349     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+  350     if (memcmp(seq, keys, sizeof(keys)) == 0)
+  351       key = '\b'; // XXX nonportable
+:4n
+  352 
+  353   }
+  354 brk:
+  355 
+:352gd
+:349gpki
+    memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+    *keys = key = getkey();
+:pkc
+    memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)), *keys = key;
+    memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys)); 
+:w
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:285:10: error: ‘CTRL_L’ undeclared (first use in this function); did you mean ‘CTRL_Z’?
+  285 |     case CTRL_L:
+      |          ^~~~~~
+      |          CTRL_Z
+st3.c:285:10: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:160g20n
+  160   while (++row < rows)
+  161     fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+  162 
+  163   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
+  164 }
+  165 
+  166 enum key {
+  167   KEY_UNK,
+  168   CTRL_A = 1,
+  169   CTRL_C = 3,
+  170   CTRL_H = 8,
+  171   KEY_TAB = 9,
+  172   KEY_ENTER = 13,
+  173   CTRL_O = 15,
+  174   CTRL_Q = 17,
+  175   CTRL_S = 19,
+  176   CTRL_V = 22,
+  177   CTRL_X = 24,
+  178   CTRL_Z = 26,
+  179   KEY_BS = 127,
+:172gi
+  CTRL_L = 12,
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:100g20n
+  100   }
+  101 
+  102   return ++*src, HI_DEFAULT;
+  103 }
+  104 
+  105 #define HELP                                                                   \
+  106   "<up>\tGo to previous line.\n"                                               \
+  107   "<down>\tGo to next line.\n"                                                 \
+  108   "<left>\tGo back one character.\n"                                           \
+  109   "<right>\tGo forward one character.\n"                                       \
+  110   "<bs>\tDelete character left of cursor.\n"                                   \
+  111   "<del>\tDelete character under cursor.\n"                                    \
+  112   "\n"                                                                         \
+  113   "<c-q>\tQuit without confirmation.\n"                                        \
+  114   "<c-h>\tDisplay this help page.\n"                                           \
+  115   "<c-o>\tRead current file from disk into buffer.\n"                          \
+  116   "<c-s>\tWrite buffer into current file on disk.\n"                           \
+  117   "\n"                                                                         \
+  118   "Keystrokes not listed above are inserted into\n"                            \
+  119   "the buffer left of the cursor.\n"                                           \
+:114gpi
+  "<c-h>\tDisplay this help page.\n"                                           \
+  "<c-l>\tReinitialize terminal and redraw.\n"                                 \
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:330g20n
+  330       break;
+  331     case ARR_RIGHT:
+  332       virtual = ++cursor;
+  333       break;
+  334     case KEY_DEL:
+  335       cursor++;
+  336     case KEY_BS:
+  337       memmove(buf + cursor - 1, buf + cursor, size - cursor + 1);
+  338       buf = realloc(--buf, --size + 2), buf++;
+  339       virtual = --cursor;
+  340       break;
+  341     case KEY_ENTER:
+  342       key = '\n';
+  343     default:
+  344       buf = realloc(--buf, ++size + 2), buf++;
+  345       memmove(buf + cursor + 1, buf + cursor, size - cursor);
+  346       buf[cursor] = key, virtual = ++cursor;
+  347     }
+  348 
+  349     render(buf, 0, buf + cursor, hi_c, rows, cols); // TODO ft detect
+:8n
+  350 
+  351     *keys = key = getkey();
+  352     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys));
+  353     if (memcmp(seq, keys, sizeof(keys)) == 0)
+  354       key = '\b'; // XXX nonportable
+  355   }
+  356 brk:
+  357 
+:351gydjxwq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:120g40n
+  120   "the buffer left of the cursor.\n"                                           \
+  121 
+  122 void render(char *buf, unsigned lineno, char *cursor, char *(*hi)(char **),
+  123             unsigned rows, unsigned cols) {
+  124   unsigned row = 0, col = 0;
+  125   unsigned crow = 0, ccol = 0;
+  126   fputs("\033[H", stdout); // home cursor
+  127   fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  128 
+  129   char *last_hi, *line = buf;
+  130   for (char *start = buf; *start; start = buf) {
+  131     fputs(last_hi = hi(&buf), stdout);
+  132 
+  133     for (; start < buf; start++) {
+  134       int niter = *start == '\t' ? 8 - (start - line) % 8 : 1;
+  135       for (; niter > 0; niter--) {
+  136         if (col >= cols) {
+  137           if (++row >= rows)
+  138             goto brk;
+  139           fputs("\n\033[K" HI_LINENO, stdout), col = printf("      ");
+  140           fputs(last_hi, stdout); // to preserve highlight across line wraps
+  141         }
+  142 
+  143         if (start == cursor)
+  144           crow = row, ccol = col;
+  145 
+  146         if (*start == '\n') {
+  147           if (++row >= rows)
+  148             goto brk;
+  149           fputs("\n\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  150           fputs(last_hi, stdout); // for '\n' within a highlight region
+  151           line = start + 1;
+  152         } else if (*start == '\t')
+  153           putchar(' '), col++;
+  154         else
+  155           putchar(*start), col++;
+  156       }
+  157     }
+  158   }
+  159 brk:
+:122gpkc
+void render(char *buf, unsigned lineno, char *cursor, char *(*hi)(char **),
+void render(char *screen, unsigned lineno, char *cursor, char *(*hi)(char **),
+:126gpkcpkciii
+  fputs("\033[H", stdout); // home cursor
+  fputs("\033[H\033[K" HI_LINENO, stdout); // home cursor and erase line
+  fputs("\033[K" HI_LINENO, stdout), col = printf("%5u ", ++lineno);
+  if (screen[-1] == '\n')
+  col = printf(screen[-1] == '\n' ? "%5u " : "      ", ++lineno);
+
+
+:kkddkkdw
+:133gpkc
+    for (; start < buf; start++) {
+    for (; start < screen; start++) {
+:129gpkc
+  char *last_hi, *line = buf;
+  char *last_hi, *line = screen;
+:pkc
+  for (char *start = buf; *start; start = buf) {
+  for (char *start = screen; *start; start = screen) {
+:pkc
+    fputs(last_hi = hi(&buf), stdout);
+    fputs(last_hi = hi(&screen), stdout);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:300gpkc
+      free(--buf), buf = malloc(size + 2), buf++; // for too-far for clamp_memrchr
+      free(--buf), buf = malloc(size + 2), *buf++ = '\n';                                 
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:317gpii
+      line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+      if (line == buf) 
+        break;
+:323gjjpii
+      line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+      if (line == buf + size)
+        break;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:332gpii
+    case ARR_LEFT:
+      if (cursor == buf)
+        break;
+:335gjjpii
+    case ARR_RIGHT:
+      if (cursor == buf + size)
+        break;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:333:18: error: comparison between pointer and integer [-Werror]
+  333 |       if (cursor == buf)
+      |                  ^~
+st3.c:338:18: error: comparison between pointer and integer [-Werror]
+  338 |       if (cursor == buf + size)
+      |                  ^~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:333gpkc
+      if (cursor == buf)
+      if (cursor == 0) 
+:336gpkc
+      break;
+      break;
+:335gpkc
+      virtual = --cursor;
+      virtual = --cursor;
+:kkkppp
+      if (cursor == 0)
+        break;
+      virtual = --cursor;
+:pp
+      break;
+    case ARR_RIGHT:
+:p
+      if (cursor == buf + size)
+:kc
+      if (cursor == size)
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:342gpii
+    case KEY_DEL:
+      if (cursor == size)
+        break;
+:pp
+      cursor++;
+    case KEY_BS:
+:ii
+      if (cursor == 0)
+        break;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:159gp
+brk:
+:iii
+
+  if (screen == cursor)
+    crow = row, ccol = col;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:329gddpii
+      other = (char *)clamp_memchr(buf + cursor, '\n', size - cursor) + 1;
+      if (other == buf + size + 1)
+        break;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:330gp
+      if (other == buf + size + 1)
+:333gpkc
+      cursor = (char *)clamp_memchr(other, '\n', buf + virtual - other) - buf;
+      cursor = (char *)clamp_memchr(other, '\n', buf + size - other) - buf;                                    
+:ii
+      cursor = cursor < virtual ? cursor : virtual;
+
+:kd
+:325gpkc
+      cursor = (char *)clamp_memchr(other, '\n', buf + virtual - other) - buf;
+      cursor = (char *)clamp_memchr(other, '\n', buf + size - other) - buf;
+:i
+      cursor = cursor < virtual ? cursor : virtual;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:320g8n
+  320       line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+  321       if (line == buf)
+  322         break;
+  323       other = (char *)clamp_memrchr(buf, '\n', line - 1 - buf) + 1;
+  324       virtual -= line - other;
+  325       cursor = (char *)clamp_memchr(other, '\n', buf + size - other) - buf;
+  326       cursor = cursor < virtual ? cursor : virtual;
+  327       break;
+:324gddd8n
+  324       break;
+  325     case ARR_DOWN:
+  326       line = (char *)clamp_memrchr(buf, '\n', cursor) + 1;
+  327       other = (char *)clamp_memchr(buf + cursor, '\n', size - cursor) + 1;
+  328       if (other == buf + size + 1)
+  329         break;
+  330       virtual += other - line;
+  331       cursor = (char *)clamp_memchr(other, '\n', buf + size - other) - buf;
+:324gpkc
+      break;
+      goto virtual;
+:329gpi
+        break;
+    virtual:
+:pkc
+      virtual += other - line;
+      virtual += other - line; // not UB because `virtual` is not a pointer   
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:340g10n
+  340     case ARR_RIGHT:
+  341       if (cursor == size)
+  342         break;
+  343       virtual = ++cursor;
+  344       break;
+  345     case KEY_DEL:
+  346       if (cursor == size)
+  347         break;
+  348       cursor++;
+  349     case KEY_BS:
+:344gpiiiii
+      break;
+    case KEY_PGUP:
+      screen = (char *)clamp_memrchr(buf, '\n', screen - 1) + 1;
+      break;
+    case KEY_PGDN:
+      screen = (char *)clamp_memchr(buf + screen, '\n', size - screen) + 1 - buf;
+:i
+      break;
+:kkkkkpkc
+      screen = (char *)clamp_memrchr(buf, '\n', screen - 1) + 1;
+      screen = (char *)clamp_memrchr(buf, '\n', screen - 1) + 1 - buf;
+:277gp
+  size_t cursor = 0, virtual = cursor;
+:i
+  size_t screen = 0;
+:344g8n
+  344       virtual = ++cursor;
+  345       break;
+  346     case KEY_PGUP:
+  347       screen = (char *)clamp_memrchr(buf, '\n', screen - 1) + 1 - buf;
+  348       break;
+  349     case KEY_PGDN:
+  350       screen = (char *)clamp_memchr(buf + screen, '\n', size - screen) + 1 - buf;
+  351       break;
+:346gpi
+    case KEY_PGUP:
+      if (screen == buf)
+:i  
+        break;
+:4n
+  349       screen = (char *)clamp_memrchr(buf, '\n', screen - 1) + 1 - buf;
+  350       break;
+  351     case KEY_PGDN:
+  352       screen = (char *)clamp_memchr(buf + screen, '\n', size - screen) + 1 - buf;
+:351gpi
+    case KEY_PGDN:
+      if (screen == buf + size + 1)
+:i 
+        break;
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:347:18: error: comparison between pointer and integer [-Werror]
+  347 |       if (screen == buf)
+      |                  ^~
+st3.c:352:18: error: comparison between pointer and integer [-Werror]
+  352 |       if (screen == buf + size + 1)
+      |                  ^~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:347gpkc
+      if (screen == buf)
+      if (screen == 0)
+:352gpkc
+      if (screen == buf + size + 1)
+      if (screen == size + 1)
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:375gpkc
+    render(buf, 0, buf + cursor, hi_c, rows, cols); // TODO ft detect
+    render(screen, lineno, buf + cursor, hi_c, rows, cols); // TODO ft detect
+:277g3n
+  277   size_t cursor = 0, virtual = cursor;
+  278   size_t screen = 0;
+  279   char *buf = (char *)1, *line, *other;
+:n  
+  280   long size = 0;
+:i
+  unsigned lineno = 0;
+:346g8n
+  346       break;
+  347     case KEY_PGUP:
+  348       if (screen == 0)
+  349         break;
+  350       screen = (char *)clamp_memrchr(buf, '\n', screen - 1) + 1 - buf;
+  351       break;
+  352     case KEY_PGDN:
+  353       if (screen == size + 1)
+:351gi
+ 
+:kkpc
+      screen = (char *)clamp_memrchr(buf, '\n', screen - 1) + 1 - buf;
+      lineno--;
+:355gpi
+        break;
+      lineno++;
+:wq
+& bin/st2 st3.c
+:354gp
+      if (screen == size + 1)
+:pp
+        break;
+      lineno++;
+:kydjxwq
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+st3.c: In function ‘main’:
+st3.c:378:12: error: passing argument 1 of ‘render’ makes pointer from integer without a cast [-Werror=int-conversion]
+  378 |     render(screen, lineno, buf + cursor, hi_c, rows, cols); // TODO ft detect
+      |            ^~~~~~
+      |            |
+      |            size_t {aka long unsigned int}
+st3.c:122:19: note: expected ‘char *’ but argument is of type ‘size_t’ {aka ‘long unsigned int’}
+  122 | void render(char *screen, unsigned lineno, char *cursor, char *(*hi)(char **),
+      |             ~~~~~~^~~~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st3] Error 1
+! bin/st2 st3.c
+:378gpkc
+    render(screen, lineno, buf + cursor, hi_c, rows, cols); // TODO ft detect
+    render(buf + screen, lineno, buf + cursor, hi_c, rows, cols);
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& bin/st2 st3.c
+:109gpii
+  "<right>\tGo forward one character.\n"                                       \
+  "<pgup>\tScroll up one line.\n"                                              \      
+  "<pgdn>\tScroll down one line.\n"                                            \
+:291gpkc
+      render(HELP, 0, NULL, hi_help, rows, cols);
+      render(HELP + 1, 0, NULL, hi_help, rows, cols);
+:105gpkc
+#define HELP                                                                   \
+#define HELP "\n"                                                              \         
+:wq
+& make st3
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
+& 
