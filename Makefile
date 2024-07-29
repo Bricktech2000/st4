@@ -1,3 +1,7 @@
+st4:
+	mkdir -p bin
+	gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+
 st3:
 	mkdir -p bin
 	gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3

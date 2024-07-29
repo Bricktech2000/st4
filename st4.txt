@@ -1,0 +1,340 @@
+& cp st3.c st4.c
+& stty -icanon -echo -nl; bin/st3 Makefile
+& make st4
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+& stty -icanon -echo -nl; bin/st3 st4.c
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘main’:
+st4.c:314:7: error: implicit declaration of function ‘reinit’ [-Werror=implicit-function-declaration]
+  314 |       reinit(&rows, &cols);
+      |       ^~~~~~
+cc1: all warnings being treated as errors ")", ",",
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘termraw’:
+st4.c:269:17: error: ‘STDIN_FILENO’ undeclared (first use in this function)
+  269 |   if (tcgetattr(STDIN_FILENO, &term) != 0)
+      |                 ^~~~~~~~~~~~
+st4.c:269:17: note: each undeclared identifier is reported only once for each function it appears in
+st4.c:269:32: error: ‘term’ undeclared (first use in this function); did you mean ‘termraw’?
+  269 |   if (tcgetattr(STDIN_FILENO, &term) != 0)
+      |                                ^~~~
+      |                                termraw
+make: *** [Makefile:3: st4] Error 1260, 259, 258, 258, 257, 257};
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘termraw’:
+st4.c:270:32: error: ‘term’ undeclared (first use in this function); did you mean ‘termraw’?
+  270 |   if (tcgetattr(STDIN_FILENO, &term) != 0)
+      |                                ^~~~
+      |                                termraw
+st4.c:270:32: note: each undeclared identifier is reported only once for each function it appears in
+st4.c: In function ‘main’:
+st4.c:305:25: error: invalid initializer
+  305 |   struct termios term = termraw();
+      |                         ^~~~~~~
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘termraw’:
+st4.c:270:32: error: ‘term’ undeclared (first use in this function); did you mean ‘termraw’?
+  270 |   if (tcgetattr(STDIN_FILENO, &term) != 0)
+      |                                ^~~~
+      |                                termraw
+st4.c:270:32: note: each undeclared identifier is reported only once for each function it appears in
+st4.c:276:3: error: ‘raw’ undeclared (first use in this function)
+  276 |   raw.c_lflag &= ~ICANON & ~ECHO;
+      |   ^~~
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+& bin/st4 st4.c
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin  crow = row, ccol = col;
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘render’:
+st4.c:193:18: error: ‘rows’ undeclared (first use in this function); did you mean ‘row’?
+  193 |   while (++row < rows)
+      |                  ^~~~
+      |                  row
+st4.c:193:18: note: each undeclared identifier is reported only once for each function it appears in
+st4.c: In function ‘main’:
+st4.c:337:33: error: incompatible type for argument 4 of ‘render’
+  337 |       render(HELP + 1, 0, NULL, hi_help, rows, cols);
+      |                                 ^~~~~~~
+      |                                 |
+      |                                 char * (*)(char **)
+st4.c:146:70: note: expected ‘struct opts’ but argument is of type ‘char * (*)(char **)’
+  146 | void render(char *screen, unsigned lineno, char *cursor, struct opts opts) {
+      |                                                          ~~~~~~~~~~~~^~~~
+st4.c:337:7: error: too many arguments to function ‘render’
+  337 |       render(HELP + 1, 0, NULL, hi_help, rows, cols);
+      |       ^~~~~~
+st4.c:146:6: note: declared here
+  146 | void render(char *screen, unsigned lineno, char *cursor, struct opts opts) {
+      |      ^~~~~~
+st4.c:437:48: error: incompatible type for argument 4 of ‘render’
+  437 |     render(buf + screen, lineno, buf + cursor, hi, rows, cols);
+      |                                                ^~
+      |                                                |
+      |                                                char * (*)(char **)
+st4.c:146:70: note: expected ‘struct opts’ but argument is of type ‘char * (*)(char **)’
+  146 | void render(char *screen, unsigned lineno, char *cursor, struct opts opts) {
+      |                                                          ~~~~~~~~~~~~^~~~
+st4.c:437:5: error: too many arguments to function ‘render’
+  437 |     render(buf + screen, lineno, buf + cursor, hi, rows, cols);
+      |     ^~~~~~
+st4.c:146:6: note: declared here
+  146 | void render(char *screen, unsigned lineno, char *cursor, struct opts opts) {
+      |      ^~~~~~
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p binkey = '\b'; // XXX nonportable
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘main’:
+st4.c:320:19: error: expected ‘}’ before ‘;’ token
+  320 |     .number = true;
+      |                   ^
+st4.c:317:22: note: to match this ‘{’
+  317 |   struct opts opts = {
+      |                      ^
+st4.c:352:15: error: ‘rows’ undeclared (first use in this function)
+  352 |       reinit(&rows, &cols);
+      |               ^~~~
+st4.c:352:15: note: each undeclared identifier is reported only once for each function it appears in
+st4.c:352:22: error: ‘cols’ undeclared (first use in this function)
+  352 |       reinit(&rows, &cols);
+      |                      ^~~~
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘render’:
+st4.c:158:37: error: invalid operands to binary + (have ‘char *’ and ‘char *’)
+  158 |   for (char *start = screen; screen + start < size;) {
+      |                                     ^
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p binfor (int chr, i = 0; i < 2; i++) {
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+st4.c: In function ‘main’:
+st4.c:457:10: error: ‘CTRL_E’ undeclared (first use in this function); did you mean ‘CTRL_Z’?
+  457 |     case CTRL_E:
+      |          ^~~~~~
+      |          CTRL_Z
+st4.c:457:10: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+& bin/st4 st4.c
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+& bin/st4 st4.c
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+& bin/st4 st4.c
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
