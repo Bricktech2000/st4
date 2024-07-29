@@ -19,19 +19,19 @@ The bootstrapping process consisted of the following stages:
 ```bash
 # stage 4 (hit <c-h> for help)
 make st4
-bin/st4 st4.c
+bin/st4 src/st4.c
 
 # stage 3 (hit <c-h> for help)
 make st3
-stty -icanon -echo -nl; bin/st3 st3.c; stty sane
+stty -icanon -echo -nl; bin/st3 src/st3.c; stty sane
 
 # stage 2 (see `st2.c` for help)
 make st2
-bin/st2 st2.c
+bin/st2 src/st2.c
 
 # stage 1 (no help page available)
 make st1
-bin/st1 st1.c
+bin/st1 src/st1.c
 
 # stage 0 (no help page available)
 make st0
