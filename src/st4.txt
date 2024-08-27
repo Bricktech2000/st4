@@ -338,3 +338,7 @@ gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
 % make st4 && fg
 mkdir -p bin
 gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+& bin/st4 src/st4.c
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4

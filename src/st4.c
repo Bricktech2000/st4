@@ -487,7 +487,7 @@ int main(int argc, char **argv) {
     memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys));
     *keys = key = getkey();
     if (memcmp(seq, keys, sizeof(keys)) == 0)
-      key = '\b'; // XXX nonportable
+      key = '\b'; // too far
   }
 brk:
 
