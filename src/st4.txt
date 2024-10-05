@@ -342,3 +342,254 @@ gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
 % make st4 && fg
 mkdir -p bin
 gcc -O2 -Wall -Werror -pedantic -std=c99 st4.c -o bin/st4
+& bin/st4 src/st4.c
+& make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+src/st4.c: In function ‘hi_md’:
+src/st4.c:158:7: error: too few arguments to function ‘strncmp’
+  158 |   if (strncmp(*src, "~~") == 0) {
+      |       ^~~~~~~
+In file included from src/st4.c:4:
+/nix/store/rzs2mn1lv3dsiyilygfz9vv1p8r36jvn-glibc-2.39-52-dev/include/string.h:159:12: note: declared here
+  159 | extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+      |            ^~~~~~~
+src/st4.c:159:5: error: value computed is not used [-Werror=unused-value]
+  159 |     *src ++ 2;
+      |     ^~~~~~~
+src/st4.c:159:12: error: expected ‘;’ before numeric constant
+  159 |     *src ++ 2;
+      |            ^~
+      |            ;
+src/st4.c:162:7: error: value computed is not used [-Werror=unused-value]
+  162 |       *src ++ 3;
+      |       ^~~~~~~
+src/st4.c:162:14: error: expected ‘;’ before numeric constant
+  162 |       *src ++ 3;
+      |              ^~
+      |              ;
+src/st4.c:163:12: error: ‘HI_DELETED’ undeclared (first use in this function); did you mean ‘HI_DELETE’?
+  163 |     return HI_DELETED;
+      |            ^~~~~~~~~~
+      |            HI_DELETE
+src/st4.c:163:12: note: each undeclared identifier is reported only once for each function it appears in
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+src/st4.c: In function ‘hi_md’:
+src/st4.c:220:63: error: missing terminating " character [-Werror]
+  220 |     while (*++*src && **src != '\n' && strncmp(*src, "](", 2) "= 0);
+      |                                                               ^
+src/st4.c:220:63: error: missing terminating " character
+  220 |     while (*++*src && **src != '\n' && strncmp(*src, "](", 2) "= 0);
+      |                                                               ^~~~~~
+src/st4.c:220:62: error: expected ‘)’ before ‘if’
+  220 |     while (*++*src && **src != '\n' && strncmp(*src, "](", 2) "= 0);
+      |           ~                                                  ^
+      |                                                              )
+  221 |     if (**src && **src != '\n') {
+      |     ~~
+src/st4.c:227:3: error: expected expression before ‘}’ token
+  227 |   }
+      |   ^
+src/st4.c:219:11: error: unused variable ‘last’ [-Werror=unused-variable]
+  219 |     char *last = *src;
+      |           ^~~~
+cc1: all warnings being treated as errors
+make: *** [Makefile:3: st4] Error 1
+! fg
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4
+% make st4 && fg
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st4.c -o bin/st4

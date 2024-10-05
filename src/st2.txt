@@ -7499,4 +7499,275 @@ char *hi_literal = "\033[;3m";
 & make st2
 mkdir -p bin
 gcc -O2 -Wall -Werror -pedantic -std=c99 st2.c -o bin/st2
+& bin/st2 src/st2.c
+:80n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 #include <ctype.h>
+    5 
+    6 // g - go to line number N
+    7 // j - move down N lines
+    8 // k - move up N lines
+    9 // a - append N new lines below
+   10 // i - insert N new lines above
+   11 // c - rewrite next N lines
+   12 // d - delete next N lines
+   13 // y - yank (copy) next N lines
+   14 // x - paste last yank N times
+   15 // n - print next N lines numbered
+   16 // p - print next N lines
+   17 // e - read file from disk
+   18 // w - write file to disk
+   19 // q - quit without confirmation
+   20 
+   21 #define HI_DEFAULT "\033[m" // (reset)
+   22 #define HI_KEYWORD "\033[;1m" // bold
+   23 #define HI_COMMENT "\033[;2;3m" // dim italic
+   24 #define HI_OPERATOR "\033[;2m" // dim
+   25 #define HI_LITERAL "\033[;3m" // italic
+   26 #define HI_LINENO "\033[;2;3m" // dim italic
+   27 
+   28 int isident(int c) { return c == '_' || isalnum(c); }
+   29 char *hi_c(char **src) {
+   30   static char *kws[] = {
+   31     "auto", "break", "case", "char", "const", "continue",
+   32     "default", "do", "double", "else", "enum", "extern",
+   33     "float", "for", "goto", "if", "inline", "int",
+   34     "long", "register", "restrict", "return", "short", "signed",
+   35     "sizeof", "static", "struct", "switch", "typedef", "union",
+   36     "unsigned", "void", "volatile", "while", "_Bool", "_Complex",
+   37     "_Imaginary", NULL,
+   38   };
+   39   static char *pps[] = {
+   40     "if", "elif", "else", "endif", "ifdef", "ifndef",
+   41     "define", "undef", "include", "line", "error", "pragma",
+   42     NULL,
+   43   };
+   44   static char *ops[] = {
+   45     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   46     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   47     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   48     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   49     ">=", "[", "]", "->", ".", "(", ")", ",",
+   50     "?", ":", "sizeof", NULL,
+   51   };
+   52 
+   53   if (isspace(**src))
+   54     return ++*src, HI_DEFAULT;
+   55 
+   56   if (strncmp(*src, "//", 2) == 0) {
+   57     while (**src && *++*src != '\n');
+   58     return HI_COMMENT;
+   59   }
+   60 
+   61   if (strncmp(*src, "/*", 2) == 0) {
+   62     while (*++*src && strncmp(*src, "*/", 2) != 0);
+   63     if (**src)
+   64       *src += 2;
+   65     return HI_COMMENT;
+   66   }
+   67 
+   68   for (char **kw = kws; *kw; kw++)
+   69     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   70       if (!isident((*src)[strlen(*kw)]))
+   71         return *src += strlen(*kw), HI_KEYWORD;
+   72 
+   73   if (isdigit(**src)) {
+   74     while (isident(*++*src));
+   75     return HI_LITERAL;
+   76   }
+   77 
+   78   if (isident(**src)) {
+   79     while (isident(*++*src));
+   80     return HI_DEFAULT;
+:21gai
+#define HI_LINENO "\033[;2;3m" // dim italic
+
+:27gp
+#define HI_LITERAL "\033[;3m" // italic
+:p
+#define HI_LINENO "\033[;2;3m" // dim italic
+:kd
+:w
+:32gpkd6c
+    "auto", "break", "case", "char", "const", "continue",
+    "auto", "break", "case", "char", "const", "continue", "default", "do",
+    "double", "else", "enum", "extern", "float", "for", "goto", "if",
+    "inline", "int", "long", "register", "restrict", "return", "short", "signed",
+    "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void",
+    "volatile", "while", "_Bool", "_Complex", "_Imaginary",
+    /* additional */ "bool", "true", "false", NULL,
+:w
+:30gpi
+char *hi_c(char **src) {
+  // ISO/IEC 9899:TC3, $6.4.1 'Keywords'
+:10n
+   32   static char *kws[] = {
+   33     "auto", "break", "case", "char", "const", "continue", "default", "do",
+   34     "double", "else", "enum", "extern", "float", "for", "goto", "if",
+   35     "inline", "int", "long", "register", "restrict", "return", "short", "signed",
+   36     "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void",
+   37     "volatile", "while", "_Bool", "_Complex", "_Imaginary",
+   38     /* additional */ "bool", "true", "false", NULL,
+   39   };
+   40   static char *pps[] = {
+   41     "if", "elif", "else", "endif", "ifdef", "ifndef",
+:kpkdcc
+    "if", "elif", "else", "endif", "ifdef", "ifndef",
+    "if", "ifdef", "ifndef", "elif", "else", "endif", "include", "define",
+    "undef", "line", "error", "pragma", NULL,
+:w
+:10n
+   43   };
+   44   static char *ops[] = {
+   45     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   46     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   47     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   48     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+   49     ">=", "[", "]", "->", ".", "(", ")", ",",
+   50     "?", ":", "sizeof", NULL,
+   51   };
+   52 
+:44gi
+  // ISO/IEC 9899:TC3, $6.4.6 'Punctuators'
+:40gp
+  static char *pps[] = {
+:ki
+  // ISO/IEC 9899:TC3, $6.10 'Preprocessing directives'
+:w
+:10n
+   41   static char *pps[] = {
+   42     "if", "ifdef", "ifndef", "elif", "else", "endif", "include", "define",
+   43     "undef", "line", "error", "pragma", NULL,
+   44   };
+   45   // ISO/IEC 9899:TC3, $6.4.6 'Punctuators'
+   46   static char *ops[] = {
+   47     "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
+   48     "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
+   49     "/", "%", "~", "&", "|", "^", "<<", ">>",
+   50     "!", "&&", "||", "==", "!=", "<", ">", "<=",
+:47gi6c
+    "[", "]", "(", ")", /* "{", "}", */ ".", "->",
+    "++", "--", "&", "*", "+", "-", "~", "!",
+    "/", "%", "<<", ">>", "<", ">", "<=", ">=", "==", "!=", "^", "|", "&&", "||",
+    "?", ":", /* ";", */ "...",
+    "=", "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=",
+    ",", "#", "##",
+    "<:", ":>", "<%", "%>", "%:", "%:%:", NULL,
+:w
+:10n
+   54   };
+   55 
+   56   if (isspace(**src))
+   57     return ++*src, HI_DEFAULT;
+   58 
+   59   if (strncmp(*src, "//", 2) == 0) {
+   60     while (**src && *++*src != '\n');
+   61     return HI_COMMENT;
+   62   }
+   63 
+:60gpkc
+    while (**src && *++*src != '\n');
+    while (*++*src && **src != '\n');    
+:nnn
+   61     return HI_COMMENT;
+   62   }
+   63 
+:nnnnn
+   64   if (strncmp(*src, "/*", 2) == 0) {
+   65     while (*++*src && strncmp(*src, "*/", 2) != 0);
+   66     if (**src)
+   67       *src += 2;
+   68     return HI_COMMENT;
+:64gpi
+  if (strncmp(*src, "/*", 2) == 0) {
+    *src += 1;
+:20j20n
+   86 
+   87   for (char **op = ops; *op; op++)
+   88     if (strncmp(*src, *op, strlen(*op)) == 0)
+   89       return *src += strlen(*op), HI_OPERATOR;
+   90 
+   91   if (**src == '"' || **src == '\'') {
+   92     char quote = **src;
+   93     while (**src && **src != '\n' && *++*src != quote)
+   94       if (**src == '\\')
+   95         ++*src;
+   96     if (**src)
+   97       *src += 1;
+   98     return HI_LITERAL;
+   99   }
+  100 
+  101   if (**src == '#') {
+  102     while (isspace(*++*src));
+  103     for (char **pp = pps; *pp; pp++)
+  104       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+  105         if (!isident((*src)[strlen(*pp)]))
+:w
+:87g10i
+  if (**src == '#') {
+    char *last = *src;
+    while (isspace(*++*src));
+    for (char **pp = pps; *pp; pp++)
+      if (strncmp(*src, *pp, strlen(*pp)) == 0)
+        if (!isident((*src)[strlen(*pp)]))
+          return *src += strlen(*pp), HI_KEYWORD;
+    *src = last;
+  }
+
+:10n
+   97   for (char **op = ops; *op; op++)
+   98     if (strncmp(*src, *op, strlen(*op)) == 0)
+   99       return *src += strlen(*op), HI_OPERATOR;
+  100 
+  101   if (**src == '"' || **src == '\'') {
+  102     char quote = **src;
+  103     while (**src && **src != '\n' && *++*src != quote)
+  104       if (**src == '\\')
+  105         ++*src;
+  106     if (**src)
+:103gpkc
+    while (**src && **src != '\n' && *++*src != quote)
+    while (*++*src && **src != '\n' && **src != quote)
+:nn
+  104       if (**src == '\\')
+  105         ++*src;
+:10n
+  106     if (**src)
+  107       *src += 1;
+  108     return HI_LITERAL;
+  109   }
+  110 
+  111   if (**src == '#') {
+  112     while (isspace(*++*src));
+  113     for (char **pp = pps; *pp; pp++)
+  114       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+  115         if (!isident((*src)[strlen(*pp)]))
+:111gdddddd
+:105g20n
+  105         ++*src;
+  106     if (**src)
+  107       *src += 1;
+  108     return HI_LITERAL;
+  109   }
+  110 
+  111     return HI_DEFAULT;
+  112   }
+  113 
+  114   return ++*src, HI_DEFAULT;
+  115 }
+  116 
+  117 unsigned nlines = 0;
+  118 char lines[65536][256] = {0};
+  119 unsigned ncut = 0;
+  120 char cut[256][256] = {0};
+  121 
+  122 int main(int argc, char **argv) {
+  123   if (argc != 2)
+  124     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+:111gdddwq
+& make st2
+mkdir -p bin
+gcc -O2 -Wall -Werror -pedantic -std=c99 src/st2.c -o bin/st2
 &

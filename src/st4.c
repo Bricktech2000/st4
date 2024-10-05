@@ -7,46 +7,56 @@
 #include <termios.h>
 
 #define HI_DEFAULT "\033[m" // (reset)
+#define HI_LINENO "\033[;2;3m" // dim italic
+
 #define HI_KEYWORD "\033[;1m" // bold
 #define HI_COMMENT "\033[;2;3m" // dim italic
 #define HI_OPERATOR "\033[;2m" // dim
 #define HI_LITERAL "\033[;3m" // italic
-#define HI_LINENO "\033[;2;3m" // dim italic
+
+#define HI_EMPHASIS "\033[;3m" // italic
+#define HI_STRONG "\033[;1m" // bold
+#define HI_DELETED "\033[;9m" // strikethrough
+#define HI_CODE "\033[;2m" // dim
+#define HI_LINK "\033[;2;4m" // dim underline
 
 int isident(int c) { return c == '_' || isalnum(c); }
 char *hi_c(char **src) {
+  // ISO/IEC 9899:TC3, $6.4.1 'Keywords'
   static char *kws[] = {
-    "auto", "break", "case", "char", "const", "continue",
-    "default", "do", "double", "else", "enum", "extern",
-    "float", "for", "goto", "if", "inline", "int",
-    "long", "register", "restrict", "return", "short", "signed",
-    "sizeof", "static", "struct", "switch", "typedef", "union",
-    "unsigned", "void", "volatile", "while", "_Bool", "_Complex",
-    "_Imaginary", NULL,
+    "auto", "break", "case", "char", "const", "continue", "default", "do",
+    "double", "else", "enum", "extern", "float", "for", "goto", "if",
+    "inline", "int", "long", "register", "restrict", "return", "short", "signed",
+    "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void",
+    "volatile", "while", "_Bool", "_Complex", "_Imaginary",
+    /* additional */ "bool", "true", "false", NULL,
   };
+  // ISO/IEC 9899:TC3, $6.10 'Preprocessing directives'
   static char *pps[] = {
-    "if", "elif", "else", "endif", "ifdef", "ifndef",
-    "define", "undef", "include", "line", "error", "pragma",
-    NULL,
+    "if", "ifdef", "ifndef", "elif", "else", "endif", "include", "define",
+    "undef", "line", "error", "pragma", NULL,
   };
+  // ISO/IEC 9899:TC3, $6.4.6 'Punctuators'
   static char *ops[] = {
-    "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
-    "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
-    "/", "%", "~", "&", "|", "^", "<<", ">>",
-    "!", "&&", "||", "==", "!=", "<", ">", "<=",
-    ">=", "[", "]", "->", ".", "(", ")", ",",
-    "?", ":", "sizeof", NULL,
+    "[", "]", "(", ")", /* "{", "}", */ ".", "->",
+    "++", "--", "&", "*", "+", "-", "~", "!",
+    "/", "%", "<<", ">>", "<", ">", "<=", ">=", "==", "!=", "^", "|", "&&", "||",
+    "?", ":", /* ";", */ "...",
+    "=", "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=",
+    ",", "#", "##",
+    "<:", ":>", "<%", "%>", "%:", "%:%:", NULL,
   };
 
   if (isspace(**src))
     return ++*src, HI_DEFAULT;
 
   if (strncmp(*src, "//", 2) == 0) {
-    while (**src && *++*src != '\n');
+    while (*++*src && **src != '\n');
     return HI_COMMENT;
   }
 
   if (strncmp(*src, "/*", 2) == 0) {
+    *src += 1;
     while (*++*src && strncmp(*src, "*/", 2) != 0);
     if (**src)
       *src += 2;
@@ -68,13 +78,23 @@ char *hi_c(char **src) {
     return HI_DEFAULT;
   }
 
+  if (**src == '#') {
+    char *last = *src;
+    while (isspace(*++*src));
+    for (char **pp = pps; *pp; pp++)
+      if (strncmp(*src, *pp, strlen(*pp)) == 0)
+        if (!isident((*src)[strlen(*pp)]))
+          return *src += strlen(*pp), HI_KEYWORD;
+    *src = last;
+  }
+
   for (char **op = ops; *op; op++)
     if (strncmp(*src, *op, strlen(*op)) == 0)
       return *src += strlen(*op), HI_OPERATOR;
 
   if (**src == '"' || **src == '\'') {
     char quote = **src;
-    while (**src && **src != '\n' && *++*src != quote)
+    while (*++*src && **src != '\n' && **src != quote)
       if (**src == '\\')
         ++*src;
     if (**src)
@@ -82,23 +102,147 @@ char *hi_c(char **src) {
     return HI_LITERAL;
   }
 
-  if (**src == '#') {
-    while (isspace(*++*src));
-    for (char **pp = pps; *pp; pp++)
-      if (strncmp(*src, *pp, strlen(*pp)) == 0)
-        if (!isident((*src)[strlen(*pp)]))
-          return *src += strlen(*pp), HI_KEYWORD;
+  return ++*src, HI_DEFAULT;
+}
+
+char *hi_md(char **src) {
+  if (**src == '\n') {
+    if (strncmp(*src + 1, "---", 3) == 0 || strncmp(*src + 1, "***", 3) == 0)
+      return *src += 4, HI_OPERATOR;
+
+    while (**src) {
+      while (isspace(*++*src) && **src != '\n');
+
+      if (**src == '#') {
+        char *last = *src;
+        while (*++*src == '#');
+        if (**src == ' ') {
+          while (**src && *++*src != '\n');
+          return HI_STRONG;
+        }
+        *src = last;
+      }
+
+      if (**src && strchr("-*+>", **src)) {
+        if (isspace(*++*src))
+          continue;
+        --*src;
+      }
+
+      if (isdigit(**src)) {
+        char *last = *src;
+        while (isdigit(*++*src));
+        if (**src == '.' || **src == ')')
+          if (isspace(*++*src))
+            continue;
+        *src = last;
+      }
+
+      return HI_OPERATOR;
+    }
+  }
+
+  if (isspace(**src))
+    return ++*src, HI_DEFAULT;
+
+  if (**src == '\\') {
+    if (*++*src)
+      ++*src;
+    return HI_DEFAULT;
+  }
+
+  if (strncmp(*src, "<!--", 4) == 0) {
+    *src += 3;
+    while (*++*src && strncmp(*src, "-->", 3) != 0);
+    if (**src)
+      *src += 3;
+    return HI_COMMENT;
+  }
+
+  if (strncmp(*src, "~~", 2) == 0) {
+    *src += 1;
+    while (*++*src && strncmp(*src, "~~", 2) != 0);
+    if (**src)
+      *src += 2;
+    return HI_DELETED;
+  }
+
+  if (**src == '`') {
+    unsigned open = 1;
+    while (*++*src == '`')
+      open++;
+    while (**src) {
+      unsigned close = 0;
+      while (*++*src == '`')
+        close++;
+      if (close >= open)
+        return HI_CODE;
+    }
+    return HI_CODE;
+  }
+
+  if (**src == '*' || **src == '_') {
+    char delim = **src;
+    if (*++*src == delim) {
+      while (*++*src && (**src != delim || (*src)[1] != delim))
+        if (**src == '\\')
+          *src += 1;
+      if (**src)
+        *src += 2;
+      return HI_STRONG;
+    } else if (**src) {
+      while (*++*src && **src != delim)
+        if (**src == '\\')
+          *src += 1;
+      if (**src)
+        *src += 1;
+      return HI_EMPHASIS;
+    }
+    --*src;
+  }
+
+  if (**src == '<') {
+    char *last = *src;
+    while (*++*src && **src != '\n' && **src != '>');
+    if (**src == '>')
+      return *src += 1, HI_LINK;
+    *src = last;
+  }
+
+  if (strncmp(*src, "[[", 2) == 0) {
+    char *last = *src;
+    while (*++*src && **src != '\n' && strncmp(*src, "]]", 2) != 0);
+    if (**src && **src != '\n')
+      return *src += 2, HI_LINK;
+    *src = last;
+  }
+
+  if (**src == '[') {
+    char *last = *src;
+    while (*++*src && **src != '\n' && strncmp(*src, "](", 2) != 0);
+    if (**src && **src != '\n') {
+      while (*++*src && **src != '\n' && **src != ')');
+      if (**src == ')')
+        return *src += 1, HI_LINK;
+    }
+    *src = last;
+  }
+
+  if (isident(**src)) {
+    while (isident(*++*src));
     return HI_DEFAULT;
   }
 
   return ++*src, HI_DEFAULT;
 }
 
+char *hi_txt(char **src) { return ++*src, HI_DEFAULT; }
+
 char *hi_help(char **src) {
   if (**src == '<') {
-    while (**src && !isspace(**src) && *++*src != '>');
+    while (*++*src && !isspace(**src) && **src != '>');
     if (**src == '>')
-      return ++*src, HI_KEYWORD;
+      return *src += 1, HI_STRONG;
     return HI_DEFAULT;
   }
 
@@ -130,13 +274,13 @@ char *hi_help(char **src) {
   "Keystrokes not listed above are inserted into\n"                            \
   "the buffer left of the cursor.\n"                                           \
 
-char *hi_txt(char **src) { return ++*src, HI_DEFAULT; }
-
 struct ext2hi {
   char *ext;
   char *(*hi)(char **);
 } ext2hi[] = {
   { .ext = ".c", .hi = hi_c },
+  { .ext = ".h", .hi = hi_c },
+  { .ext = ".md", .hi = hi_md },
   { .ext = ".txt", .hi = hi_txt },
 };
 
@@ -152,7 +296,7 @@ void render(char *screen, size_t size, unsigned lineno, char *cursor,
   unsigned row = 0, col = 0;
   unsigned crow = opts.rows, ccol = opts.cols;
   fputs("\033[?25l", stdout); // hide cursor
-  fputs("\033[H\033[K" HI_LINENO, stdout); // home cursor and erase line
+  fputs(HI_DEFAULT "\033[H\033[K" HI_LINENO, stdout); // home cursor and erase line
   if (opts.number)
     col = screen[-1] == '\n' ? printf("%5u ", ++lineno) : printf("%5s ", "");
 
@@ -168,7 +312,7 @@ void render(char *screen, size_t size, unsigned lineno, char *cursor,
       if (col + len > opts.cols) {
         if (++row >= opts.rows)
           goto brk;
-        fputs("\n\033[K" HI_LINENO, stdout);
+        fputs(HI_DEFAULT "\n\033[K" HI_LINENO, stdout);
         col = printf(opts.number ? "%5s " : "", "");
         fputs(last_hi, stdout); // to preserve highlight across softwraps
       }
@@ -179,7 +323,7 @@ void render(char *screen, size_t size, unsigned lineno, char *cursor,
       if (*start == '\n') {
         if (++row >= opts.rows)
           goto brk;
-        fputs("\n\033[K" HI_LINENO, stdout);
+        fputs(HI_DEFAULT "\n\033[K" HI_LINENO, stdout);
         col = printf(opts.number ? "%5u " : "", ++lineno);
         fputs(last_hi, stdout); // for '\n' within a highlight region
         line = start + 1;
@@ -201,7 +345,7 @@ brk:
     crow = row, ccol = col;
 
   while (++row < opts.rows)
-    fputs("\n\033[K" HI_LINENO, stdout), col = printf("~     ");
+    fputs(HI_DEFAULT "\n\033[K" HI_LINENO, stdout), col = printf("~     ");
 
   printf("\033[%u;%uH", crow + 1, ccol + 1); // move cursor
   fputs("\033[?25h", stdout); // unhide cursor
@@ -381,6 +525,8 @@ int main(int argc, char **argv) {
       buf[size] = '\0';
       if (fclose(fp) == EOF)
         perror("fclose"), exit(EXIT_FAILURE);
+
+      cursor = cursor > size ? size : cursor;
     } break;
     case CTRL_S: {
       FILE *fp = fopen(argv[1], "w");

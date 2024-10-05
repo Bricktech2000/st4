@@ -19,46 +19,50 @@
 // q - quit without confirmation
 
 #define HI_DEFAULT "\033[m" // (reset)
+#define HI_LINENO "\033[;2;3m" // dim italic
+
 #define HI_KEYWORD "\033[;1m" // bold
 #define HI_COMMENT "\033[;2;3m" // dim italic
 #define HI_OPERATOR "\033[;2m" // dim
 #define HI_LITERAL "\033[;3m" // italic
-#define HI_LINENO "\033[;2;3m" // dim italic
 
 int isident(int c) { return c == '_' || isalnum(c); }
 char *hi_c(char **src) {
+  // ISO/IEC 9899:TC3, $6.4.1 'Keywords'
   static char *kws[] = {
-    "auto", "break", "case", "char", "const", "continue",
-    "default", "do", "double", "else", "enum", "extern",
-    "float", "for", "goto", "if", "inline", "int",
-    "long", "register", "restrict", "return", "short", "signed",
-    "sizeof", "static", "struct", "switch", "typedef", "union",
-    "unsigned", "void", "volatile", "while", "_Bool", "_Complex",
-    "_Imaginary", NULL,
+    "auto", "break", "case", "char", "const", "continue", "default", "do",
+    "double", "else", "enum", "extern", "float", "for", "goto", "if",
+    "inline", "int", "long", "register", "restrict", "return", "short", "signed",
+    "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void",
+    "volatile", "while", "_Bool", "_Complex", "_Imaginary",
+    /* additional */ "bool", "true", "false", NULL,
   };
+  // ISO/IEC 9899:TC3, $6.10 'Preprocessing directives'
   static char *pps[] = {
-    "if", "elif", "else", "endif", "ifdef", "ifndef",
-    "define", "undef", "include", "line", "error", "pragma",
-    NULL,
+    "if", "ifdef", "ifndef", "elif", "else", "endif", "include", "define",
+    "undef", "line", "error", "pragma", NULL,
   };
+  // ISO/IEC 9899:TC3, $6.4.6 'Punctuators'
   static char *ops[] = {
-    "=", "+=", "-=", "*=", "/=", "%=", "&=", "|=",
-    "^=", "<<=", ">>=", "++", "--", "+", "-", "*",
-    "/", "%", "~", "&", "|", "^", "<<", ">>",
-    "!", "&&", "||", "==", "!=", "<", ">", "<=",
-    ">=", "[", "]", "->", ".", "(", ")", ",",
-    "?", ":", "sizeof", NULL,
+    "[", "]", "(", ")", /* "{", "}", */ ".", "->",
+    "++", "--", "&", "*", "+", "-", "~", "!",
+    "/", "%", "<<", ">>", "<", ">", "<=", ">=", "==", "!=", "^", "|", "&&", "||",
+    "?", ":", /* ";", */ "...",
+    "=", "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=",
+    ",", "#", "##",
+    "<:", ":>", "<%", "%>", "%:", "%:%:", NULL,
   };
 
   if (isspace(**src))
     return ++*src, HI_DEFAULT;
 
   if (strncmp(*src, "//", 2) == 0) {
-    while (**src && *++*src != '\n');
+    while (*++*src && **src != '\n');
     return HI_COMMENT;
   }
 
   if (strncmp(*src, "/*", 2) == 0) {
+    *src += 1;
     while (*++*src && strncmp(*src, "*/", 2) != 0);
     if (**src)
       *src += 2;
@@ -80,27 +84,28 @@ char *hi_c(char **src) {
     return HI_DEFAULT;
   }
 
+  if (**src == '#') {
+    char *last = *src;
+    while (isspace(*++*src));
+    for (char **pp = pps; *pp; pp++)
+      if (strncmp(*src, *pp, strlen(*pp)) == 0)
+        if (!isident((*src)[strlen(*pp)]))
+          return *src += strlen(*pp), HI_KEYWORD;
+    *src = last;
+  }
+
   for (char **op = ops; *op; op++)
     if (strncmp(*src, *op, strlen(*op)) == 0)
       return *src += strlen(*op), HI_OPERATOR;
 
   if (**src == '"' || **src == '\'') {
     char quote = **src;
-    while (**src && **src != '\n' && *++*src != quote)
+    while (*++*src && **src != '\n' && **src != quote)
       if (**src == '\\')
         ++*src;
     if (**src)
       *src += 1;
     return HI_LITERAL;
-  }
-
-  if (**src == '#') {
-    while (isspace(*++*src));
-    for (char **pp = pps; *pp; pp++)
-      if (strncmp(*src, *pp, strlen(*pp)) == 0)
-        if (!isident((*src)[strlen(*pp)]))
-          return *src += strlen(*pp), HI_KEYWORD;
-    return HI_DEFAULT;
   }
 
   return ++*src, HI_DEFAULT;
