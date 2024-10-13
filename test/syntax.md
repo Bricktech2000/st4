@@ -30,6 +30,9 @@ _italics_
 >    * sublist
 pre**bold**post
 pre*italics*post
+pre~~strikethrough~~post
+__underscore__bold__
+_underscore_italics_
 **multiline
 bold**
 _multiline

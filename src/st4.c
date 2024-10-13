@@ -184,18 +184,24 @@ char *hi_md(char **src) {
   if (**src == '*' || **src == '_') {
     char delim = **src;
     if (*++*src == delim) {
+    extend_strong:
       while (*++*src && (**src != delim || (*src)[1] != delim))
         if (**src == '\\')
           *src += 1;
       if (**src)
         *src += 2;
+      if (isident(**src) && isident(delim))
+        goto extend_strong;
       return HI_STRONG;
     } else if (**src) {
+    extend_emphasis:
       while (*++*src && **src != delim)
         if (**src == '\\')
           *src += 1;
       if (**src)
         *src += 1;
+      if (isident(**src) && isident(delim))
+        goto extend_emphasis;
       return HI_EMPHASIS;
     }
     --*src;
