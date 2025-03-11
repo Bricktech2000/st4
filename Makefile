@@ -1,21 +1,25 @@
-st4:
-	mkdir -p bin
-	gcc -O2 -Wall -Wextra -Wpedantic -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int -Wno-format-zero-length -std=c99 src/st4.c -o bin/st4
+CC=gcc
+CFLAGS=-O2 -Wall -Wextra -Wpedantic -std=c99
 
-st3:
-	mkdir -p bin
-	gcc -O2 -Wall -Wextra -Wpedantic -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int -std=c99 src/st3.c -o bin/st3
+all: bin/st0 bin/st1 bin/st2 bin/st3 bin/st4
 
-st2:
-	mkdir -p bin
-	gcc -O2 -Wall -Wextra -Wpedantic -Wno-implicit-fallthrough -std=c99 src/st2.c -o bin/st2
-
-st1:
-	mkdir -p bin
-	gcc -O2 -Wall -Wextra -Wpedantic -Wno-implicit-fallthrough -Wno-unused-parameter -std=c99 src/st1.c -o bin/st1
-
-st0:
+bin/st0: src/st0.jpg
 	@echo "if only"
 
+bin/st1: src/st1.c | bin/
+	$(CC) $(CFLAGS) -Wno-implicit-fallthrough -Wno-unused-parameter $^ -o $@
+
+bin/st2: src/st2.c | bin/
+	$(CC) $(CFLAGS) -Wno-implicit-fallthrough $^ -o $@
+
+bin/st3: src/st3.c | bin/
+	$(CC) $(CFLAGS) -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int $^ -o $@
+
+bin/st4: src/st4.c | bin/
+	$(CC) $(CFLAGS) -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int -Wno-format-zero-length $^ -o $@
+
+bin/:
+	mkdir bin/
+
 clean:
-	rm -rf bin
+	rm -rf bin/

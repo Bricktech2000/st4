@@ -16,23 +16,23 @@ The bootstrapping process consisted of the following stages:
 
 ## Usage
 
-```bash
+```sh
 # stage 4 (hit <c-h> for help)
-make st4
+make bin/st4
 bin/st4 src/st4.c
 
 # stage 3 (hit <c-h> for help)
-make st3
+make bin/st3
 stty -icanon -echo -nl; bin/st3 src/st3.c; stty sane
 
 # stage 2 (see `st2.c` for help)
-make st2
+make bin/st2
 bin/st2 src/st2.c
 
 # stage 1 (no help page available)
-make st1
+make bin/st1
 bin/st1 src/st1.c
 
 # stage 0 (no help page available)
-make st0
+make bin/st0
 ```

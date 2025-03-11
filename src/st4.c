@@ -526,7 +526,7 @@ int main(int argc, char **argv) {
       rewind(fp);
 
       free(--buf), buf = malloc(size + 2), *buf++ = '\n';
-      if (fread(buf, sizeof(*buf), size, fp) != size)
+      if (fread(buf, 1, size, fp) != size)
         perror("fread"), exit(EXIT_FAILURE);
       buf[size] = '\0';
       if (fclose(fp) == EOF)
