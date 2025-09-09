@@ -7770,4 +7770,62 @@ char *hi_c(char **src) {
 & make st2
 mkdir -p bin
 gcc -O2 -Wall -Werror -pedantic -std=c99 src/st2.c -o bin/st2
+& bin/st2 src/st2.c
+:100g50n
+  100 
+  101   if (**src == '"' || **src == '\'') {
+  102     char quote = **src;
+  103     while (*++*src && **src != '\n' && **src != quote)
+  104       if (**src == '\\')
+  105         ++*src;
+  106     if (**src)
+  107       *src += 1;
+  108     return HI_LITERAL;
+  109   }
+  110 
+  111   return ++*src, HI_DEFAULT;
+  112 }
+  113 
+  114 unsigned nlines = 0;
+  115 char lines[65536][256] = {0};
+  116 unsigned ncut = 0;
+  117 char cut[256][256] = {0};
+  118 
+  119 int main(int argc, char **argv) {
+  120   if (argc != 2)
+  121     fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+  122 
+  123   unsigned curr = 0;
+  124   char buf[64] = "e\n";
+  125   char *bufp = buf;
+  126 
+  127   while (!feof(stdin)) {
+  128     if (*bufp == '\n') {
+  129       fputs(HI_DEFAULT ":", stdout);
+  130       bufp = fgets(buf, sizeof(buf), stdin);
+  131       continue;
+  132     }
+  133 
+  134     int nread;
+  135     unsigned cnt;
+  136     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  137       nread = 0, cnt = 1;
+  138     bufp += nread;
+  139 
+  140     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+  141       printf("?\n");
+  142       if (*bufp != '\n')
+  143         bufp++;
+  144       continue;
+  145     }
+  146 
+  147     switch (*bufp) {
+  148     case 'g':
+  149       curr = cnt - 1;
+:121gpkc
+    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+    fputs("Usage: st2 <filename>\n", stderr), exit(EXIT_FAILURE);
+:wq
+& make bin/st2
+gcc -O2 -Wall -Wextra -Wpedantic -std=c99 -Wno-implicit-fallthrough src/st2.c -o bin/st2
 &

@@ -118,7 +118,7 @@ char cut[256][256] = {0};
 
 int main(int argc, char **argv) {
   if (argc != 2)
-    fputs("Usage: st2 <filename>\n", stdout), exit(EXIT_FAILURE);
+    fputs("Usage: st2 <filename>\n", stderr), exit(EXIT_FAILURE);
 
   unsigned curr = 0;
   char buf[64] = "e\n";

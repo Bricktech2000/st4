@@ -448,7 +448,7 @@ struct termios reinit(unsigned *rows, unsigned *cols) {
     fputs("\033[99B\033[99C", stdout); // move down then right
     fputs("\033[6n", stdout); // request cursor position
     if (scanf("\033[%u;%uR", &row, &col) != 2) // parse response
-      fputs("Could not query cursor position\n", stdout), exit(EXIT_FAILURE);
+      fputs("Could not query cursor position\n", stderr), exit(EXIT_FAILURE);
   } while (row != *rows || col != *cols);
   fputs("\033[?25h", stdout); // unhide cursor
 
@@ -475,7 +475,7 @@ void *clamp_memrchr(void *s, int c, size_t n) {
 
 int main(int argc, char **argv) {
   if (argc != 2)
-    fputs("Usage: st4 <filename>\n", stdout), exit(EXIT_FAILURE);
+    fputs("Usage: st4 <filename>\n", stderr), exit(EXIT_FAILURE);
 
   struct opts opts = {
     .hi = hi_txt,
