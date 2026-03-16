@@ -487,7 +487,7 @@ int main(int argc, char **argv) {
   struct termios orig = reinit(&opts.rows, &opts.cols);
 
   char *ext = strrchr(argv[1], '.');
-  for (int i = 0; i < sizeof(ext2hi) / sizeof(*ext2hi); i++)
+  for (int i = 0; i < sizeof ext2hi / sizeof *ext2hi; i++)
     if (ext && strcmp(ext, ext2hi[i].ext) == 0)
       opts.hi = ext2hi[i].hi;
 
@@ -503,7 +503,7 @@ int main(int argc, char **argv) {
     case CTRL_Q:
       goto brk;
     case CTRL_H:
-      render(HELP + 1, sizeof(HELP) - 2, 0, NULL, (struct opts){
+      render(HELP + 1, sizeof HELP - 2, 0, NULL, (struct opts){
         .rows = opts.rows,
         .cols = opts.cols,
         .hi = hi_help,
@@ -538,7 +538,7 @@ int main(int argc, char **argv) {
       FILE *fp = fopen(argv[1], "w");
       if (fp == NULL)
         perror("fopen"), exit(EXIT_FAILURE);
-      if (fwrite(buf, sizeof(*buf), size, fp) != size)
+      if (fwrite(buf, sizeof *buf, size, fp) != size)
         perror("fwrite"), exit(EXIT_FAILURE);
       if (fclose(fp) == EOF)
         perror("fclose"), exit(EXIT_FAILURE);
@@ -636,9 +636,9 @@ int main(int argc, char **argv) {
 
     render(buf + screen, size - screen, lineno, buf + cursor, opts);
 
-    memmove(keys + 1, keys, sizeof(keys) - sizeof(*keys));
+    memmove(keys + 1, keys, sizeof keys - sizeof *keys);
     *keys = key = getkey();
-    if (memcmp(seq, keys, sizeof(keys)) == 0)
+    if (memcmp(seq, keys, sizeof keys) == 0)
       key = '\b'; // too far
   }
 brk:

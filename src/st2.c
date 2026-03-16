@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
   while (!feof(stdin)) {
     if (*bufp == '\n') {
       fputs(HI_DEFAULT ":", stdout);
-      bufp = fgets(buf, sizeof(buf), stdin);
+      bufp = fgets(buf, sizeof buf, stdin);
       continue;
     }
 
@@ -156,26 +156,26 @@ int main(int argc, char **argv) {
       break;
     case 'd':
       nlines -= cnt;
-      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
-      memset(lines[nlines], 0, cnt * sizeof(*lines));
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof *lines);
+      memset(lines[nlines], 0, cnt * sizeof *lines);
       break;
     case 'a':
       curr++;
     case 'i':
-      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof *lines);
       nlines += cnt;
     case 'c':
       for (unsigned last = curr + cnt; curr < last; curr++)
-        fgets(lines[curr], sizeof(*lines), stdin);
+        fgets(lines[curr], sizeof *lines, stdin);
       break;
     case 'y':
-      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof *cut);
       break;
     case 'x':
-      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof *lines);
       nlines += cnt * ncut;
       for (unsigned last = curr + cnt * ncut; curr < last; curr += ncut)
-        memcpy(lines[curr], *cut, ncut * sizeof(*cut));
+        memcpy(lines[curr], *cut, ncut * sizeof *cut);
       break;
     case 'n':
     case 'p':
@@ -195,7 +195,7 @@ int main(int argc, char **argv) {
       if (fp == NULL)
         perror("fopen"), exit(EXIT_FAILURE);
       if (*bufp == 'e')
-        for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+        for (nlines = 0; fgets(lines[nlines], sizeof *lines, fp); nlines++);
       else
         for (unsigned n = 0; n < nlines; fputs(lines[n++], fp));
       if (fclose(fp) == EOF)

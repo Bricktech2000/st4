@@ -7828,4 +7828,249 @@ gcc -O2 -Wall -Werror -pedantic -std=c99 src/st2.c -o bin/st2
 :wq
 & make bin/st2
 gcc -O2 -Wall -Wextra -Wpedantic -std=c99 -Wno-implicit-fallthrough src/st2.c -o bin/st2
+& bin/st2 src/st2.c
+:999n
+    1 #include <stdio.h>
+    2 #include <stdlib.h>
+    3 #include <string.h>
+    4 #include <ctype.h>
+    5
+    6 // g - go to line number N
+    7 // j - move down N lines
+    8 // k - move up N lines
+    9 // a - append N new lines below
+   10 // i - insert N new lines above
+   11 // c - rewrite next N lines
+   12 // d - delete next N lines
+   13 // y - yank (copy) next N lines
+   14 // x - paste last yank N times
+   15 // n - print next N lines numbered
+   16 // p - print next N lines
+   17 // e - read file from disk
+   18 // w - write file to disk
+   19 // q - quit without confirmation
+   20
+   21 #define HI_DEFAULT "\033[m" // (reset)
+   22 #define HI_LINENO "\033[;2;3m" // dim italic
+   23
+   24 #define HI_KEYWORD "\033[;1m" // bold
+   25 #define HI_COMMENT "\033[;2;3m" // dim italic
+   26 #define HI_OPERATOR "\033[;2m" // dim
+   27 #define HI_LITERAL "\033[;3m" // italic
+   28
+   29 int isident(int c) { return c == '_' || isalnum(c); }
+   30 char *hi_c(char **src) {
+   31   // ISO/IEC 9899:TC3, $6.4.1 'Keywords'
+   32   static char *kws[] = {
+   33     "auto", "break", "case", "char", "const", "continue", "default", "do",
+   34     "double", "else", "enum", "extern", "float", "for", "goto", "if",
+   35     "inline", "int", "long", "register", "restrict", "return", "short", "signed",
+   36     "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void",
+   37     "volatile", "while", "_Bool", "_Complex", "_Imaginary",
+   38     /* additional */ "bool", "true", "false", NULL,
+   39   };
+   40   // ISO/IEC 9899:TC3, $6.10 'Preprocessing directives'
+   41   static char *pps[] = {
+   42     "if", "ifdef", "ifndef", "elif", "else", "endif", "include", "define",
+   43     "undef", "line", "error", "pragma", NULL,
+   44   };
+   45   // ISO/IEC 9899:TC3, $6.4.6 'Punctuators'
+   46   static char *ops[] = {
+   47     "[", "]", "(", ")", /* "{", "}", */ ".", "->",
+   48     "++", "--", "&", "*", "+", "-", "~", "!",
+   49     "/", "%", "<<", ">>", "<", ">", "<=", ">=", "==", "!=", "^", "|", "&&", "||",
+   50     "?", ":", /* ";", */ "...",
+   51     "=", "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|=",
+   52     ",", "#", "##",
+   53     "<:", ":>", "<%", "%>", "%:", "%:%:", NULL,
+   54   };
+   55
+   56   if (isspace(**src))
+   57     return ++*src, HI_DEFAULT;
+   58
+   59   if (strncmp(*src, "//", 2) == 0) {
+   60     while (*++*src && **src != '\n');
+   61     return HI_COMMENT;
+   62   }
+   63
+   64   if (strncmp(*src, "/*", 2) == 0) {
+   65     *src += 1;
+   66     while (*++*src && strncmp(*src, "*/", 2) != 0);
+   67     if (**src)
+   68       *src += 2;
+   69     return HI_COMMENT;
+   70   }
+   71
+   72   for (char **kw = kws; *kw; kw++)
+   73     if (strncmp(*src, *kw, strlen(*kw)) == 0)
+   74       if (!isident((*src)[strlen(*kw)]))
+   75         return *src += strlen(*kw), HI_KEYWORD;
+   76
+   77   if (isdigit(**src)) {
+   78     while (isident(*++*src));
+   79     return HI_LITERAL;
+   80   }
+   81
+   82   if (isident(**src)) {
+   83     while (isident(*++*src));
+   84     return HI_DEFAULT;
+   85   }
+   86
+   87   if (**src == '#') {
+   88     char *last = *src;
+   89     while (isspace(*++*src));
+   90     for (char **pp = pps; *pp; pp++)
+   91       if (strncmp(*src, *pp, strlen(*pp)) == 0)
+   92         if (!isident((*src)[strlen(*pp)]))
+   93           return *src += strlen(*pp), HI_KEYWORD;
+   94     *src = last;
+   95   }
+   96
+   97   for (char **op = ops; *op; op++)
+   98     if (strncmp(*src, *op, strlen(*op)) == 0)
+   99       return *src += strlen(*op), HI_OPERATOR;
+  100
+  101   if (**src == '"' || **src == '\'') {
+  102     char quote = **src;
+  103     while (*++*src && **src != '\n' && **src != quote)
+  104       if (**src == '\\')
+  105         ++*src;
+  106     if (**src)
+  107       *src += 1;
+  108     return HI_LITERAL;
+  109   }
+  110
+  111   return ++*src, HI_DEFAULT;
+  112 }
+  113
+  114 unsigned nlines = 0;
+  115 char lines[65536][256] = {0};
+  116 unsigned ncut = 0;
+  117 char cut[256][256] = {0};
+  118
+  119 int main(int argc, char **argv) {
+  120   if (argc != 2)
+  121     fputs("Usage: st2 <filename>\n", stderr), exit(EXIT_FAILURE);
+  122
+  123   unsigned curr = 0;
+  124   char buf[64] = "e\n";
+  125   char *bufp = buf;
+  126
+  127   while (!feof(stdin)) {
+  128     if (*bufp == '\n') {
+  129       fputs(HI_DEFAULT ":", stdout);
+  130       bufp = fgets(buf, sizeof(buf), stdin);
+  131       continue;
+  132     }
+  133
+  134     int nread;
+  135     unsigned cnt;
+  136     if (sscanf(bufp, "%u%n", &cnt, &nread) != 1)
+  137       nread = 0, cnt = 1;
+  138     bufp += nread;
+  139
+  140     if (!strchr("gjkaicdyxnpewq", *bufp)) {
+  141       printf("?\n");
+  142       if (*bufp != '\n')
+  143         bufp++;
+  144       continue;
+  145     }
+  146
+  147     switch (*bufp) {
+  148     case 'g':
+  149       curr = cnt - 1;
+  150       break;
+  151     case 'j':
+  152       curr += cnt;
+  153       break;
+  154     case 'k':
+  155       curr -= cnt;
+  156       break;
+  157     case 'd':
+  158       nlines -= cnt;
+  159       memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+  160       memset(lines[nlines], 0, cnt * sizeof(*lines));
+  161       break;
+  162     case 'a':
+  163       curr++;
+  164     case 'i':
+  165       memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+  166       nlines += cnt;
+  167     case 'c':
+  168       for (unsigned last = curr + cnt; curr < last; curr++)
+  169         fgets(lines[curr], sizeof(*lines), stdin);
+  170       break;
+  171     case 'y':
+  172       memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+  173       break;
+  174     case 'x':
+  175       memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+  176       nlines += cnt * ncut;
+  177       for (unsigned last = curr + cnt * ncut; curr < last; curr += ncut)
+  178         memcpy(lines[curr], *cut, ncut * sizeof(*cut));
+  179       break;
+  180     case 'n':
+  181     case 'p':
+  182       for (unsigned last = curr + cnt; curr < last; curr++) {
+  183         if (*bufp == 'n' && *lines[curr])
+  184           printf(HI_LINENO "%5u ", curr + 1); // 65536 is 5 chars long
+  185         char *end = lines[curr];
+  186         for (char *start = end; *start; start = end) {
+  187           fputs(hi_c(&end), stdout);
+  188           printf("%.*s", (int)(end - start), start);
+  189         }
+  190       }
+  191       break;
+  192     case 'e':
+  193     case 'w': {
+  194       FILE *fp = fopen(argv[1], *bufp == 'e' ? "r" : "w");
+  195       if (fp == NULL)
+  196         perror("fopen"), exit(EXIT_FAILURE);
+  197       if (*bufp == 'e')
+  198         for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+  199       else
+  200         for (unsigned n = 0; n < nlines; fputs(lines[n++], fp));
+  201       if (fclose(fp) == EOF)
+  202         perror("fclose"), exit(EXIT_FAILURE);
+  203     } break;
+  204     case 'q':
+  205       exit(EXIT_SUCCESS);
+  206     }
+  207
+  208     bufp++;
+  209   }
+  210 }
+:130gpkc
+      bufp = fgets(buf, sizeof(buf), stdin);
+      bufp = fgets(buf, sizeof buf, stdin);
+:159gpkc
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof(*lines));
+      memmove(lines[curr], lines[curr + cnt], (nlines - curr) * sizeof *lines);
+:pkc
+      memset(lines[nlines], 0, cnt * sizeof(*lines));
+      memset(lines[nlines], 0, cnt * sizeof *lines);
+:jjjjjpkc
+      nlines += cnt;
+      nlines += cnt;
+:kkpkc
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof(*lines));
+      memmove(lines[curr + cnt], lines[curr], (nlines - curr) * sizeof *lines);
+:jjjpkc
+        fgets(lines[curr], sizeof(*lines), stdin);
+        fgets(lines[curr], sizeof *lines, stdin);
+:jjpkc
+      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof(*cut));
+      memcpy(*cut, lines[curr], (ncut = cnt) * sizeof *cut);
+:jjpkc
+      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof(*lines));
+      memmove(lines[curr + cnt * ncut], lines[curr], (nlines - curr) * sizeof *lines);
+:jjpkc
+        memcpy(lines[curr], *cut, ncut * sizeof(*cut));
+        memcpy(lines[curr], *cut, ncut * sizeof *cut);
+:198gpkc
+        for (nlines = 0; fgets(lines[nlines], sizeof(*lines), fp); nlines++);
+        for (nlines = 0; fgets(lines[nlines], sizeof *lines, fp); nlines++);
+:wq
+& make bin/st2
+gcc -O2 -Wall -Wextra -Wpedantic -std=c99 -Wno-implicit-fallthrough src/st2.c -o bin/st2
 &
