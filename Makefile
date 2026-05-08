@@ -16,7 +16,7 @@ bin/st3: src/st3.c | bin/
 	$(CC) $(CFLAGS) -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int $^ -o $@
 
 bin/st4: src/st4.c | bin/
-	$(CC) $(CFLAGS) -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int -Wno-format-zero-length $^ -o $@
+	$(CC) $(CFLAGS) -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int -Wno-format-zero-length -Wno-bool-operation $^ -o $@
 
 bin/:
 	mkdir bin/

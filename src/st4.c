@@ -544,7 +544,7 @@ int main(int argc, char **argv) {
         perror("fclose"), exit(EXIT_FAILURE);
     } break;
     case CTRL_N:
-      opts.number = !opts.number;
+      opts.number--;
       break;
     case CTRL_T:
       // 2 -> 4 -> 6 -> 8 -> 10 -> 12

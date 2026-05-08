@@ -623,4 +623,8 @@ gcc -O2 -Wall -Wextra -Wpedantic -std=c99 -Wno-implicit-fallthrough -Wno-sign-co
 & bin/st4 src/st4.c
 & make bin/st4
 gcc -O2 -Wall -Wextra -Wpedantic -std=c99 -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int -Wno-format-zero-length src/st4.c -o bin/st4
+& bin/st4 src/st4.c
+& bin/st4 Makefile
+& make bin/st4
+gcc -O2 -Wall -Wextra -Wpedantic -std=c99 -Wno-implicit-fallthrough -Wno-sign-compare -Wno-string-plus-int -Wno-format-zero-length -Wno-bool-operation src/st4.c -o bin/st4
 &
