@@ -256,26 +256,26 @@ char *hi_help(char **src) {
 }
 
 #define HELP "\n"                                                              \
-  "<up>\tGo to previous line.\n"                                               \
-  "<down>\tGo to next line.\n"                                                 \
-  "<left>\tGo back one character.\n"                                           \
-  "<right>\tGo forward one character.\n"                                       \
-  "<pgup>\tScroll up one line.\n"                                              \
-  "<pgdn>\tScroll down one line.\n"                                            \
-  "<home>\tGo to beginning of line.\n"                                         \
-  "<end>\tGo to end of line.\n"                                                \
-  "<bs>\tDelete character left of cursor.\n"                                   \
-  "<del>\tDelete character under cursor.\n"                                    \
-  "<c-x>\tInsert character from two hex digits.\n"                             \
+  "<Up>\tGo to previous line.\n"                                               \
+  "<Down>\tGo to next line.\n"                                                 \
+  "<Left>\tGo back one character.\n"                                           \
+  "<Right>\tGo forward one character.\n"                                       \
+  "<PgUp>\tScroll up one line.\n"                                              \
+  "<PgDn>\tScroll down one line.\n"                                            \
+  "<Home>\tGo to beginning of line.\n"                                         \
+  "<End>\tGo to end of line.\n"                                                \
+  "<BS>\tDelete character left of cursor.\n"                                   \
+  "<Del>\tDelete character under cursor.\n"                                    \
+  "<C-X>\tInsert character from two hex digits.\n"                             \
   "\n"                                                                         \
-  "<c-q>\tQuit without confirmation.\n"                                        \
-  "<c-h>\tDisplay this help page.\n"                                           \
-  "<c-l>\tReinitialize terminal and redraw.\n"                                 \
-  "<c-o>\tRead current file from disk into buffer.\n"                          \
-  "<c-s>\tWrite buffer into current file on disk.\n"                           \
+  "<C-Q>\tQuit without confirmation.\n"                                        \
+  "<C-H>\tDisplay this help page.\n"                                           \
+  "<C-L>\tReinitialize terminal and redraw.\n"                                 \
+  "<C-O>\tRead current file from disk into buffer.\n"                          \
+  "<C-S>\tWrite buffer into current file on disk.\n"                           \
   "\n"                                                                         \
-  "<c-t>\tCycle through tab widths.\n"                                         \
-  "<c-n>\tToggle line numbers.\n"                                              \
+  "<C-T>\tCycle through tab widths.\n"                                         \
+  "<C-N>\tToggle line numbers.\n"                                              \
   "\n"                                                                         \
   "Keystrokes not listed above are inserted into\n"                            \
   "the buffer left of the cursor.\n"                                           \

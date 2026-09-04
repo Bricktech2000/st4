@@ -3932,26 +3932,26 @@ char *hi_help(char **src) {
 :104g8i
  
 #define HELP                                                                   \
-  "<up>\tGo to previous line.\n"                                               \
-  "<down>\tGo to next line.\n"                                                 \
-  "<left>\tGo back one character.\n"                                           \ 
-  "<right>\tGo forward one character.\n"                                       \
-  "<bs>\tDelete character left of cursor.\t"                                   \
-  "<del>\tDelete character under cursor.\n"                                    \
+  "<Up>\tGo to previous line.\n"                                               \
+  "<Down>\tGo to next line.\n"                                                 \
+  "<Left>\tGo back one character.\n"                                           \ 
+  "<Right>\tGo forward one character.\n"                                       \
+  "<BS>\tDelete character left of cursor.\t"                                   \
+  "<Del>\tDelete character under cursor.\n"                                    \
 :kkpkc
-  "<bs>\tDelete character left of cursor.\t"                                   \
-  "<bs>\tDelete character left of cursor.\n"                                   \
+  "<BS>\tDelete character left of cursor.\t"                                   \
+  "<BS>\tDelete character left of cursor.\n"                                   \
 :4a
   "\n"                                                                         \
-  "<c-q>\tQuit without confirmation.\n"                                        \
-  "<c-h>\tDisplay this help page.\n"                                           \
-  "<c-o>\tRead current file from disk.\n"                                      \
+  "<C-Q>\tQuit without confirmation.\n"                                        \
+  "<C-H>\tDisplay this help page.\n"                                           \
+  "<C-O>\tRead current file from disk.\n"                                      \
 :i
-  "<c-s>\tWrite current buffer into current file on disk.\n"                   \
+  "<C-S>\tWrite current buffer into current file on disk.\n"                   \
 :kkp
-  "<c-o>\tRead current file from disk.\n"                                      \
+  "<C-O>\tRead current file from disk.\n"                                      \
 :kc
-  "<c-o>\tRead current file from disk into current buffer.\n"                  \
+  "<C-O>\tRead current file from disk into current buffer.\n"                  \
 :wq
 & make st3
 mkdir -p bin
@@ -3987,22 +3987,22 @@ gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
   103 }
   104 
   105 #define HELP                                                                   \
-  106   "<up>\tGo to previous line.\n"                                               \
-  107   "<down>\tGo to next line.\n"                                                 \
-  108   "<left>\tGo back one character.\n"                                           \
-  109   "<right>\tGo forward one character.\n"                                       \
-  110   "<bs>\tDelete character left of cursor.\n"                                   \
-  111   "<del>\tDelete character under cursor.\n"                                    \
+  106   "<Up>\tGo to previous line.\n"                                               \
+  107   "<Down>\tGo to next line.\n"                                                 \
+  108   "<Left>\tGo back one character.\n"                                           \
+  109   "<Right>\tGo forward one character.\n"                                       \
+  110   "<BS>\tDelete character left of cursor.\n"                                   \
+  111   "<Del>\tDelete character under cursor.\n"                                    \
   112   "\n"                                                                         \
-  113   "<c-q>\tQuit without confirmation.\n"                                        \
-  114   "<c-h>\tDisplay this help page.\n"                                           \
-  115   "<c-o>\tRead current file from disk into buffer.\n"                          \
-  116   "<c-s>\tWrite buffer into current file on disk.\n"                           \
+  113   "<C-Q>\tQuit without confirmation.\n"                                        \
+  114   "<C-H>\tDisplay this help page.\n"                                           \
+  115   "<C-O>\tRead current file from disk into buffer.\n"                          \
+  116   "<C-S>\tWrite buffer into current file on disk.\n"                           \
   117 
   118 void render(char *buf, unsigned lineno, char *cursor, char *(*hi)(char **),
   119             unsigned rows, unsigned cols) {
 :116gpii
-  "<c-s>\tWrite current buffer into current file on disk.\n"                   \
+  "<C-S>\tWrite current buffer into current file on disk.\n"                   \
   "\n"                                                                         \  
   "Keystrokes not listed above are inserted into\n"                            \
 :i
@@ -4436,23 +4436,23 @@ gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
   103 }
   104 
   105 #define HELP                                                                   \
-  106   "<up>\tGo to previous line.\n"                                               \
-  107   "<down>\tGo to next line.\n"                                                 \
-  108   "<left>\tGo back one character.\n"                                           \
-  109   "<right>\tGo forward one character.\n"                                       \
-  110   "<bs>\tDelete character left of cursor.\n"                                   \
-  111   "<del>\tDelete character under cursor.\n"                                    \
+  106   "<Up>\tGo to previous line.\n"                                               \
+  107   "<Down>\tGo to next line.\n"                                                 \
+  108   "<Left>\tGo back one character.\n"                                           \
+  109   "<Right>\tGo forward one character.\n"                                       \
+  110   "<BS>\tDelete character left of cursor.\n"                                   \
+  111   "<Del>\tDelete character under cursor.\n"                                    \
   112   "\n"                                                                         \
-  113   "<c-q>\tQuit without confirmation.\n"                                        \
-  114   "<c-h>\tDisplay this help page.\n"                                           \
-  115   "<c-o>\tRead current file from disk into buffer.\n"                          \
-  116   "<c-s>\tWrite buffer into current file on disk.\n"                           \
+  113   "<C-Q>\tQuit without confirmation.\n"                                        \
+  114   "<C-H>\tDisplay this help page.\n"                                           \
+  115   "<C-O>\tRead current file from disk into buffer.\n"                          \
+  116   "<C-S>\tWrite buffer into current file on disk.\n"                           \
   117   "\n"                                                                         \
   118   "Keystrokes not listed above are inserted into\n"                            \
   119   "the buffer left of the cursor.\n"                                           \
 :114gpi
-  "<c-h>\tDisplay this help page.\n"                                           \
-  "<c-l>\tReinitialize terminal and redraw.\n"                                 \
+  "<C-H>\tDisplay this help page.\n"                                           \
+  "<C-L>\tReinitialize terminal and redraw.\n"                                 \
 :wq
 & make st3
 mkdir -p bin
@@ -4864,9 +4864,9 @@ mkdir -p bin
 gcc -O2 -Wall -Werror -pedantic -std=c99 st3.c -o bin/st3
 & bin/st2 st3.c
 :109gpii
-  "<right>\tGo forward one character.\n"                                       \
-  "<pgup>\tScroll up one line.\n"                                              \      
-  "<pgdn>\tScroll down one line.\n"                                            \
+  "<Right>\tGo forward one character.\n"                                       \
+  "<PgUp>\tScroll up one line.\n"                                              \      
+  "<PgDn>\tScroll down one line.\n"                                            \
 :291gpkc
       render(HELP, 0, NULL, hi_help, rows, cols);
       render(HELP + 1, 0, NULL, hi_help, rows, cols);

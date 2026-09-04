@@ -17,11 +17,11 @@ The bootstrapping process consisted of the following stages:
 ## Usage
 
 ```sh
-# stage 4 (hit <c-h> for help)
+# stage 4 (hit <C-H> for help)
 make bin/st4
 bin/st4 src/st4.c
 
-# stage 3 (hit <c-h> for help)
+# stage 3 (hit <C-H> for help)
 make bin/st3
 stty -icanon -echo -nl; bin/st3 src/st3.c; stty sane
 
