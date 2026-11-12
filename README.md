@@ -18,21 +18,21 @@ The bootstrapping process consisted of the following stages:
 
 ```sh
 # stage 4 (hit <C-H> for help)
-make bin/st4
-bin/st4 src/st4.c
+make st4
+./st4 src/st4.c
 
 # stage 3 (hit <C-H> for help)
-make bin/st3
-stty -icanon -echo -nl; bin/st3 src/st3.c; stty sane
+make st3
+stty -icanon -echo -nl; ./st3 src/st3.c; stty sane
 
 # stage 2 (see `st2.c` for help)
-make bin/st2
-bin/st2 src/st2.c
+make st2
+./st2 src/st2.c
 
 # stage 1 (no help page available)
-make bin/st1
-bin/st1 src/st1.c
+make st1
+./st1 src/st1.c
 
 # stage 0 (no help page available)
-make bin/st0
+make st0
 ```
